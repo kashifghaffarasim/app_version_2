@@ -1,0 +1,18 @@
+
+default: &default
+  adapter: postgresql
+  username: postgres
+  password: 1234      
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+
+development:
+  <<: *default
+  database: pool_path_version2
+
+test:
+  <<: *default
+  database: pool_path_version2_test
+
+production:
+  <<: *default
+  database: pool_path_version2_production
