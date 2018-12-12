@@ -1,0 +1,63 @@
+<header class="topbar" style="
+position: fixed;
+top: 0;
+left: 0;
+right: 0;
+z-index: 999;
+background: #ffffffde;
+box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+">
+<div class="container">
+  <!-- Start Header -->
+  <div class="header" style="
+  padding-top: 10px;
+  padding-bottom: 10px;">
+  <nav class="navbar navbar-expand-md navbar-light">
+    <a class="navbar-brand" href="#">
+      <img src="/assets/xtream-admin/logo.png" alt="logo">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="<%= root_url%>">HOME</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="">TOUR</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="">PRICING</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="">FAQS</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="">CONTACT</a>
+        </li>
+        <% if current_user.blank? %>
+        <li class="nav-item p-l-15">
+          <a class="btn btn-custom btn-outline-info" href="<%= signout_users_url %>" >Log out</a> 
+        </li>
+        <%else%>
+        <li class="nav-item p-l-15">
+          <a class="btn btn-custom btn-outline-info" href="<%= signin_users_url %>">Login</a>
+        </li>
+        <li class="nav-item p-l-15">
+          <a class="btn btn-custom btn-outline-info" href="<%= pricing_welcomes_url %>">Sign Up</a>
+        </li>
+        <% end %>
+      </ul>
+    </div>
+  </nav>
+
+
+  <!-- End Header -->
+</div>
+
+</header>

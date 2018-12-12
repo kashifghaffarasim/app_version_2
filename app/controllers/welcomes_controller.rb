@@ -3,4 +3,8 @@ class WelcomesController < ApplicationController
   def index
     
   end
+  
+  def pricing
+    
+  end
 end

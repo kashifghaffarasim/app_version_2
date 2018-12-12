@@ -1,0 +1,62 @@
+<link rel="stylesheet" type="text/css" href="/assets/style.css">
+<link rel="stylesheet" type="text/css" href="/assets/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="/assets/media-queries.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css">
+
+<main role="main">
+    <div class="wrap">
+        <div class="login-form">
+            <h2 class="text-center mb-4">Sign In </h2>
+            <div class="facebook-lg">
+                <!--   Login with facebook    -->
+                <a href="" class="btn btn-primary w-100 ml-0 faceb mb-3"><i class="fab fa-facebook mr-2"></i>Login With Facebook</a>
+                <p class="text-center option">Or</p>
+                <hr style="position: relative;border-top: 1px solid rgba(0,0,0,.4)">
+            </div>
+            <%= form_for :user, url: user_signin_users_url do |f| %>
+               
+
+                              <div class="input-group mb-3">
+                                  <div class="input-group-prepend">
+                                      <span class="input-group-text" id="basic-addon1">
+                                          <i class="far fa-user"></i></span>
+                                  </div>
+
+                                  <%= f.text_field :email, autofocus: true, :placeholder => 'Email/Username' , :class => 'form-control form-control-lg' %>
+                              </div>
+                              <div class="input-group mb-3">
+                                  <div class="input-group-prepend">
+                                      <span class="input-group-text" id="basic-addon2">
+                                         <i class="fas fa-pen"></i>
+                                      </span>
+                                  </div>
+                                  <%= f.password_field :password, autocomplete: "off" ,:placeholder=>"Password" , :class => "form-control form-control-lg" %>
+                              </div>
+                              
+                              <div class="form-group text-center">
+                                  <div class="col-xs-12 p-b-20">
+                                      <button class="btn btn-block btn-lg btn-info" type="submit">Log In</button>
+                                  </div>
+                              </div>
+                              <div class="row">
+                                  <div class="col-xs-12 col-sm-12 col-md-12 m-t-10 text-center">
+                                      <div class="social">
+                                          <a href="javascript:void(0)" class="btn  btn-facebook" data-toggle="tooltip" title="" data-original-title="Login with Facebook"> <i aria-hidden="true" class="fab  fa-facebook"></i> </a>
+                                          <a href="javascript:void(0)" class="btn btn-googleplus" data-toggle="tooltip" title="" data-original-title="Login with Google"> <i aria-hidden="true" class="fab  fa-google-plus"></i> </a>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="form-group m-b-0 m-t-10">
+                                  <div class="col-sm-12 text-center">
+                                      Don't have an account? <a href="<%= new_user_url %>" class="text-info m-l-5"><b>Sign Up</b></a>
+                                  </div>
+                              </div>
+                         
+            <% end %>
+            
+        </div>
+    </div>
+</main>
+
+

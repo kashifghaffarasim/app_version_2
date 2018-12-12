@@ -1,0 +1,91 @@
+<aside class="left-sidebar">
+    <!-- Sidebar scroll-->
+    <div class="scroll-sidebar">
+        <!-- Sidebar navigation-->
+        <nav class="sidebar-nav">
+            <% if user_signed_in? %>
+              <ul id="sidebarnav">
+                  <!-- User Profile-->
+                  <li class="nav-small-cap"><i class="mdi mdi-dots-horizontal"></i> <span class="hide-menu">Personal</span></li>
+
+                  <li class="nav-small-cap"><i class="mdi mdi-dots-horizontal"></i> <span class="hide-menu">Settings</span></li>
+                  <li class="sidebar-item"> 
+                      <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                          <i class="mdi mdi-collage"></i>
+                          <span class="hide-menu">Settings</span></a>
+                      <%= render"shared/sub_header_link" %>
+                  </li>
+
+                  <li class="sidebar-item">
+                      <%= link_to events_path, :class => "sidebar-link #{get_calendr_active("events", "index")}" do %>
+                        <i class="mdi mdi-inbox-arrow-down"></i><span class="hide-menu">Scheduler</span>
+                      <%  end %>
+                  </li>
+
+                  <% if current_user.user_type == "admin"  and get_add_on_status(@active_addon,"expenses")%>
+                    <li class="sidebar-item">
+                        <%= link_to expenses_path, :class => "sidebar-link #{get_expense_active("expenses", "index")}"  do %>
+                          <i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Expenses</span></li>
+                    <% end %>
+                    </li>
+                  <% end %>
+                  <li class="sidebar-item">
+                      <%= link_to timesheets_path, :class => "sidebar-link #{get_time_active(params[:controller],"index")}" do %>
+                        <i class="mdi mdi-view-dashboard"></i><span class="hide-menu">Times Sheets</span>
+                      <%  end %>
+                  </li> 
+                  <li class="sidebar-item">
+                      <%= link_to routes_path, :class => "sidebar-link #{get_subtab_active("home", "routes")}" do %>
+
+                        <i class="mdi mdi-view-dashboard"></i>
+                        <span class="hide-menu">Routing
+                        </span>
+                      <%  end %>
+                  </li>
+
+                  <% if current_user.user_type == "admin" %>
+                    <li class="sidebar-item">
+                        <%= link_to communication_path, :class => "sidebar-link #{get_subtab_active("home", "routes")}" do %>
+                          <i class="font-24 mdi mdi-comment-processing"></i>
+                          <span class="hide-menu">  Communications
+                          </span>
+                        <% end %>
+                    </li>
+                  <% end %>
+
+                  <%if current_user.user_type == "admin" %> 
+
+                    <li class="sidebar-item"> <a class="has-arrow sidebar-link" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-playlist-plus"></i> <span class="hide-menu">Admin</span></a>
+                        <ul aria-expanded="false" class="collapse first-level">
+                            <li class="sidebar-item">
+                                <%= link_to "Vendors",vendor_setting_vendors_path, :class => "sidebar-link" %></li>
+                            <li class="sidebar-item">
+                                <%= link_to 'Change Plan',plan_subscriptions_path, :class => "sidebar-link" %>
+                            </li>
+                            <li class="sidebar-item"><%= link_to "Billing",charges_new_path, :class => "sidebar-link" %></li>
+                            <li class="sidebar-item"><%= link_to "Payroll", payroll_timesheets_path, :class => "sidebar-link" %></li>
+                            <li class="sidebar-item"><%= link_to "QuickBooks",accounts_syncer_qb_show_path, :class => "sidebar-link", title: "Sync with QuickBooks" %></li>
+                            <li class="sidebar-item"><%= link_to "Stripe Connect", "/users/auth/stripe_connect", :class => "sidebar-link" %></li>
+                            <li class="sidebar-item"><%= link_to "CallManager",ivrs_path, :class => "sidebar-link", title: "Call Manager" if get_add_on_status(@active_addon, "call")%></li>
+                            <li class="sidebar-item"><%= link_to "Ads", classifieds_path, :class => "sidebar-link"%></li>
+                            <li class="sidebar-item"><%= link_to "Leads",leads_path, :class => "sidebar-link" %></li>
+                            <li class="sidebar-item" style="display: none"><%= link_to "Communication", communication_path, :class => "sidebar-link" %></li>
+                            <li class="sidebar-item"><%= link_to "Files",document_box_documents_path ,:id=>"new_document_show",:class=>"sidebar-link",:remote=>true, data: {toggle: "modal", target: '#file_document_show'} %></li> 
+                            <li class="sidebar-item"><%= link_to "Inventory", items_path ,:class => "sidebar-link" if get_add_on_status(@active_addon, "item")%></li>
+                            <li class="sidebar-item"><%= link_to "Reports", reports_path, :class => "sidebar-link" %></li>
+                            <li class="sidebar-item"><%= link_to "Manage Data",manage_data_path, :class => "sidebar-link" %></li>
+                            <li class="sidebar-item"><%= link_to "Fleet Management", vehicles_path(static_data:"static_vehicle"),:class => "sidebar-link"%></li>
+                            <li class="sidebar-item"><%= link_to "Payment Terminal", payment_terminal_path,:id=>"payment_terminal_box",:class=>"sidebar-link",:remote=>true, data: {toggle: "modal", target: '#payment_terminal'} %></li>
+                        </ul>
+                    </li>
+
+                  <% end %>
+
+
+              </ul>
+            <% end %>
+        </nav>
+        <!-- End Sidebar navigation -->
+    </div>
+    <!-- End Sidebar scroll-->
+</aside>
