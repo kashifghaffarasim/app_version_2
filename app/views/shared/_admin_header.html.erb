@@ -46,7 +46,7 @@
                 <!-- ============================================================== -->
                 <li class="nav-item dropdown mega-dropdown" style="border-left: 1px solid #bfbfbfa8;">
                     <a class="nav-link dropdown-toggle waves-effect waves-dark" 
-                       href="<%= dashboard_path %>" >
+                       href="" >
 
                         <span class="d-none d-md-block">
                             Dashboard
@@ -57,10 +57,10 @@
                     </a>
                 </li>
                 <!-- ============================================================== -->
-                <% if   set_view_permission_client_property(@team_member) %>
+               
                   <!-- ============================================================== -->
                   <li class="nav-item dropdown" style="border-left: 1px solid #bfbfbfa8;">
-                      <a class="nav-link dropdown-toggle" href="<%= properties_path %>"> 
+                      <a class="nav-link dropdown-toggle" href=""> 
 
                           <span class="d-none d-md-block">
                               Pools
@@ -73,7 +73,7 @@
                   <!-- ============================================================== -->
                   <li class="nav-item search-box" style="border-left: 1px solid #bfbfbfa8;"> 
 
-                      <a class="nav-link dropdown-toggle" href="<%= clients_path %>" >
+                      <a class="nav-link dropdown-toggle" href="" >
 
                           <span class="d-none d-md-block">
                               Customers
@@ -83,14 +83,14 @@
                   </li>
 
                   <li class="nav-item search-box" style="border-left: 1px solid #bfbfbfa8;"> 
-                      <a class="nav-link dropdown-toggle" href="<%= quotes_path %> ">
+                      <a class="nav-link dropdown-toggle" href="">
                           <span class="d-none d-md-block">
                               Jobs
                           </span>
                           <span class="d-block d-md-none"><i class="fa fa-plus"></i></span>   
                       </a>
                   </li>
-                <% end %>
+             
 
             </ul>
             <!-- ============================================================== -->
@@ -210,30 +210,29 @@
                         <span class="with-arrow"><span class="bg-primary"></span></span>
                         <div class="d-flex no-block align-items-center p-15 bg-primary text-white m-b-10">
                             <div class="m-l-10" style="padding: 20px; text-align: center; padding-top: 25px">
-                                <h4 class="m-b-0"><%= current_user.username %></h4>
+                                <h4 class="m-b-0">  <% if current_user.first_name.blank?%><%= current_user.first_name %><% end %></h4>
                             </div>
                         </div>
                         <% if user_signed_in? %>
-                          <%= link_to edit_user_registration_path, :class => "dropdown-item" do %>
-                            <i class="ti-user m-r-5 m-l-5"></i> My Profile
-                          <% end %>
-
-                          <%if current_user.user_type == "admin" %> 
-                            <a class="dropdown-item" href="<%= plan_subscriptions_path %> "> 
-                                <i class="ti-email m-r-5 m-l-5"></i> Change Plan
-                            </a>
-
-                            <a class="dropdown-item" href="<%= communication_path %>">
-                                <i class="ti-email m-r-5 m-l-5"></i> Communitcation
-                            </a>
-                          <% end %>
+                    
+                       
                           <div class="dropdown-divider"></div>
-                          <%= link_to destroy_user_session_path,:method=>:get ,:class => "dropdown-item" do %>
+                         <% if current_user.first_name.blank?%>
+                            <%= link_to profile_url(current_user.id ),:method=>:get ,:class => "dropdown-item" do %>
+                          <i class="fa fa-power-off m-r-5 m-l-5"></i> Profile
+                           <% end %>
+                          <% else%>
+                             <%= link_to profile_url(current_user.first_name ),:method=>:get ,:class => "dropdown-item" do %>
+                          <i class="fa fa-power-off m-r-5 m-l-5"></i> Profile
+                           <% end %>
+                          <% end %>
+                         
+                          <%= link_to signout_users_url,:method=>:get ,:class => "dropdown-item" do %>
                             <i class="fa fa-power-off m-r-5 m-l-5"></i> Logout
                           <% end %>
                         <% else %>
-                          <li><%= link_to "Login",new_user_session_path %></li>
-                          <li><%= link_to "Signup",new_user_registration_path %></li>
+                          <li><%= link_to "Login",signin_users_url %></li>
+                          <li><%= link_to "Signup",new_user_url %></li>
                         <% end %>  
 
                     </div>
@@ -245,7 +244,6 @@
         </div>
     </nav>
 </header>
-
 
 
 <%= render "/shared/admin_sub_header"  %>

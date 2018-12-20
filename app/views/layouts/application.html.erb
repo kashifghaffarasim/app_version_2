@@ -10,6 +10,22 @@
   </head>
 
   <body>
-    <%= yield %>
+    <div class="preloader">
+            <div class="lds-ripple">
+                <div class="lds-pos"></div>
+                <div class="lds-pos"></div>
+            </div>
+        </div>
+        <div id="main-wrapper">
+            <%= render "shared/admin_header" %>
+            <div class="page-wrapper">
+                <%= yield %>
+            </div>
+            <%= render "shared/admin_footer" %>
+        </div>
+        <div class="modal fade" id="support_new" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        </div>
+       
+
   </body>
 </html>

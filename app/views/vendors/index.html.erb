@@ -1,0 +1,124 @@
+<div class="page-breadcrumb">
+  <div class="row">
+    <div class="col-5 align-self-center">
+      <h4 class="page-title">Footable Table</h4>
+      <div class="d-flex align-items-center">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Library</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+    <div class="col-7 align-self-center">
+      <div class="d-flex no-block justify-content-end align-items-center">
+        <div class="m-r-10">
+          <div class="lastmonth"></div>
+        </div>
+        <div class=""><small>LAST MONTH</small>
+          <h4 class="text-info m-b-0 font-medium">$58,256</h4></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <div class="container-fluid">
+    <!-- ============================================================== -->
+    <!-- Start Page Content -->
+    <!-- ============================================================== -->
+    <div class="row">
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body">
+            <% unless flash[:notice].blank? %>
+            <div class="flash_team_member">
+              <div id="flash_notice_team_member" class="flash_team_member flash_notice_team_member clearfix hide_for_print">
+                <%= flash[:notice] %><i class="fa fa-check" style="float:right;"></i>
+              </div>
+            </div>
+            <%end%> 
+            <table id="demo-foo-addrow" class="table m-t-30 no-wrap table-hover contact-list" data-page-size="10">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>First Name</th>
+                  <th>Last Name</th>
+                  <th>Email</th>
+                  <% if !@vendors.blank?%>
+                  <th>Edit</th>
+                  <th>Show</th>
+                  <th>Delete</th>
+                  <% end %>
+                </tr>
+              </thead>
+              <tbody>
+                <% if !@vendors.blank?%>
+                <% @vendors.each do |client| %>
+                <tr >
+                  <td><%= client.id %></td>
+                  <td><%= client.first_name.titleize rescue "" %></td>
+                  <td><%= client.last_name.titleize rescue "" %></td>
+                  <td><%=client.email  %></td>
+                  <td><%= link_to 'Edit',edit_vendor_url(client), :class => "btn btn-info"%></td>
+                  <td><%= link_to 'Show',vendor_url(client), :class => "btn btn-info"%></td>
+                  <td><%= link_to 'Delete',vendor_url(client), method: :delete, data: { confirm: "Are you sure you want to delete?" }, :class => "btn btn-info" ,:method => :delete%>
+                  </td>
+                </tr>
+                <% end %>
+                <% else %>
+                <tr >
+                  <td>Empty</td>
+                  <td>Empty</td>
+                  <td>Empty</td>
+                  <td>Empty</td>
+                </tr>
+                <% end %>
+              </tbody>
+              <tfoot>
+                <tr>
+                  <td colspan="8">
+
+                    <%= link_to 'New Vendor', new_vendor_url,:class=>"btn btn-info btn-rounded"%>
+
+                  </td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  <!-- ============================================================== -->
+  <!-- End Bread crumb and right sidebar toggle -->
+  <!-- ============================================================== -->
+  <!-- ============================================================== -->
+  <!-- Container fluid  -->
+  <!-- ============================================================== -->
+
+
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $("#client_index_view").DataTable();
+    });
+  </script>
+  <style type="text/css">
+  table thead, .thead{
+    <%#*background-color: #0078b2;%>
+  }
+</style>

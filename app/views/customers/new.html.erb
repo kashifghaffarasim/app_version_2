@@ -1,0 +1,48 @@
+<div class="client_index">
+	<div class="main_container">
+		<div class="col-md-8 col-md-offset-2">
+			<div class="form-box">
+			<h3 class="title2-font">Creat new client</h3>
+				<%= form_tag customers_url do  %>
+				<div class="form-group">
+					<div class="col-md-5">
+						<%= text_field_tag "user[first_name]",nil,:placeholder=> "First Name",:required=>true%>
+					</div>
+					<div class="col-md-5">
+						<%= text_field_tag "user[last_name]" ,nil,:placeholder=> "Last Name",:required=>true%>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div class="col-md-12">
+						 Email
+					</div>
+					<div class="col-md-12">
+						<%= email_field_tag "user[email]",nil,:placeholder=> "Email...",:required=>true%>
+					</div>
+				</div>
+				
+				<div class="col-md-12">
+					<%= submit_tag "Create Client",:class=>"button_new_create"%>
+				</div>
+				<hr>
+				<%end%>
+			</div>
+		</div>
+	</div>
+</div>
+
+<style type="text/css">
+	
+#client_initial, #initial_phone {
+    width: 100% !important;
+    /* vertical-align: top; */
+    float: none;
+    margin-right: 0;
+    font-weight: normal;
+    height: 40px;
+}
+.form-box{
+	padding-bottom: 15px;
+}
+</style>

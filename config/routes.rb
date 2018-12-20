@@ -20,6 +20,11 @@ Rails.application.routes.draw do
   	end
   end
 
+  resources :customers
+  resources :vendors
+  resources :jobs
+
   
   root 'welcomes#index'
+  get '/:username', to: 'dashboard#profile', as: :profile
 end
