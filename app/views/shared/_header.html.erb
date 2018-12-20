@@ -14,7 +14,7 @@ box-shadow: 0 2px 8px rgba(0,0,0,0.3);
   padding-bottom: 10px;">
   <nav class="navbar navbar-expand-md navbar-light">
     <a class="navbar-brand" href="#">
-      <img src="/assets/xtream-admin/logo.png" alt="logo">
+      <img src="/assets/logo.png" alt="logo">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -26,21 +26,21 @@ box-shadow: 0 2px 8px rgba(0,0,0,0.3);
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="">TOUR</a>
+          <a class="nav-link" href="<%= tours_welcomes_url %> ">TOUR</a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="">PRICING</a>
+          <a class="nav-link" href="<%= pricing_welcomes_url %> ">PRICING</a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="">FAQS</a>
+          <a class="nav-link" href="<%= faqs_welcomes_url  %> ">FAQS</a>
         </li>
 
         <li class="nav-item">
-          <a class="nav-link" href="">CONTACT</a>
+          <a class="nav-link" href="<%= contactus_welcomes_url%>">CONTACT</a>
         </li>
-        <% if current_user.blank? %>
+        <% if !current_user.blank? %>
         <li class="nav-item p-l-15">
           <a class="btn btn-custom btn-outline-info" href="<%= signout_users_url %>" >Log out</a> 
         </li>

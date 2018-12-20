@@ -7,4 +7,19 @@ class WelcomesController < ApplicationController
   def pricing
     
   end
+  
+  
+  def aboutus
+  end
+  
+  def tours
+  end
+  
+  def faqs
+    
+  end
+  
+  def contactus
+    
+  end
 end

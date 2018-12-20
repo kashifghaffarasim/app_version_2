@@ -13,6 +13,8 @@
 //= require jquery.min.js
 //= require popper.min.js
 //= require bootstrap.min.js
+//= require perfect-scrollbar.jquery.min.js
+//= require sparkline.js
 //= require custom.min.js
 //= require owl.carousel.min.js
 

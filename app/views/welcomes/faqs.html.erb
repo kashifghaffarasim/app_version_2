@@ -1,0 +1,143 @@
+<div class="faq_banner">
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <h2>Have a question?</h2>
+    <br>
+    <br>
+    <br>
+    <br>
+    <p style="display: none">If you have a question you can ask below or enter what you are looking for?</p>
+    <div class="search_input" style="display: none">
+        <input type="text" placeholder="Type your search term here.">
+        <button type="button">Search</button>
+    </div>
+</div>
+
+<div class="faq_section">
+    <h2 class="text-center my-5">Frequently asked Questions</h2>
+
+    <div class="container">
+        <div class="accordion">
+            <dl>
+                <dt>
+                    <a href="#accordion1" aria-expanded="false" aria-controls="accordion1" class="accordion-title accordionTitle js-accordionTrigger">Why is CopperService the best time solution for us?</a>
+                </dt>
+                <dd class="accordion-content accordionItem is-collapsed" id="accordion1" aria-hidden="true">
+                    <p>Our field service solution helps manage your customers and field staff, schedule and dispatch field staff, send estimates and email invoices. You get also get instant notifications vial SMS to better manage your staff and project. Our solution helps increase your productivity and efficiency and provide complete visibility to Work Orders, invoices and improves your cash flow and eliminate paperwork.</p>
+                </dd>
+                <dt>
+                    <a href="#accordion2" aria-expanded="false" aria-controls="accordion2" class="accordion-title accordionTitle js-accordionTrigger">
+                       Which methods of payment do you accept?</a>
+                </dt>
+                <dd class="accordion-content accordionItem is-collapsed" id="accordion2" aria-hidden="true">
+                    <p>We take our payments through Credit Card or Paypal. So, if you have a Paypal account, you can just use that. If you don't have a Paypal account, you can quickly and easily pay using Visa, Mastercard or AMEX.</p>
+                </dd>
+                <dt>
+                    <a href="#accordion3" aria-expanded="false" aria-controls="accordion3" class="accordion-title accordionTitle js-accordionTrigger">
+                        Can I cancel my account at any time?
+                    </a>
+                </dt>
+                <dd class="accordion-content accordionItem is-collapsed" id="accordion3" aria-hidden="true">
+                    <p>Yes. You can cancel your account at any time without penalty.</p>
+                </dd>
+
+                <dt>
+                    <a href="#accordion4" aria-expanded="false" aria-controls="accordion3" class="accordion-title accordionTitle js-accordionTrigger">
+                        Is there a discount for yearly payment?
+                    </a>
+                </dt>
+                <dd class="accordion-content accordionItem is-collapsed" id="accordion3" aria-hidden="true">
+                    <p>Yes. We offer a 20% discount to our yearly prepaid accounts.</p>
+                </dd>
+                <dt>
+                    <a href="#accordion4" aria-expanded="false" aria-controls="accordion3" class="accordion-title accordionTitle js-accordionTrigger">
+                        Can we sign up for free trial?
+                    </a>
+                </dt>
+                <dd class="accordion-content accordionItem is-collapsed" id="accordion3" aria-hidden="true">
+                    <p>Yes. We provide the 30-day free trial to give our users the chance to try out the full features with their team. We will only charge your credit card after the trial has ended.</p>
+                </dd>
+                <dt>
+                    <a href="#accordion4" aria-expanded="false" aria-controls="accordion3" class="accordion-title accordionTitle js-accordionTrigger">
+                       How much do SMS messages cost?
+                    </a>
+                </dt>
+                <dd class="accordion-content accordionItem is-collapsed" id="accordion3" aria-hidden="true">
+                    <p>SMS messages are currently included of your monthly subscription.</p>
+                </dd>
+            </dl>
+
+
+
+        </div>
+    </div>
+</div>
+
+
+<script>
+  (function () {
+      var d = document,
+              accordionToggles = d.querySelectorAll('.js-accordionTrigger'),
+              setAria,
+              setAccordionAria,
+              switchAccordion,
+              touchSupported = ('ontouchstart' in window),
+              pointerSupported = ('pointerdown' in window);
+
+      skipClickDelay = function (e) {
+          e.preventDefault();
+          e.target.click();
+      }
+
+      setAriaAttr = function (el, ariaType, newProperty) {
+          el.setAttribute(ariaType, newProperty);
+      };
+      setAccordionAria = function (el1, el2, expanded) {
+          switch (expanded) {
+              case "true":
+                  setAriaAttr(el1, 'aria-expanded', 'true');
+                  setAriaAttr(el2, 'aria-hidden', 'false');
+                  break;
+              case "false":
+                  setAriaAttr(el1, 'aria-expanded', 'false');
+                  setAriaAttr(el2, 'aria-hidden', 'true');
+                  break;
+              default:
+                  break;
+          }
+      };
+      //function
+      switchAccordion = function (e) {
+          console.log("triggered");
+          e.preventDefault();
+          var thisAnswer = e.target.parentNode.nextElementSibling;
+          var thisQuestion = e.target;
+          if (thisAnswer.classList.contains('is-collapsed')) {
+              setAccordionAria(thisQuestion, thisAnswer, 'true');
+          } else {
+              setAccordionAria(thisQuestion, thisAnswer, 'false');
+          }
+          thisQuestion.classList.toggle('is-collapsed');
+          thisQuestion.classList.toggle('is-expanded');
+          thisAnswer.classList.toggle('is-collapsed');
+          thisAnswer.classList.toggle('is-expanded');
+
+          thisAnswer.classList.toggle('animateIn');
+      };
+      for (var i = 0, len = accordionToggles.length; i < len; i++) {
+          if (touchSupported) {
+              accordionToggles[i].addEventListener('touchstart', skipClickDelay, false);
+          }
+          if (pointerSupported) {
+              accordionToggles[i].addEventListener('pointerdown', skipClickDelay, false);
+          }
+          accordionToggles[i].addEventListener('click', switchAccordion, false);
+      }
+  })();
+
+</script>

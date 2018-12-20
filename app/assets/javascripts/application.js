@@ -10,4 +10,28 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require jquery.min
+//= require jquery_ujs
+//= require jquery-ui
+//= require popper.min.js
+//= require bootstrap.min.js
+//= require app.min.js
+//= require app.init.horizontal.js
+//= require footable.all.min.js
+//= require footable-init.js
+//= require app-style-switcher.horizontal.js
+//= require dropzone.min
+//= require summernote-bs4.min
+//= require perfect-scrollbar.jquery.min.js
+//= require datatables.min.js
+//= require sparkline.js
+//= require waves.js
+//= require sidebarmenu.js
+//= require custom.min.js
+//= require owl.carousel.min.js
+//= require popper-utils.min.js
+//= require d3.min.js
+//= require c3.min.js
+//= require Chart.min.js
+//= require dashboard1.js
 //= require activestorage
