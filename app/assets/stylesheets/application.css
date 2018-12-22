@@ -9,11 +9,12 @@
  * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
  * files in this directory. Styles in this file should be added after the last require_* statement.
  * It is generally better to create a new file per style scope.
+
  *= require chartist.min.css
  *= require c3.min.css
  *= require summernote-bs4.css
  *= require dropzone.min.css
- *= require style.min.css
+ *= require style.css
  *= require calendar.css
  *= require dataTables.bootstrap4.css
  *= require footable.core.min.css
