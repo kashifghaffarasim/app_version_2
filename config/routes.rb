@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   	end
   end
   
-  resources :dashboard, only: [:index]
+ 
   resources :welcomes, only: [:index] do
   	collection  do
   		get :pricing 
@@ -24,7 +24,7 @@ Rails.application.routes.draw do
   resources :vendors
   resources :jobs
 
-  
+  get '/dashboard' => 'dashboard#index'
   root 'welcomes#index'
   get '/:username', to: 'dashboard#profile', as: :profile
 end
