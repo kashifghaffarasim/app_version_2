@@ -17,6 +17,12 @@
 //= require sparkline.js
 //= require custom.min.js
 //= require owl.carousel.min.js
+//= require moment.min.js
+//= require fullcalendar.min.js
+//= require jquery.ui.touch-punch-improved.js
+//= reqiure jquery-ui.min.js
+//= require app.init.overlay.js
+//= require app-style-switcher.js
 
 $(document).ready(function () {
       $(".owl-carousel").owlCarousel(
