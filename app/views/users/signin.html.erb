@@ -1,19 +1,41 @@
-<link rel="stylesheet" type="text/css" href="/assets/style.css">
-<link rel="stylesheet" type="text/css" href="/assets/bootstrap.css">
-<link rel="stylesheet" type="text/css" href="/assets/media-queries.css">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/css/select2.min.css">
 
-<main role="main">
-    <div class="wrap">
-        <div class="login-form">
-            <h2 class="text-center mb-4">Sign In </h2>
-            <div class="facebook-lg">
-                <!--   Login with facebook    -->
-                <a href="" class="btn btn-primary w-100 ml-0 faceb mb-3"><i class="fab fa-facebook mr-2"></i>Login With Facebook</a>
-                <p class="text-center option">Or</p>
-                <hr style="position: relative;border-top: 1px solid rgba(0,0,0,.4)">
-            </div>
+<div class="main-wrapper">
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    <div class="preloader">
+        <div class="lds-ripple">
+            <div class="lds-pos"></div>
+            <div class="lds-pos"></div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- Preloader - style you can find in spinners.css -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Login box.scss -->
+    <!-- ============================================================== -->
+    <div class="auth-wrapper d-flex no-block justify-content-center align-items-center" 
+         style="background:url(/assets/auth-bg.jpg) no-repeat center center;    padding-top: 10%;
+         padding-bottom: 4%;">
+        <div class="auth-box" style="
+             border: 1px solid #ddd;
+             width: 450px;
+             background: #fff;
+             ">
+            <div id="loginform" style="
+                 padding: 30px;">
+                <div class="logo" style="    text-align: center;
+                     padding-bottom: 10px;
+                     padding-top: 10px;">
+                    <span class="db">
+                        <img src="/assets/logo-icon.png" alt="logo" />
+                    </span>
+                    <h5 class="font-medium m-b-20">Sign In to Admin </h5>
+                </div>
+                <!-- Form -->
+                <div class="row">
+                    <div class="col-12">
             <%= form_for :user, url: user_signin_users_url do |f| %>
                
 
@@ -54,9 +76,12 @@
                               </div>
                          
             <% end %>
-            
+         </div>
+                </div>
+            </div>
+
+
         </div>
     </div>
-</main>
 
-
+</div>

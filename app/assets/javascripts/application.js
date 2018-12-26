@@ -39,5 +39,5 @@
 //= require fullcalendar.min.js
 //= require jquery.ui.touch-punch-improved.js
 //= reqiure jquery-ui.min.js
-//= require app.init.overlay.js
+
 //= require app-style-switcher.js

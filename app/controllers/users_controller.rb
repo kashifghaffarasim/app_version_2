@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
-  layout "xtream-front"
+
+  layout :another_by_method  
   def index
 
   end
@@ -53,5 +54,12 @@ class UsersController < ApplicationController
   private
   def user_params
     params.require(:user).permit(:first_name, :last_name, :email, :password)
+  end
+  def another_by_method
+    if current_user.nil?
+        "xtream-front"
+    else
+      "application"
+    end
   end
 end
