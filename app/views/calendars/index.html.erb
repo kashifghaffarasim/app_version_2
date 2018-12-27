@@ -3,7 +3,6 @@
   $(function() {
     // initialize the external events
     // -----------------------------------------------------------------
-    
     function ini_events(ele) {
       ele.each(function () {
 
@@ -25,11 +24,14 @@
 
       })
     }
-
     ini_events($('#calendar-events .calendar-events'))
     // initialize the calendar
     // -----------------------------------------------------------------
+    var json = <%=raw @job.to_json %>
+    var j = JSON.parse(JSON.stringify(json).split('"start_time":').join('"start":'));
 
+    var a = JSON.parse(JSON.stringify(j).split('"end_time":').join('"end":'));
+    var h = JSON.parse(JSON.stringify(a).split('"name":').join('"title":'));
     $('#calendar').fullCalendar({
       header: {
         left: 'prev,next today',
@@ -53,94 +55,71 @@
       weekNumberCalculation: 'ISO',
       editable: true,
       eventLimit: true,
-      events: [
-      {
-        title: 'All Day Event',
-        start: '2018-12-01'
-      },
-      {
-        title: 'Long Event',
-        start: '2018-12-07',
-        end: '2018-12-10'
-      },
-      {
-        id: 999,
-        title: 'Repeating Event',
-        start: '2018-12-09T16:00:00'
-      },
-      {
-        id: 999,
-        title: 'Repeating Event',
-        start: '2018-12-16T16:00:00'
-      },
-      {
-        title: 'Conference',
-        start: '2018-12-11',
-        end: '2018-12-13'
-      },
-      {
-        title: 'Meeting',
-        start: '2018-12-12T10:30:00',
-        end: '2018-12-12T12:30:00'
-      },
-      {
-        title: 'Lunch',
-        start: '2018-12-12T12:00:00'
-      },
-      {
-        title: 'Meeting',
-        start: '2018-12-12T14:30:00'
-      },
-      {
-        title: 'Happy Hour',
-        start: '2018-12-12T17:30:00'
-      },
-      {
-        title: 'Dinner',
-        start: '2018-12-12T20:00:00'
-      },
-      {
-        title: 'Birthday Party',
-        start: '2018-12-13T07:00:00'
-      },
-      {
-        title: 'Click for Google',
-          //url: 'http://google.com/',
-          start: '2018-12-28'
-        }
-        ],
-        
+      events: h,  
+
     //return true if the event 'eventObject' needs to be removed, return false if it doesn't
     eventRender: function (event, element) {
       element.attr('href', 'javascript:void(0);');
       element.click(function() {
-        $("input").html(moment(event.start).format('MMM Do h:mm A'));
-        $("#my-event").dialog({ modal: true, title: event.title, width:350});
-       // $(".modal-body").append('');
-       $("input:text").val(event.title);
-       $(".delete-event").click(function() {
+        console.dir("ahaha")
         console.dir(event)
-        $('#calendar').fullCalendar('removeEvents',event._id);
-        $("#my-event").dialog({ modal: false, title: event.title, width:350});
-        document.getElementById("my-event").style.display = "none";
-      });
-       $(".btn-secondary").click(function() {
-       
-        document.getElementById("my-event").style.display = "none";
-      });
-       $(".btn-success").click(function() {
-        var inputs = document.getElementById("id");
-         
-            event.title = inputs.value;
-            event.start = event.start;
-         console.dir(inputs.value)
+        $.ajax({
+          url: "/calendars/"+event.id+"/edit",
+          type: "GET",
+          success: function(){
+            $("#save").click(function() {
+              console.dir("hahahah------")
+              document.getElementById("my-event").style.display = "none";
+            })
+            $(".delete-event").click(function() {
+              console.dir("1........")
+             $.ajax({
+              url: "/calendars/"+event.id,
+              type: "DELETE",
+            // dataType: "json",
+              data: {"_method":"delete"},
+              success: function(){
+                console.dir("hahahah------")
+                $("#my-event").dialog({ modal: false, title: event.title, width:350});
+                document.getElementById("my-event").style.display = "none";
+              }
+            })
+           })
 
-        $('#calendar').fullCalendar('updateEvent', event);
-        document.getElementById("my-event").style.display = "none";
+            $(".btn-secondary").click(function() {
 
-      });
+              document.getElementById("my-event").style.display = "none";
+            })
+          }});
 
-     });
+
+        //$("input").html(moment(event.start).format('MMM Do h:mm A'));
+       // $("#my-event").dialog({ modal: true, title: event.title, width:350});
+       // $(".modal-body").append('');
+       //$("input:text").val(event.title);
+       //$(".delete-event").click(function() {
+        //console.dir(event)
+        //$('#calendar').fullCalendar('removeEvents',event._id);
+        //$("#my-event").dialog({ modal: false, title: event.title, width:350});
+        //document.getElementById("my-event").style.display = "none";
+      //});
+       //$(".btn-secondary").click(function() {
+
+        //document.getElementById("my-event").style.display = "none";
+      //});
+       //$(".btn-success").click(function() {
+        //var inputs = document.getElementById("id");
+
+        //event.title = inputs.value;
+        //event.start = event.start;
+//        console.dir(inputs.value)
+
+//      $('#calendar').fullCalendar('updateEvent', event);
+  //      document.getElementById("my-event").style.display = "none";
+
+    //  });
+
+  });
     },
      drop: function (date, allDay) { // this function is called when something is dropped
 
@@ -171,10 +150,9 @@
 
 /* ADDING EVENTS */
     var currColor = ("#color-chooser").value //Red by default
-    
-    
     $('#add-new-event').click(function (e) {
       e.preventDefault()
+      console.dir("dddddd")
       //Get value and make sure it is not null
       var val = $('#new-event').val()
       if (val.length == 0) {
@@ -256,19 +234,16 @@
                     <div class="row">
                       <div class="col-md-12">
                         <div id="calendar-events" class="">
-                          <div class="calendar-events m-b-20" >Event One</div>
-                          <div class="calendar-events m-b-20" >Event Two</div>
-                          <div class="calendar-events m-b-20" >Event Three</div>
-                          <div class="calendar-events m-b-20" >Event Four</div>
+
                         </div>
                         <!-- checkbox -->
                         <div class="custom-control custom-checkbox">
                           <input type="checkbox" class="custom-control-input" id="drop-remove">
                           <label class="custom-control-label" for="drop-remove">Remove after drop</label>
                         </div>
-                        <a href="javascript:void(0)" data-toggle="modal" data-target="#add-new-event" class="btn m-t-20 btn-info btn-block waves-effect waves-light">
+                        <button href="" data-toggle="modal" data-target="#add-new-event" class="btn m-t-20 btn-info btn-block waves-effect waves-light">
                           <i class="ti-plus"></i> Add New Event
-                        </a>
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -284,60 +259,27 @@
         </div>
       </div>
       <!-- BEGIN MODAL -->
-      <div class="modal none-border" id="my-event">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title"><strong>Add Event</strong></h4>
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            </div>
-            <div class="modal-body">
-              <form><label>Change event name</label><div class="input-group"><input class="form-control" type="text" id="id"><span class="input-group-btn"><button  type="button" class="btn btn-success waves-effect waves-light"><i class="fa fa-check"></i> Save</button></span></div></form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-success save-event waves-effect waves-light" style="display: none;">Create event</button>
-              <button type="button" class="btn btn-danger delete-event waves-effect waves-light" data-dismiss="modal">Delete</button>
-            </div>
-          </div>
-        </div>
-      </div>
       <!-- Modal Add Category -->
-      <div class="modal fade none-border" id="add-new-event">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title"><strong>Add</strong> a category</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            </div>
-            <div class="modal-body">
-              <form>
-                <div class="row">
-                  <div class="col-md-6">
-                    <label class="control-label">Category Name</label>
-                    <input id="new-event"class="form-control form-white" placeholder="Enter name" type="text" name="category-name" />
-                  </div>
-                  <div class="col-md-6">
-                    <label class="control-label">Choose Category Color</label>
-                    <select id="color-chooser"class="form-control form-white" data-placeholder="Choose a color..." name="category-color">
-                      <option value="success">Success</option>
-                      <option value="danger">Danger</option>
-                      <option value="info">Info</option>
-                      <option value="primary">Primary</option>
-                      <option value="warning">Warning</option>
-                      <option value="inverse">Inverse</option>
-                    </select>
-                  </div>
-                </div>
-              </form>
-            </div>
-            <div class="modal-footer">
-              <button type="button" id="ext-event"class="btn btn-danger waves-effect waves-light save-category" data-dismiss="modal">Save</button>
-              <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!-- END MODAL -->
     </div>
+    <!-- END MODAL -->
   </div>
+</div>
+<div id="new">
+</div>
+<div id="edit">
+</div>
+<script type="text/javascript">
+  $(".m-t-20").click(function() {
+    console.dir("hahahah------")
+    $.ajax({
+      url: "/calendars/new",
+      type: "GET",
+      success: function(){
+        $("#save").click(function() {
+          console.dir("hahahah---[[[---")
+          document.getElementById("my-event").style.display = "none";
+        })
+      }})
+  })
+
+</script>

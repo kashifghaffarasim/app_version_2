@@ -10,8 +10,9 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+
 //= require jquery.min
-//= require jquery_ujs
+//= require turbolinks
 //= require jquery-ui
 //= require popper.min.js
 //= require bootstrap.min.js
@@ -39,5 +40,5 @@
 //= require fullcalendar.min.js
 //= require jquery.ui.touch-punch-improved.js
 //= reqiure jquery-ui.min.js
-
 //= require app-style-switcher.js
+

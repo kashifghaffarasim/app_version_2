@@ -1,0 +1,48 @@
+<div class="modal fade none-border" id="add-new-job">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title"><strong>Add</strong> a category</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      </div>
+      <%= form_for @job, url: calendars_url, remote: true,  :authenticity_token => true do |f| %>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-6">
+            <label class="control-label">Category Name</label>
+            <%= f.text_field :name,:class=>"form-control form-white", :placeholder=>"enter job name"%>
+          </div>
+          <div class="col-md-6">
+            <label class="control-label">Start Time</label>
+            <%= f.text_field :start_time, autofocus: true ,:type=>"time",:class=>"form-control form-white", :required => true ,:min=>"01:00", :max=>"23:59"%>
+          </div>
+          <div class="col-md-6">
+            <label class="control-label">End Time</label>
+            <%= f.text_field :end_time, autofocus: true ,:type=>"time",:class=>"form-control form-white", :required => true ,:min=>"01:00", :max=>"23:59"%>
+          </div>
+
+          <div class="col-md-6">
+            <label class="control-label">Amount</label>
+            <%= f.text_field :amount, autofocus: true ,:class=>"form-control form-white",placeholder: "Amount No Here"%>
+          </div>
+
+          <div class="col-md-6">
+            <label class="control-label">Description</label>
+            <%= f.text_field :description, autofocus: true ,:placeholder=>"description Name Here",:class=>"form-control form-white"%>
+          </div>
+          <%= f.hidden_field :status,:value => "1"%>
+
+
+          <div class="col-md-6">
+            <label class="control-label">Description</label>
+            <%= f.select :user_id, @user.map{ |c| ["#{c.first_name}" "#{c.last_name}", "#{c.id}"] },:class=>"form-control form-white" %>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <%= f.submit "Save", :class=>"btn btn-secondary waves-effect",:id=>"save" %>
+        <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+      </div>
+      <% end %>
+    </div>
+  </div>
