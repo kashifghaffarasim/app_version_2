@@ -9,36 +9,11 @@
 //
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
-//
 //= require jquery.min.js
+//= require jquery_ujs
 //= require popper.min.js
 //= require bootstrap.min.js
-//= require perfect-scrollbar.jquery.min.js
-//= require sparkline.js
 //= require custom.min.js
 //= require owl.carousel.min.js
-
-$(document).ready(function () {
-      $(".owl-carousel").owlCarousel(
-              {
-                  nav: true,
-                  loop: true,
-                  responsive: {
-                      0: {
-                          items: 1,
-                          nav: true
-                      },
-                      600: {
-                          items: 3,
-                          nav: false
-                      },
-                      1000: {
-                          items: 3,
-                          nav: true,
-                          loop: true
-                      }
-                  }
-              });
-  });
 
 

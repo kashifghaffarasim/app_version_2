@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   resources :customers
   resources :vendors
   resources :jobs
+  resources :calendars
 
   get '/dashboard' => 'dashboard#index'
   root 'welcomes#index'

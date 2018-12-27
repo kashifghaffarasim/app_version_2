@@ -210,14 +210,14 @@
                         <span class="with-arrow"><span class="bg-primary"></span></span>
                         <div class="d-flex no-block align-items-center p-15 bg-primary text-white m-b-10">
                             <div class="m-l-10" style="padding: 20px; text-align: center; padding-top: 25px">
-                                <h4 class="m-b-0">  <% if current_user.first_name.blank?%><%= current_user.first_name %><% end %></h4>
+                                <h4 class="m-b-0">  <% if !current_user.blank?%><%= current_user.first_name %><% end %></h4>
                             </div>
                         </div>
                         <% if user_signed_in? %>
                     
                        
                           <div class="dropdown-divider"></div>
-                         <% if current_user.first_name.blank?%>
+                         <% if !current_user.blank?%>
                             <%= link_to profile_url(current_user.id ),:method=>:get ,:class => "dropdown-item" do %>
                           <i class="fa fa-power-off m-r-5 m-l-5"></i> Profile
                            <% end %>

@@ -35,3 +35,9 @@
 //= require Chart.min.js
 //= require dashboard1.js
 //= require activestorage
+//= require moment.min.js
+//= require fullcalendar.min.js
+//= require jquery.ui.touch-punch-improved.js
+//= reqiure jquery-ui.min.js
+
+//= require app-style-switcher.js

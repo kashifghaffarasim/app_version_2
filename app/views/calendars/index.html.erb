@@ -1,0 +1,343 @@
+
+<script>
+  $(function() {
+    // initialize the external events
+    // -----------------------------------------------------------------
+    
+    function ini_events(ele) {
+      ele.each(function () {
+
+        // create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
+        // it doesn't need to have a start or end
+        var eventObject = {
+          title: $.trim($(this).text()) // use the element's text as the event title
+        }
+
+        // store the Event Object in the DOM element so we can get to it later
+        $(this).data('eventObject', eventObject)
+
+        // make the event draggable using jQuery UI
+        $(this).draggable({
+          zIndex        : 1070,
+          revert        : true, // will cause the event to go back to its
+          revertDuration: 0  //  original position after the drag
+        })
+
+      })
+    }
+
+    ini_events($('#calendar-events .calendar-events'))
+    // initialize the calendar
+    // -----------------------------------------------------------------
+
+    $('#calendar').fullCalendar({
+      header: {
+        left: 'prev,next today',
+        center: 'title',
+        right: 'month,agendaWeek,agendaDay,listWeek'
+      },
+      editable: true,
+      droppable: true, // this allows things to be dropped onto the calendar
+      drop: function() {
+        // is the "remove after drop" checkbox checked?
+        if ($('#drop-remove').is(':checked')) {
+          // if so, remove the element from the "Draggable Events" list
+          $(this).remove();
+        }
+      },
+      defaultDate: new Date(),
+      navLinks: true, // can click day/week names to navigate views
+
+      weekNumbers: true,
+      weekNumbersWithinDays: true,
+      weekNumberCalculation: 'ISO',
+      editable: true,
+      eventLimit: true,
+      events: [
+      {
+        title: 'All Day Event',
+        start: '2018-12-01'
+      },
+      {
+        title: 'Long Event',
+        start: '2018-12-07',
+        end: '2018-12-10'
+      },
+      {
+        id: 999,
+        title: 'Repeating Event',
+        start: '2018-12-09T16:00:00'
+      },
+      {
+        id: 999,
+        title: 'Repeating Event',
+        start: '2018-12-16T16:00:00'
+      },
+      {
+        title: 'Conference',
+        start: '2018-12-11',
+        end: '2018-12-13'
+      },
+      {
+        title: 'Meeting',
+        start: '2018-12-12T10:30:00',
+        end: '2018-12-12T12:30:00'
+      },
+      {
+        title: 'Lunch',
+        start: '2018-12-12T12:00:00'
+      },
+      {
+        title: 'Meeting',
+        start: '2018-12-12T14:30:00'
+      },
+      {
+        title: 'Happy Hour',
+        start: '2018-12-12T17:30:00'
+      },
+      {
+        title: 'Dinner',
+        start: '2018-12-12T20:00:00'
+      },
+      {
+        title: 'Birthday Party',
+        start: '2018-12-13T07:00:00'
+      },
+      {
+        title: 'Click for Google',
+          //url: 'http://google.com/',
+          start: '2018-12-28'
+        }
+        ],
+        
+    //return true if the event 'eventObject' needs to be removed, return false if it doesn't
+    eventRender: function (event, element) {
+      element.attr('href', 'javascript:void(0);');
+      element.click(function() {
+        $("input").html(moment(event.start).format('MMM Do h:mm A'));
+        $("#my-event").dialog({ modal: true, title: event.title, width:350});
+       // $(".modal-body").append('');
+       $("input:text").val(event.title);
+       $(".delete-event").click(function() {
+        console.dir(event)
+        $('#calendar').fullCalendar('removeEvents',event._id);
+        $("#my-event").dialog({ modal: false, title: event.title, width:350});
+        document.getElementById("my-event").style.display = "none";
+      });
+       $(".btn-secondary").click(function() {
+       
+        document.getElementById("my-event").style.display = "none";
+      });
+       $(".btn-success").click(function() {
+        var inputs = document.getElementById("id");
+         
+            event.title = inputs.value;
+            event.start = event.start;
+         console.dir(inputs.value)
+
+        $('#calendar').fullCalendar('updateEvent', event);
+        document.getElementById("my-event").style.display = "none";
+
+      });
+
+     });
+    },
+     drop: function (date, allDay) { // this function is called when something is dropped
+
+        // retrieve the dropped element's stored Event Object
+        var originalEventObject = $(this).data('eventObject')
+
+        // we need to copy it, so that multiple events don't have a reference to the same object
+        var copiedEventObject = $.extend({}, originalEventObject)
+
+        // assign it the date that was reported
+        copiedEventObject.start           = date
+        copiedEventObject.allDay          = allDay
+        copiedEventObject.backgroundColor = $(this).css('background-color')
+        copiedEventObject.borderColor     = $(this).css('border-color')
+
+        // render the event on the calendar
+        // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
+        $('#calendar').fullCalendar('renderEvent', copiedEventObject, true)
+
+        // is the "remove after drop" checkbox checked?
+        if ($('#drop-remove').is(':checked')) {
+          // if so, remove the element from the "Draggable Events" list
+          $(this).remove()
+        }
+
+      }
+    })
+
+/* ADDING EVENTS */
+    var currColor = ("#color-chooser").value //Red by default
+    
+    
+    $('#add-new-event').click(function (e) {
+      e.preventDefault()
+      //Get value and make sure it is not null
+      var val = $('#new-event').val()
+      if (val.length == 0) {
+        return
+      }
+
+      //Create events
+      var event = $('<div/>');
+      event.css({
+        'color': '#fff',
+        'background-color': '#0041f5',
+        'border-color': '#003ee8'
+      }).addClass('calendar-events m-b-20')
+      event.html(val)
+
+      $('#calendar-events').prepend(event)
+
+      //Add draggable funtionality
+      ini_events(event)
+      //Remove event from text input
+      $('#new-event').val('')
+    })
+  })
+
+</script>
+
+<style type="text/css">
+.calendar-events.m-b-20.ui-draggable.ui-draggable-handle{
+  color: #fff;
+  background-color: #0041f5;
+  border-color: #003ee8;
+}
+</style>
+<div class="page-wrapper">
+  <!-- ============================================================== -->
+  <!-- Bread crumb and right sidebar toggle -->
+  <!-- ============================================================== -->
+  <div class="page-breadcrumb">
+    <div class="row">
+      <div class="col-5 align-self-center">
+        <h4 class="page-title">Dashboard</h4>
+        <div class="d-flex align-items-center">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active" aria-current="page">Library</li>
+            </ol>
+          </nav>
+        </div>
+      </div>
+      <div class="col-7 align-self-center">
+        <div class="d-flex no-block justify-content-end align-items-center">
+          <div class="m-r-10">
+            <div class="lastmonth"></div>
+          </div>
+          <div class=""><small>LAST MONTH</small>
+            <h4 class="text-info m-b-0 font-medium">$58,256</h4></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card">
+            <div class="">
+              <div class="row">
+                <div class="col-lg-3 border-right p-r-0">
+                  <div class="card-body border-bottom">
+                    <h4 class="card-title m-t-10">Drag & Drop Event</h4>
+                  </div>
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div id="calendar-events" class="">
+                          <div class="calendar-events m-b-20" >Event One</div>
+                          <div class="calendar-events m-b-20" >Event Two</div>
+                          <div class="calendar-events m-b-20" >Event Three</div>
+                          <div class="calendar-events m-b-20" >Event Four</div>
+                        </div>
+                        <!-- checkbox -->
+                        <div class="custom-control custom-checkbox">
+                          <input type="checkbox" class="custom-control-input" id="drop-remove">
+                          <label class="custom-control-label" for="drop-remove">Remove after drop</label>
+                        </div>
+                        <a href="javascript:void(0)" data-toggle="modal" data-target="#add-new-event" class="btn m-t-20 btn-info btn-block waves-effect waves-light">
+                          <i class="ti-plus"></i> Add New Event
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-9">
+                  <div class="card-body b-l calender-sidebar">
+                    <div id="calendar"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- BEGIN MODAL -->
+      <div class="modal none-border" id="my-event">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title"><strong>Add Event</strong></h4>
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+            </div>
+            <div class="modal-body">
+              <form><label>Change event name</label><div class="input-group"><input class="form-control" type="text" id="id"><span class="input-group-btn"><button  type="button" class="btn btn-success waves-effect waves-light"><i class="fa fa-check"></i> Save</button></span></div></form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-success save-event waves-effect waves-light" style="display: none;">Create event</button>
+              <button type="button" class="btn btn-danger delete-event waves-effect waves-light" data-dismiss="modal">Delete</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Modal Add Category -->
+      <div class="modal fade none-border" id="add-new-event">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title"><strong>Add</strong> a category</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <div class="modal-body">
+              <form>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label class="control-label">Category Name</label>
+                    <input id="new-event"class="form-control form-white" placeholder="Enter name" type="text" name="category-name" />
+                  </div>
+                  <div class="col-md-6">
+                    <label class="control-label">Choose Category Color</label>
+                    <select id="color-chooser"class="form-control form-white" data-placeholder="Choose a color..." name="category-color">
+                      <option value="success">Success</option>
+                      <option value="danger">Danger</option>
+                      <option value="info">Info</option>
+                      <option value="primary">Primary</option>
+                      <option value="warning">Warning</option>
+                      <option value="inverse">Inverse</option>
+                    </select>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" id="ext-event"class="btn btn-danger waves-effect waves-light save-category" data-dismiss="modal">Save</button>
+              <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- END MODAL -->
+    </div>
+  </div>
