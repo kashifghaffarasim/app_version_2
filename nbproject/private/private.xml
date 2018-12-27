@@ -2,6 +2,17 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/home/kk/projects/railsprojects/version_pool2/app/controllers/dashboard_controller.rb</file>
+            <file>file:/home/kk/projects/railsprojects/version_pool2/config/routes.rb</file>
+            <file>file:/home/kk/projects/railsprojects/version_pool2/app/views/users/new.html.erb</file>
+            <file>file:/home/kk/projects/railsprojects/version_pool2/app/controllers/users_controller.rb</file>
+            <file>file:/home/kk/projects/railsprojects/version_pool2/app/views/users/signin.html.erb</file>
+            <file>file:/home/kk/projects/railsprojects/version_pool2/app/controllers/welcomes_controller.rb</file>
+            <file>file:/home/kk/projects/railsprojects/version_pool2/app/views/shared/_admin_header.html.erb</file>
+            <file>file:/home/kk/projects/railsprojects/version_pool2/app/views/users/sinup.html.erb</file>
+            <file>file:/home/kk/projects/railsprojects/version_pool2/app/views/dashboard/index.html.erb</file>
+            <file>file:/home/kk/projects/railsprojects/version_pool2/app/assets/stylesheets/xtreamfront.css</file>
+        </group>
     </open-files>
 </project-private>

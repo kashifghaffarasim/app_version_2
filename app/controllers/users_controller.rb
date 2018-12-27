@@ -10,15 +10,15 @@ class UsersController < ApplicationController
   end
 
   def create
-    puts"dddd"
-    @user = User.new(user_params)
-    if @user.save
-      sign_in :user, @user
-      redirect_to root_url
-    else
-      flash[:error] = "Invalid Credentials."
-      redirect_to new_url
-    end
+    puts"Update all users"
+#    @user = User.new(user_params)
+#    if @user.save
+#      sign_in :user, @user
+#      redirect_to root_url
+#    else
+#      flash[:error] = "Invalid Credentials."
+#      redirect_to new_url
+#    end
   end
 
   def signin
