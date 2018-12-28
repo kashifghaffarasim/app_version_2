@@ -1,0 +1,57 @@
+
+
+<div class="modal fade" id="my-event" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display:none;">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title" id="myModalLabel">Regional Info</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			</div>
+			<%= form_for @address , url: update_address_url, remote: true,  :authenticity_token => true do |f|%>
+			<div class="modal-body">
+				
+
+				<div class="form-group">
+					<label for="recipient-name" class="control-label">Address</label>
+					<%= f.text_field :address_name,class: "form-control"%> 
+				</div>
+				<div class="form-group">
+					<label for="recipient-name" class="control-label">Address Type</label>
+					<%= f.text_field :address_type,class: "form-control"%> 
+				</div>
+				
+				<div class="form-group">
+					<label for="recipient-name" class="control-label">City Name</label>
+					<%= f.text_field :city_name,class: "form-control"%> 
+				</div>
+				<div class="form-group">
+					<label for="recipient-name" class="control-label">State Name</label>
+					<%= f.text_field :state_name,class: "form-control"%> 
+				</div>
+				<div class="form-group">
+					<label for="recipient-name" class="control-label">Country Name</label>
+					<%= f.text_field :country_name,class: "form-control"%> 
+				</div>
+				<div class="form-group">
+					<label for="recipient-name" class="control-label">Zip Code</label>
+					<%= f.text_field :zipcode,class: "form-control"%> 
+				</div>
+
+				
+				
+				
+			</div>
+
+			<%=f.hidden_field :user_id, :value => current_user.id%>
+
+			<div class="modal-footer">
+				<%=f.submit "Update",:id=>"update",:class=>"btn btn-default"%>
+				<button type="button" class="btn btn-default" data-dismiss="modal" style="margin-right: 5px;">CANCEL</button>
+			</div>
+			<%end%>	
+		</div>
+	</div>
+</div>
+
+
+

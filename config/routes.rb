@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   	end
   end
   
- 
+  
   resources :welcomes, only: [:index] do
   	collection  do
   		get :pricing 
@@ -17,15 +17,20 @@ Rails.application.routes.draw do
       get :tours
       get :faqs
       get :contactus
-  	end
+    end
   end
 
   resources :customers
   resources :vendors
   resources :jobs
   resources :calendars
+  resources :settings
 
   get '/dashboard' => 'dashboard#index'
   root 'welcomes#index'
   get '/:username', to: 'dashboard#profile', as: :profile
+  get '/settings/:id/edit_company', to: 'settings#edit_company', as: :edit_company
+  patch '/settings/update_company/:id', to: 'settings#update_company', as: :update_company
+  get '/settings/:id/edit_address', to: 'settings#edit_address', as: :edit_address
+  patch '/settings/update_address/:id', to: 'settings#update_address', as: :update_address
 end
