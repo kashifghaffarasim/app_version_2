@@ -15,7 +15,7 @@ class CalendarsController < ApplicationController
 	def create
 		@job = Job.new(jobs_params)
 		if @job.save 
-			@job.add_role :vendor
+			#@job.add_role :vendor
 			flash[:notice] = "Job Created!!!"
 			redirect_to calendars_url
 		else
