@@ -1,125 +1,87 @@
 <div class="page-breadcrumb">
-  <div class="row">
-    <div class="col-5 align-self-center">
-      <h4 class="page-title">Footable Table</h4>
-      <div class="d-flex align-items-center">
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Library</li>
-          </ol>
-        </nav>
-      </div>
-    </div>
-    <div class="col-7 align-self-center">
-      <div class="d-flex no-block justify-content-end align-items-center">
-        <div class="m-r-10">
-          <div class="lastmonth"></div>
-        </div>
-        <div class=""><small>LAST MONTH</small>
-          <h4 class="text-info m-b-0 font-medium">$58,256</h4></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-
-
-
-  <div class="container-fluid">
-    <!-- ============================================================== -->
-    <!-- Start Page Content -->
-    <!-- ============================================================== -->
     <div class="row">
-      <div class="col-12">
-        <div class="card">
-          <div class="card-body">
-            <% unless flash[:notice].blank? %>
-            <div class="flash_team_member">
-              <div id="flash_notice_team_member" class="flash_team_member flash_notice_team_member clearfix hide_for_print">
-                <%= flash[:notice] %><i class="fa fa-check" style="float:right;"></i>
-              </div>
+        <div class="col-5 align-self-center">
+            <h4 class="page-title"> Customers</h4>
+            <div class="d-flex align-items-center">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="<%= root_url %>">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="#">Vendors</a></li>
+                    </ol>
+                </nav>
             </div>
-            <%end%> 
-            <table id="demo-foo-addrow" class="table m-t-30 no-wrap table-hover contact-list" data-page-size="10">
-              <thead>
-                <tr>
-                  <th>ID</th>
-                  <th>First Name</th>
-                  <th>Last Name</th>
-                  <th>Email</th>
-                  <% if !@customers.blank?%>
-                  <th>Edit</th>
-                  <th>Show</th>
-                  <th>Delete</th>
-                  <% end %>
-                </tr>
-              </thead>
-              <tbody>
-                <% if !@customers.blank?%>
-                <% @customers.each do |client| %>
-                <tr >
-                  <td><%= client.id %></td>
-                  <td><%= client.first_name.titleize rescue "" %></td>
-                  <td><%= client.last_name.titleize rescue "" %></td>
-                  <td><%=client.email.titleize  %></td>
-                 
-                   <td><%= link_to 'Edit',edit_customer_url(client), :class => "btn btn-info"%></td>
-                   <td><%= link_to 'Show',customer_url(client), :class => "btn btn-info"%></td>
-                  <td><%= link_to 'Delete',customer_url(client), method: :delete, data: { confirm: "Are you sure you want to delete?" }, :class => "btn btn-info" ,:method => :delete%>
-                  </td>
-                </tr>
-                <% end %>
-                <% else %>
-                <tr >
-                  <td>Empty</td>
-                  <td>Empty</td>
-                  <td>Empty</td>
-                  <td>Empty</td>
-                </tr>
-                <% end %>
-              </tbody>
-              <tfoot>
-                <tr>
-                  <td colspan="8">
-
-                    <%= link_to 'New Customer', new_customer_url,:class=>"btn btn-info btn-rounded"%>
-
-                  </td>
-                </tr>
-              </tfoot>
-            </table>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
 
+    <div>
+        <div class="row">
+            <div class="col-12">
 
+                <div class="card">
+                    <div class="card-body">
+                        <div class="col-md-12 text-right">
+                            <%= link_to 'New Customer', new_customer_url,:class=>"btn btn-info btn-rounded"%>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <% unless flash[:notice].blank? %>
+                          <div class="flash_team_member">
+                              <div id="flash_notice_team_member" class="flash_team_member flash_notice_team_member clearfix hide_for_print">
+                                  <%= flash[:notice] %><i class="fa fa-check" style="float:right;"></i>
+                              </div>
+                          </div>
+                        <%end%> 
+                        <table id="demo-foo-addrow" class="table m-t-30 no-wrap table-hover contact-list" data-page-size="10">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th> Proifle Image </th>
+                                    <th> Full Name </th>
+                                    <th> Email </th>
+                                    <th> Address </th>
+                                    <th> City</th>
+                                    <th> State</th>
+                                    <th> Country</th>
+                                    <th> Source</th>
+                                    <th> Role</th>
+                                    <th> Actions </th>
 
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% if !@customers.blank?%>
+                                  <% @customers.each_with_index  do |customer, index| %>
+                                    <tr >
+                                        <td><%= index = index + 1 %></td>
+                                        <td>
+                                            <% if customer.avatar and customer.avatar.url %>
+                                              <img src="<%= customer.avatar.url%>" class="img img-responsive" width="60">
+                                            <% end %>
+                                        </td>
+                                        <td><%= customer.fullname rescue "" %></td>
+                                        <td><%= customer.email%></td>
+                                        <td><%= customer.address.try(:address_name)%> </td>
+                                        <td><%= customer.address.try(:city_name)%> </td>
+                                        <td><%= customer.address.try(:state_name)%> </td>
+                                        <td><%= customer.address.try(:country_name)%> </td>
+                                        <td><%= customer.source%> </td>
+                                        <td><%= customer.roles.first.try(:name).capitalize%> </td>
+                                        <td>
+                                            <%= link_to '',edit_customer_url(customer), :class => "fa fa-edit"%>
+                                            <%= link_to '',customer_url(customer), :class => "fa fa-eye", :style => "color: green; padding-left: 5px; padding-right: 5px; font-size: 16px" %>
+                                            <%= link_to '',customer_url(customer), method: :delete,
+                                              data: { confirm: "Are you sure you want to delete?" }, 
+                                              :class => "fa fa-trash-alt" , :style=> "color: red"%>
+                                        </td>
+                                    </tr>
+                                  <% end %>
+                                <% end %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-  <!-- ============================================================== -->
-  <!-- End Bread crumb and right sidebar toggle -->
-  <!-- ============================================================== -->
-  <!-- ============================================================== -->
-  <!-- Container fluid  -->
-  <!-- ============================================================== -->
-
-
-
-
-
-
-
-
-
-  <script type="text/javascript">
-    $(document).ready(function () {
-      $("#client_index_view").DataTable();
-    });
-  </script>
-  <style type="text/css">
-  table thead, .thead{
-    <%#*background-color: #0078b2;%>
-  }
-</style>

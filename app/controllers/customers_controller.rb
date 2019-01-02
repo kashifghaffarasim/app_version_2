@@ -1,73 +1,90 @@
 class CustomersController < ApplicationController
 #validates :email, :presence => true, :email => true
-
+before_action :authenticate_user!
+  before_action :get_customer, only: [:show, :edit, :update, :destroy]
 
 
 def index
-	@customers = User.with_role(:customer)
+	@customers = User.all.order(id: :asc).with_any_role(:customer)
 end
 def new
-	@customers = User.new
+	@customer = User.new
 end
 
 def show 
-	@customers = User.find_by_id(params[:id])
+	@customer = User.find_by_id(params[:id])
 end
 
 def create
-	@customers = User.new(user_params)
+
+	params[:user][:password] = '12345678'
+	@customer  = User.new(user_params)
 	@already = User.find_by_email(params[:user][:email])
 	if @already.blank?
-		if @customers.save(validate: false)
-			@customers.add_role :customer
-			puts"hahahahah"
-			flash[:notice] = "Customer Created!!!"
+		if @customer.save(validate: false)
+			@customer.add_role :customer
+			customer_address()
+			flash[:success] = "Customer Created Successfully!"
 			redirect_to customers_url
 		else 
-			flash[:notice] = "Customer not Saved try again"
-			redirect_to customers_url
-			
+			flash[:danger] = "Customer not Saved try again"
+			render :new
 		end
 	else
-		flash[:notice] = "This email already used for Customer"
-		redirect_to customers_url
+		flash[:danger] = "Email already used with other users. Please try with new email"
+		render :new
 	end
 	
 
 end
 def edit
-	@customers = User.find_by_id(params[:id])
+	@customer = User.find_by_id(params[:id])
 end 
 def update
-	@customers = User.find_by_id(params[:id])
-	if @customers.update(user_params)
+	@customer = User.find_by_id(params[:id])
+	if @customer.update(user_params)
+		@customer.add_role :customer
+	customer_address()
 		flash[:notice] = "Customer updated!!!"
-
 		redirect_to customers_url
-
 	else
-		flash[:notice] = "Customer not updated try again"
-
+		flash[:notice] = "Customer not update try again"
 		redirect_to customers_url
-
 
 	end
 end 
 def destroy
-	@customers = User.find_by_id(params[:id])
-	if @customers.destroy
-		flash[:notice] = "Customer Destroy"
-
+	@customer = User.find_by_id(params[:id])
+	if @customer.destroy
+		flash[:notice] = "Customer Destroy!"
 		redirect_to customers_url
-
 	else
-		flash[:notice] = "Customer not Destroy try again"
-
+		flash[:notice] = "Customer did not Destroy!"
 		redirect_to customers_url
 	end
 end
 private
 def user_params
-	params.require(:user).permit(:first_name, :last_name, :email)
-end
+    params.require(:user).permit(:first_name, :last_name, :email, :source, :username, :phone_number, :mobile_number, :avatar)
+	end
+  
+  def address_params
+    params.require(:address).permit(:address_name, :city_name , :state_name , :country_name , :zipcode)
+  end
+  
+  def get_customer
+    @vendor = User.find_by_id(params[:id])
+  end
+  def customer_address
+    if @customer.address.blank?
+      @address = Address.new(address_params)
+      @address.user_id = @customer.try(:id)
+      if @address.save
+      end
+    else
+      if @customer.address.update(address_params)
+           
+      end
+    end
+  end
 end
