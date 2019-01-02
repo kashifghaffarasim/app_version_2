@@ -1,0 +1,190 @@
+
+<div> 
+
+    <div class="page-breadcrumb" >
+        <div class="row">
+            <div class="col-5 align-self-center">
+                <h4 class="page-title"> Profile </h4>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="<%= dashboard_url %>">Dashboard</a></li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <!-- Column -->
+        <div class="col-lg-4 col-xlg-3 col-md-5">
+            <div class="card">
+                <div class="card-body">
+                    <center class="m-t-30"> 
+                        <% if @user.avatar and @user.avatar.url %>
+                          <img src="<%= @user.avatar.url%>" class="rounded-circle" width="150">
+                        <% else %>
+                          <img src="/assets/users/5.jpg" class="rounded-circle" width="150">
+                        <% end %>
+                        <h4 class="card-title m-t-20" style=" margin-top: 10px">
+                            <%= @user.try(:fullname) %>
+                        </h4>
+                    </center>
+                </div>
+                <div>
+                    <hr> </div>
+                <div class="card-body"> 
+                    <small class="text-muted">Email address </small>
+                    <h6><%= @user.try(:email)%> </h6> 
+                    <% if @user.try(:phone_number) %>
+                      <small class="text-muted p-t-30 db">Phone</small>
+                      <h6><%= @user.try(:phone_number)%></h6> 
+                    <% end %>
+                    <% if @user and @user.address %>
+                      <small class="text-muted p-t-30 db">Address</small>
+                      <h6><%= @user.address.try(:address_name)%></h6>
+                      <div class="map-box" style="display: none">
+                          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d470029.1604841957!2d72.29955005258641!3d23.019996818380896!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e848aba5bd449%3A0x4fcedd11614f6516!2sAhmedabad%2C+Gujarat!5e0!3m2!1sen!2sin!4v1493204785508" width="100%" height="150" frameborder="0" style="border:0" allowfullscreen=""></iframe>
+                      </div> 
+                    <% end %>
+
+
+                    <small class="text-muted p-t-30 db">Social Profile</small>
+                    <br>
+                    <button class="btn btn-circle btn-secondary"><i class="fab fa-facebook-f"></i></button>
+                    <button class="btn btn-circle btn-secondary"><i class="fab fa-twitter"></i></button>
+                    <button class="btn btn-circle btn-secondary"><i class="fab fa-youtube"></i></button>
+                </div>
+            </div>
+        </div>
+        <!-- Column -->
+        <!-- Column -->
+        <div class="col-lg-8 col-xlg-9 col-md-7">
+            <div class="card">
+                <!-- Tabs -->
+                <ul class="nav nav-pills custom-pills" id="pills-tab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active show" id="pills-setting-tab" data-toggle="pill" href="#previous-month" role="tab" aria-controls="pills-setting" aria-selected="true">Profile</a>
+                    </li>
+                </ul>
+                <!-- Tabs -->
+                <div class="tab-content" id="pills-tabContent">
+                    <div class="tab-pane fade active show" id="previous-month" role="tabpanel" aria-labelledby="pills-setting-tab">
+                        <div class="card-body">
+
+                            <%= form_for @user, url: profile_url(id: @user.try(:id)) , :method => :put, html: { multipart: true } , :class => 'form-horizontal  form-material' do |f|  %>
+
+                              <div class="form-group">
+                                  <label class="col-md-12">Profile Image</label>
+                                  <div class="col-md-12">
+                                      <input  class="form-control form-control-line" type="file" name="user[avatar]" accept="image/*">
+                                  </div>
+                              </div>
+
+                              <div class="form-group">
+                                  <label class="col-md-12">First Name</label>
+                                  <div class="col-md-12">
+                                      <%= f.text_field :first_name, autofocus: true ,:placeholder=>"First Name",:class => "form-control  form-control-line", required: true%>
+                                  </div>
+                              </div>
+
+                              <div class="form-group">
+                                  <label class="col-md-12">Last Name</label>
+                                  <div class="col-md-12">
+                                      <%= f.text_field :last_name, autofocus: true ,:placeholder=>"First Name",:class => "form-control form-control-line", required: true%>
+                                  </div>
+                              </div>
+
+                              <div class="form-group">
+                                  <label for="example-email" class="col-md-12"> Username</label>
+                                  <div class="col-md-12">
+                                      <%= f.text_field :username, autofocus: true ,:placeholder=>"User Name",:class => "form-control form-control-line", required: true%>
+                                  </div>
+                              </div>
+
+                              <div class="form-group">
+                                  <label class="col-md-12">Phone No</label>
+                                  <div class="col-md-12">
+                                      <%= f.text_field :phone_number, autofocus: true ,:placeholder=>"123 456 7890",:class => "form-control form-control-line", required: true%>
+                                  </div>
+                              </div>
+
+                              <div class="form-group">
+                                  <label class="col-md-12">Mobile No</label>
+                                  <div class="col-md-12">
+                                      <%= f.text_field :mobile_number, autofocus: true ,:placeholder=>"123 456 7890",:class => "form-control form-control-line", required: true%>
+                                  </div>
+                              </div>
+
+                              <div class="form-group">
+                                  <label class="col-md-12">Street</label>
+                                  <div class="col-md-12">
+                                      <input type="text" name="address[address_name]"
+                                             placeholder="Your Street"  class="form-control form-control-line" 
+                                             required="true" value="<%= @user.address.try(:address_name)%>"/>
+
+                                  </div>
+                              </div>
+
+                              <div class="form-group">
+                                  <label class="col-md-12">City</label>
+                                  <div class="col-md-12">
+                                      <input type="text" name="address[city_name]" placeholder="Your City" 
+                                             class="form-control form-control-line"
+                                             value="<%= @user.address.try(:city_name)%>"
+                                             required="true">
+                                  </div>
+                              </div>
+
+                              <div class="form-group">
+                                  <label class="col-md-12">
+                                      State
+                                  </label>
+                                  <div class="col-md-12">
+                                      <input type="text"  name="address[state_name]" 
+                                             placeholder="Your State"
+                                             class="form-control form-control-line"
+                                             value="<%= @user.address.try(:state_name)%>"
+                                             required="true">
+                                  </div>
+                              </div>
+
+                              <div class="form-group">
+                                  <label class="col-md-12">Country</label>
+                                  <div class="col-md-12">
+                                      <input type="text" 
+                                             value="<%= @user.address.try(:country_name)%>"
+                                             name="address[country_name]" placeholder="Your Country"
+                                             class="form-control form-control-line" required="true">
+                                  </div>
+                              </div>
+
+                              <div class="form-group">
+                                  <label class="col-md-12">Zip Code</label>
+                                  <div class="col-md-12">
+                                      <input type="text"  name="address[zipcode]"
+                                             value="<%= @user.address.try(:zipcode)%>"
+                                             placeholder="Your ZipCode" class="form-control form-control-line" required="true">
+                                  </div>
+                              </div>
+
+
+                              <div class="form-group">
+                                  <div class="col-sm-12">
+                                      <button class="btn btn-success">Update Profile</button>
+                                  </div>
+                              </div>
+
+                            <% end %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Column -->
+    </div>
+</div>
+
+
+

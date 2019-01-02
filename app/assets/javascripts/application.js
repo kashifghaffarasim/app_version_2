@@ -10,10 +10,8 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
-
-//= require jquery.min
-//= require turbolinks
-//= require jquery-ui
+//= require jquery
+//= require jquery_ujs
 //= require popper.min.js
 //= require bootstrap.min.js
 //= require app.min.js
@@ -28,17 +26,16 @@
 //= require sparkline.js
 //= require waves.js
 //= require sidebarmenu.js
-//= require custom.min.js
+//= require custom.js
 //= require owl.carousel.min.js
 //= require popper-utils.min.js
 //= require d3.min.js
 //= require c3.min.js
 //= require Chart.min.js
 //= require dashboard1.js
-//= require activestorage
 //= require moment.min.js
 //= require fullcalendar.min.js
-//= require jquery.ui.touch-punch-improved.js
 //= reqiure jquery-ui.min.js
 //= require app-style-switcher.js
+//= require activestorage
 

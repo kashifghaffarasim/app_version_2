@@ -322,6 +322,7 @@
 
         </div>
     </div>
+    
     <!-- Video Modal -->
     <div class="modal modal-video" id="tour-video" tabindex="-1" role="dialog" aria-labelledby="videoModalLabel" aria-hidden="true">
         <div class="modal-dialog">
@@ -341,8 +342,8 @@
 
 </section>
 
-<div class="blur_box" style="
-     padding-top: 10px;">
+
+<div class="blur_box" style=" padding-top: 10px;">
     <div class="container">
         <div class="row">
             <!--<div class="col-lg-1 col-md-1 col-sm-1 col-xs-12"></div>-->
@@ -381,3 +382,30 @@
     </div>
 </div>
 
+
+
+<script>
+  $(document).ready(function () {
+      $(".owl-carousel").owlCarousel(
+              {
+                  nav: true,
+                  loop: true,
+                  responsive: {
+                      0: {
+                          items: 1,
+                          nav: true
+                      },
+                      600: {
+                          items: 3,
+                          nav: false
+                      },
+                      1000: {
+                          items: 3,
+                          nav: true,
+                          loop: true
+                      }
+                  }
+              });
+  });
+
+</script>

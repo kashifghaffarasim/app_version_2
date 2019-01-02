@@ -1,11 +1,11 @@
 class DashboardController < ApplicationController
 
+  layout "application"
+  before_action :authenticate_user!
+  
   def index
     
   end
-  
-	def profile
-		@user = User.find_by_id(params[:username])
-	end
+
 
 end

@@ -1,41 +1,50 @@
 class VendorsController < ApplicationController
 	
+  before_action :authenticate_user!
+  before_action :get_vendor, only: [:show, :edit, :update, :destroy]
+  
 	def index
-		@vendors = User.with_role(:vendor)
+		@vendors = User.all.order(id: :asc).with_any_role(:vendor, :supplier, :other)
 	end
+  
 	def new
-		@vendors  = User.new
+		@vendor  = User.new
 	end
+  
 	def show 
-		@vendors  = User.find_by_id(params[:id])
+		@vendor  = User.find_by_id(params[:id])
 	end
+  
 	def create
-
-		@vendors  = User.new(user_params)
+    params[:user][:password] = '12345678'
+		@vendor  = User.new(user_params)
 		@already = User.find_by_email(params[:user][:email])
-
 		if @already.blank?
-			if @vendors.save(validate: false)
-				@vendors.add_role :vendor
-				puts"hahahahah"
-				flash[:notice] = "Vendor Created!"
+			if @vendor.save(validate: false)
+      	@vendor.add_role params[:user][:role]
+        vendor_address()
+				flash[:success] = "Vendor Created Successfully!"
 				redirect_to vendors_url
 			else 
-				flash[:notice] = "Vendor not Saved try again"
-				redirect_to vendors_url
+				flash[:danger] = "Vendor not Saved try again"
+				render :new
 			end
 		else
-			flash[:notice] = "This email already used for vendor"
-			redirect_to vendors_url
+			flash[:danger] = "Email already used with other users. Please try with new email"
+			render :new
 		end
-
 	end
+  
+  
 	def edit
-		@vendors = User.find_by_id(params[:id])
+		@vendor = User.find_by_id(params[:id])
 	end 
+  
 	def update
-		@vendors = User.find_by_id(params[:id])
-		if @vendors.update(user_params)
+		@vendor = User.find_by_id(params[:id])
+		if @vendor.update(user_params)
+      @vendor.add_role params[:user][:role]
+      vendor_address()
 			flash[:notice] = "Vendor updated!!!"
 			redirect_to vendors_url
 		else
@@ -43,18 +52,43 @@ class VendorsController < ApplicationController
 			redirect_to vendors_url
 		end
 	end 
+  
 	def destroy
-		@vendors = User.find_by_id(params[:id])
-		if @vendors.destroy
+		@vendor = User.find_by_id(params[:id])
+		if @vendor.destroy
 			flash[:notice] = "Vendor Destroy!"
 			redirect_to vendors_url
 		else
 			flash[:notice] = "Vendor did not Destroy!"
-		redirect_to vendors_url
+      redirect_to vendors_url
 		end
 	end
+  
 	private
+  
 	def user_params
-		params.require(:user).permit(:first_name, :last_name, :email)
+    params.require(:user).permit(:first_name, :last_name, :email, :source, :username, :phone_number, :mobile_number, :avatar)
 	end
+  
+  def address_params
+    params.require(:address).permit(:address_name, :city_name , :state_name , :country_name , :zipcode)
+  end
+  
+  def get_vendor
+    @vendor = User.find_by_id(params[:id])
+  end
+  
+  def vendor_address
+    if @vendor.address.blank?
+      @address = Address.new(address_params)
+      @address.user_id = @vendor.try(:id)
+      if @address.save
+      end
+    else
+      if @vendor.address.update(address_params)
+           
+      end
+    end
+  end
+  
 end

@@ -1,15 +1,13 @@
 
 <div class="main-wrapper">
-
     <div class="auth-wrapper d-flex no-block justify-content-center align-items-center" 
-         style="background:url(/assets/auth-bg.jpg) no-repeat center center;    padding-top: 10%;
-         padding-bottom: 10%;">
-        <div class="auth-box" style="
-             border: 1px solid #ddd;
-             width: 450px;
-             background: #fff;
-             ">
+         style="background:url(/assets/auth-bg.jpg) no-repeat center center;    padding-top: 10%; padding-bottom: 10%;">
+        <div class="auth-box" style=" border: 1px solid #ddd; width: 450px; background: #fff;">
+
             <div id="loginform" style="padding: 30px;">
+                <div>
+                    1/2
+                </div>
                 <div class="logo" style="text-align: center;">
                     <span class="db">
                         <img src="/assets/logo-icon.png" alt="logo" />
@@ -22,50 +20,59 @@
                     <p style=""> Tell us who you are?</p>
                 </div>
 
-                <div class="col-12">
-                    <%= form_for :user, url: users_url, :class => 'form-horizontal m-t-20' do |f|  %>
+
+                <div class="col-12" >
+
+                    <% flash.each do |key, value| %>
+                      <div class="alert alert-<%= key %>"><%= value %></div>
+                    <% end %>
+
+                    <%= form_for :user, url: users_url , :class => 'form-horizontal m-t-20' do |f|  %>
 
                       <div class="form-group row">
                           <div class="col-12 ">
-                              <%= f.text_field :first_name, autofocus: true ,:placeholder=>"First Name",:class => "form-control form-control-lg", required: true %>
+                              <%= f.text_field :first_name, autofocus: true ,:placeholder=>"First Name",:class => "form-control form-control-lg", required: true , :value => "#{session[:user].try(:first_name)}"%>
+
                           </div>
                       </div>
-                    
+
                       <div class="form-group row ">
                           <div class="col-12 ">
                               <%= f.text_field :last_name, autofocus: true ,:placeholder=>"Last Name",:class => "form-control form-control-lg" ,required: true%>
                           </div>
                       </div>
 
+
                       <div class="form-group row">
                           <div class="col-12 ">
                               <%= f.email_field :email, autofocus: true,:placeholder=>"Your Email",:class => "form-control form-control-lg" ,required: true %>
                           </div>
                       </div>
-                    
+
                       <div class="form-group row">
                           <div class="col-12 ">
-                              <%= f.password_field :password, autocomplete: "off" ,:placeholder=>"Password",:class => "form-control form-control-lg" ,required: true%>
+                              <%= f.password_field :password, :minlength => "8",autocomplete: "off" ,:placeholder=>"Password", :class => "form-control form-control-lg", required: true%>
                           </div>
                       </div>
-                    
+
                       <div class="form-group row">
                           <div class="col-12 ">
-                              <%= f.password_field :password_confirmation, autocomplete: "off", :placeholder=>"Password Confirmation",:class => "form-control form-control-lg" ,required: true%>
+                              <%= f.password_field :password_confirmation, :minlength => "8",  autocomplete: "off", :placeholder=>"Password Confirmation",:class => "form-control form-control-lg" ,required: true%>
                           </div>
                       </div>
-                    
+
                       <div class="form-group text-center ">
                           <div class="col-xs-12 p-b-20 ">
                               <button class="btn btn-block btn-lg btn-info " type="submit ">Next Step </button>
                           </div>
                       </div>
-                    
+
                       <div class="form-group m-b-0 m-t-10 ">
                           <div class="col-sm-12 text-center ">
                               Already have an account? <a href="<%= signin_users_url %>" rel="login" class="text-info m-l-5 "><b>Sign In</b></a>
                           </div>
                       </div>
+
                     <% end %>
                 </div>
             </div>

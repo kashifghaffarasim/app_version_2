@@ -1,7 +1,8 @@
 class WelcomesController < ApplicationController
   layout "xtream-front"
+  
   def index
-    puts"ssssssssssssssssssssssss", current_user.inspect
+    puts"ssssssssssssssssssssssssssss here", current_user.inspect
     if current_user
       redirect_to dashboard_url
     end

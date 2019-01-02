@@ -1,0 +1,83 @@
+
+<div class="main-wrapper">
+    <div class="auth-wrapper d-flex no-block justify-content-center align-items-center" 
+         style="background:url(/assets/auth-bg.jpg) no-repeat center center;    padding-top: 10%; padding-bottom: 10%;">
+        <div class="auth-box" style=" border: 1px solid #ddd; width: 450px; background: #fff;">
+
+            <div id="loginform" style="padding: 30px;">
+                <div>
+                    2/2
+                </div>
+                <div class="logo" style="text-align: center;">
+                    <span class="db">
+                        <img src="/assets/logo-icon.png" alt="logo" />
+                    </span>
+                    <h5 class="font-medium m-b-20"> Sign up as Admin</h5>
+                </div>
+                <div class="col-md-12 text-center" style="    margin-top: -14px;
+                     font-size: 13px;
+                     color: #2961ff;">
+                    <p style=""> Tell us about your company?</p>
+                </div>
+
+                <div class="col-12"  id="companyForm">
+
+
+                    <% flash.each do |key, value| %>
+                      <div class="alert alert-<%= key %>"><%= value %></div>
+                    <% end %>
+
+
+                    <%= form_for :company, url: companies_url , :class => 'form-horizontal m-t-20' do |f|  %>
+
+                      <div class="form-group row">
+                          <div class="col-12 ">
+                              <%= f.text_field :name , autofocus: true ,:placeholder=>"Company Name",:class => "form-control form-control-lg", required: true , :value => "#{session[:user].try(:first_name)}"%>
+
+                          </div>
+                      </div>
+
+                      <div class="form-group row ">
+                          <div class="col-12 ">
+                              <%= f.text_field :address_name, autofocus: true ,:placeholder=>"Compnay Address",:class => "form-control form-control-lg" ,required: true%>
+                          </div>
+                      </div>
+
+
+                      <div class="form-group row ">
+                          <div class="col-12 ">
+                              <%= f.text_field :city_name, autofocus: true ,:placeholder=>"City",:class => "form-control form-control-lg" ,required: true%>
+                          </div>
+                      </div>
+
+
+                      <div class="form-group row ">
+                          <div class="col-12 ">
+                              <%= f.text_field :country_name, autofocus: true ,:placeholder=>"Country",:class => "form-control form-control-lg" ,required: true%>
+                          </div>
+                      </div>
+
+                      <div class="form-group row">
+                          <div class="col-12 ">
+                              <%= f.number_field :zip_code, autofocus: true,:placeholder=>"Zip Code",:class => "form-control form-control-lg" ,required: true %>
+                          </div>
+                      </div>
+
+                      <div class="form-group text-center ">
+                          <div class="col-xs-12 p-b-20 ">
+                              <button class="btn btn-block btn-lg btn-info " type="submit "> Save </button>
+                          </div>
+                      </div>
+
+                      <div class="form-group m-b-0 m-t-10 ">
+                          <div class="col-sm-12 text-center ">
+                              Already have an account? <a href="<%= signin_users_url %>" rel="login" class="text-info m-l-5 "><b>Sign In</b></a>
+                          </div>
+                      </div>
+
+                    <% end %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

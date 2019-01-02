@@ -6,14 +6,16 @@
             <!-- ============================================================== -->
             <!-- Logo -->
             <!-- ============================================================== -->
-            <a class="navbar-brand" >
+            <a class="navbar-brand" href="<%= root_url%>" >
                 <!-- Logo icon -->
                 <b class="logo-icon">
                     <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
                     <!-- Dark Logo icon -->
-                    <img src="/assets/logo-icon.png" alt="homepage" class="dark-logo" />
+                    <img src="/assets/logo-icon.png" 
+                         alt="homepage" class="dark-logo" />
                     <!-- Light Logo icon -->
-                    <img src="/assets/logo-light-icon.png" alt="homepage" class="light-logo" />
+                    <img src="/assets/logo-light-icon.png"
+                         alt="homepage" class="light-logo" />
                 </b>
                 <!--End Logo icon -->
                 <!-- Logo text -->
@@ -57,40 +59,40 @@
                     </a>
                 </li>
                 <!-- ============================================================== -->
-               
-                  <!-- ============================================================== -->
-                  <li class="nav-item dropdown" style="border-left: 1px solid #bfbfbfa8;">
-                      <a class="nav-link dropdown-toggle" href=""> 
 
-                          <span class="d-none d-md-block">
-                              Pools
-                          </span>
-                          <span class="d-block d-md-none"><i class="fa fa-plus"></i></span>   
-                      </a>
-                  </li>
-                  <!-- ============================================================== -->
-                  <!-- Search -->
-                  <!-- ============================================================== -->
-                  <li class="nav-item search-box" style="border-left: 1px solid #bfbfbfa8;"> 
+                <!-- ============================================================== -->
+                <li class="nav-item dropdown" style="border-left: 1px solid #bfbfbfa8;">
+                    <a class="nav-link dropdown-toggle" href=""> 
 
-                      <a class="nav-link dropdown-toggle" href="<%= customers_url %>" >
+                        <span class="d-none d-md-block">
+                            Pools
+                        </span>
+                        <span class="d-block d-md-none"><i class="fa fa-plus"></i></span>   
+                    </a>
+                </li>
+                <!-- ============================================================== -->
+                <!-- Search -->
+                <!-- ============================================================== -->
+                <li class="nav-item search-box" style="border-left: 1px solid #bfbfbfa8;"> 
 
-                          <span class="d-none d-md-block">
-                              Customers
-                          </span>
-                          <span class="d-block d-md-none"><i class="fa fa-plus"></i></span>   
-                      </a>
-                  </li>
+                    <a class="nav-link dropdown-toggle" href="<%= customers_url %>" >
 
-                  <li class="nav-item search-box" style="border-left: 1px solid #bfbfbfa8;"> 
-                      <a class="nav-link dropdown-toggle" href="<%= jobs_url %>">
-                          <span class="d-none d-md-block">
-                              Jobs
-                          </span>
-                          <span class="d-block d-md-none"><i class="fa fa-plus"></i></span>   
-                      </a>
-                  </li>
-             
+                        <span class="d-none d-md-block">
+                            Customers
+                        </span>
+                        <span class="d-block d-md-none"><i class="fa fa-plus"></i></span>   
+                    </a>
+                </li>
+
+                <li class="nav-item search-box" style="border-left: 1px solid #bfbfbfa8;"> 
+                    <a class="nav-link dropdown-toggle" href="<%= jobs_url %>">
+                        <span class="d-none d-md-block">
+                            Jobs
+                        </span>
+                        <span class="d-block d-md-none"><i class="fa fa-plus"></i></span>   
+                    </a>
+                </li>
+
 
             </ul>
             <!-- ============================================================== -->
@@ -210,23 +212,19 @@
                         <span class="with-arrow"><span class="bg-primary"></span></span>
                         <div class="d-flex no-block align-items-center p-15 bg-primary text-white m-b-10">
                             <div class="m-l-10" style="padding: 20px; text-align: center; padding-top: 25px">
-                                <h4 class="m-b-0">  <% if !current_user.blank?%><%= current_user.first_name %><% end %></h4>
+                                <h4 class="m-b-0">  
+                                    <%= current_user.first_name %>
+                                </h4>
                             </div>
                         </div>
                         <% if user_signed_in? %>
-                    
-                       
+
+
                           <div class="dropdown-divider"></div>
-                         <% if !current_user.blank?%>
-                            <%= link_to profile_url(current_user.id ),:method=>:get ,:class => "dropdown-item" do %>
-                          <i class="fa fa-power-off m-r-5 m-l-5"></i> Profile
-                           <% end %>
-                          <% else%>
-                             <%= link_to profile_url(current_user.first_name ),:method=>:get ,:class => "dropdown-item" do %>
-                          <i class="fa fa-power-off m-r-5 m-l-5"></i> Profile
-                           <% end %>
+                          <%= link_to profiles_url,:method=>:get ,:class => "dropdown-item" do %>
+                            <i class="fa fa-user m-r-5 m-l-5"></i> Profile
                           <% end %>
-                         
+
                           <%= link_to signout_users_url,:method=>:get ,:class => "dropdown-item" do %>
                             <i class="fa fa-power-off m-r-5 m-l-5"></i> Logout
                           <% end %>

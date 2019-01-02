@@ -14,9 +14,8 @@
  *= require c3.min.css
  *= require summernote-bs4.css
  *= require dropzone.min.css
- *= require style.css
- *= require calendar.css
-  *= require fullcalendar.min.css
+ *= require fullcalendar.min.css
  *= require dataTables.bootstrap4.css
  *= require footable.core.min.css
+ *= require style.css
  */

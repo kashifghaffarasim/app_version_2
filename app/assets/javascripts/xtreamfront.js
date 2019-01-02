@@ -9,11 +9,13 @@
 //
 // Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
 // about supported directives.
-//= require jquery.min.js
+// 
+//= require jquery
 //= require jquery_ujs
 //= require popper.min.js
 //= require bootstrap.min.js
-//= require custom.min.js
 //= require owl.carousel.min.js
+//= require custom.js
+
 
 

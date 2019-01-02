@@ -1,24 +1,25 @@
 class UsersController < ApplicationController
+  layout 'xtream-front'
+  skip_before_action :verify_authenticity_token
 
-  layout :another_by_method  
   def index
-
+    redirect_to new_user_url
   end
 
   def new
-    
+   
   end
 
   def create
-    puts"Update all users"
-#    @user = User.new(user_params)
-#    if @user.save
-#      sign_in :user, @user
-#      redirect_to root_url
-#    else
-#      flash[:error] = "Invalid Credentials."
-#      redirect_to new_url
-#    end
+    session[:user] = params[:user]
+    @user = User.find_by_email(params[:user][:email])
+    puts"---------------------- check user", @user.inspect
+    if @user.blank?
+      redirect_to companies_url
+    else
+      flash[:danger] = "Email Already Taken."
+      render :new
+    end
   end
 
   def signin
@@ -38,11 +39,11 @@ class UsersController < ApplicationController
         end
       else
         render :signin
-        flash[:error] = "Invalid Password."
+        flash[:danger] = "Invalid Password."
       end
     else
       render :signin
-      flash[:error] = "User Did Not Exist With This Email."
+      flash[:danger] = "User Did Not Exist With This Email."
     end
 
   end
@@ -51,15 +52,11 @@ class UsersController < ApplicationController
     sign_out current_user if current_user
     redirect_to root_url
   end
+  
   private
+  
   def user_params
     params.require(:user).permit(:first_name, :last_name, :email, :password)
   end
-  def another_by_method
-    if current_user.nil?
-        "xtream-front"
-    else
-      "application"
-    end
-  end
+  
 end
