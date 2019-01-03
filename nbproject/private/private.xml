@@ -3,10 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/kk/projects/railsprojects/version_pool2/app/views/layouts/application.html.erb</file>
-            <file>file:/home/kk/projects/railsprojects/version_pool2/app/views/dashboard/profile.html.erb</file>
-            <file>file:/home/kk/projects/railsprojects/version_pool2/config/routes.rb</file>
-            <file>file:/home/kk/projects/railsprojects/version_pool2/app/views/shared/_admin_header.html.erb</file>
+            <file>file:/home/kk/projects/railsprojects/version_pool2/app/views/customers/edit.html.erb</file>
+            <file>file:/home/kk/projects/railsprojects/version_pool2/app/views/customers/show.html.erb</file>
+            <file>file:/home/kk/projects/railsprojects/version_pool2/app/controllers/customers_controller.rb</file>
         </group>
     </open-files>
 </project-private>

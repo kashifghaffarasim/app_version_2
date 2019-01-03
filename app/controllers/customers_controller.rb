@@ -5,7 +5,7 @@ before_action :authenticate_user!
 
 
 def index
-	@customers = User.all.order(id: :asc).with_any_role(:customer)
+  @customers =  User.where(company_id: current_user.try(:company_id)).order(id: :asc).with_any_role(:customer)
 end
 def new
 	@customer = User.new
@@ -65,16 +65,17 @@ def destroy
 end
 private
 def user_params
-    params.require(:user).permit(:first_name, :last_name, :email, :source, :username, :phone_number, :mobile_number, :avatar)
+    params.require(:user).permit(:first_name, :last_name, :email, :company_id ,:source, :username, :phone_number, :mobile_number, :avatar)
 	end
   
   def address_params
-    params.require(:address).permit(:address_name, :city_name , :state_name , :country_name , :zipcode)
+    params.require(:address).permit(:address_name, :city_name , :address_name2 , :state_name , :country_name , :zipcode)
   end
   
   def get_customer
-    @vendor = User.find_by_id(params[:id])
+    @customer = User.find_by_id(params[:id])
   end
+  
   def customer_address
     if @customer.address.blank?
       @address = Address.new(address_params)

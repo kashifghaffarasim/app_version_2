@@ -1,12 +1,12 @@
 <div class="page-breadcrumb">
     <div class="row">
         <div class="col-5 align-self-center">
-            <h4 class="page-title"> Customers</h4>
+            <h4 class="page-title"> Vendors</h4>
             <div class="d-flex align-items-center">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="<%= root_url %>">Dashboard</a></li>
-                        <li class="breadcrumb-item"><a href="#">Vendors</a></li>
+                        <li class="breadcrumb-item"><a href="#">Pools</a></li>
                     </ol>
                 </nav>
             </div>
@@ -20,7 +20,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="col-md-12 text-right">
-                            <%= link_to 'New Customer', new_customer_url,:class=>"btn btn-info btn-rounded"%>
+                            <%= link_to 'New Pool', new_vendor_url,:class=>"btn btn-info btn-rounded"%>
                         </div>
                     </div>
                     <div class="card-body">
@@ -48,26 +48,26 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <% if !@customers.blank?%>
-                                  <% @customers.each_with_index  do |customer, index| %>
+                                <% if !@vendors.blank?%>
+                                  <% @vendors.each_with_index  do |vendor, index| %>
                                     <tr >
                                         <td><%= index = index + 1 %></td>
                                         <td>
-                                            <% if customer.avatar and customer.avatar.url %>
-                                              <img src="<%= customer.avatar.url%>" class="img img-responsive" width="60">
+                                            <% if vendor.avatar and vendor.avatar.url %>
+                                              <img src="<%= vendor.avatar.url%>" class="img img-responsive" width="60">
                                             <% end %>
                                         </td>
-                                        <td><%= customer.fullname rescue "" %></td>
-                                        <td><%= customer.email%></td>
-                                        <td><%= customer.address.try(:address_name)%> </td>
-                                        <td><%= customer.address.try(:city_name)%> </td>
-                                        <td><%= customer.address.try(:state_name)%> </td>
-                                        <td><%= customer.address.try(:country_name)%> </td>
-                                        <td><%= customer.roles.first.try(:name).capitalize%> </td>
+                                        <td><%= vendor.fullname rescue "" %></td>
+                                        <td><%= vendor.email%></td>
+                                        <td><%= vendor.address.try(:address_name)%> </td>
+                                        <td><%= vendor.address.try(:city_name)%> </td>
+                                        <td><%= vendor.address.try(:state_name)%> </td>
+                                        <td><%= vendor.address.try(:country_name)%> </td>
+                                        <td><%= vendor.roles.first.try(:name).capitalize%> </td>
                                         <td>
-                                            <%= link_to '',edit_customer_url(customer), :class => "fa fa-edit"%>
-                                            <%= link_to '',customer_url(customer), :class => "fa fa-eye", :style => "color: green; padding-left: 5px; padding-right: 5px; font-size: 16px" %>
-                                            <%= link_to '',customer_url(customer), method: :delete,
+                                            <%= link_to '',edit_vendor_url(vendor), :class => "fa fa-edit"%>
+                                            <%= link_to '',vendor_url(vendor), :class => "fa fa-eye", :style => "color: green; padding-left: 5px; padding-right: 5px; font-size: 16px" %>
+                                            <%= link_to '',vendor_url(vendor), method: :delete,
                                               data: { confirm: "Are you sure you want to delete?" }, 
                                               :class => "fa fa-trash-alt" , :style=> "color: red"%>
                                         </td>

@@ -4,7 +4,7 @@ class VendorsController < ApplicationController
   before_action :get_vendor, only: [:show, :edit, :update, :destroy]
   
 	def index
-		@vendors = User.all.order(id: :asc).with_any_role(:vendor, :supplier, :other)
+		@vendors = User.where(company_id: current_user.try(:company_id)).order(id: :asc).with_any_role(:vendor, :supplier, :other)
 	end
   
 	def new
@@ -67,7 +67,7 @@ class VendorsController < ApplicationController
 	private
   
 	def user_params
-    params.require(:user).permit(:first_name, :last_name, :email, :source, :username, :phone_number, :mobile_number, :avatar)
+    params.require(:user).permit(:first_name, :last_name, :email, :source, :company_id ,:username, :phone_number, :mobile_number, :avatar)
 	end
   
   def address_params

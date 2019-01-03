@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   resources :settings, only: [:index]
   resources :companies, only: [:index, :create, :edit, :update, :show]
   resources :profiles 
+  resources :pools
   
   get '/dashboard' => 'dashboard#index'
   root 'welcomes#index'

@@ -42,7 +42,6 @@
                                     <th> City</th>
                                     <th> State</th>
                                     <th> Country</th>
-                                    <th> Source</th>
                                     <th> Role</th>
                                     <th> Actions </th>
 
@@ -64,7 +63,6 @@
                                         <td><%= vendor.address.try(:city_name)%> </td>
                                         <td><%= vendor.address.try(:state_name)%> </td>
                                         <td><%= vendor.address.try(:country_name)%> </td>
-                                        <td><%= vendor.source%> </td>
                                         <td><%= vendor.roles.first.try(:name).capitalize%> </td>
                                         <td>
                                             <%= link_to '',edit_vendor_url(vendor), :class => "fa fa-edit"%>

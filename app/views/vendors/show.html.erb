@@ -2,73 +2,205 @@
     <div class="page-breadcrumb" >
         <div class="row">
             <div class="col-5 align-self-center">
-                <h4 class="page-title">Form Horizontal</h4>
+                <h4 class="page-title">Vendors</h4>
                 <div class="d-flex align-items-center">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Library</li>
+                            <li class="breadcrumb-item"><a href="<%= vendors_url %>">Vendors</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Vendor Profile</li>
                         </ol>
                     </nav>
                 </div>
             </div>
+
         </div>
-    </div>
 
-    <div class="container-fluid">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title" style="text-align: center;">VENDOR PROFILE </h4>
+                            <h6 class="card-subtitle"></h6>
+                        </div>
+                        <hr>
 
-        <div class="row">
-            <div class="col-12">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title" style="text-align: center;">VENDOR PERSONAL SETTINGS</h4>
-                        <h6 class="card-subtitle"></h6>
+                        <div class="card-body">
+
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-12">
+                                    <div class="form-group row">
+                                        <div class="col-sm-12 text-center">
+                                            <% if @vendor.avatar and @vendor.avatar.url %>
+                                              <img src="<%= @vendor.avatar.url%>" class="rounded-circle" width="150">
+                                            <% end %>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-6">
+                                    <div class="form-group row">
+                                        <label for="fname" class="col-sm-3 text-right control-label col-form-label">User Name</label>
+                                        <div class="col-sm-9">
+                                            <p class= "form-control">
+                                                <%= @vendor.try(:username) %>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-lg-6">
+                                    <div class="form-group row">
+                                        <label for="fname" class="col-sm-3 text-right control-label col-form-label">Type </label>
+                                        <div class="col-sm-9">
+                                            <p class= "form-control">
+                                                <%= @vendor.roles.first.try(:name) %>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-6">
+                                    <div class="form-group row">
+                                        <label for="fname" class="col-sm-3 text-right control-label col-form-label">First Name</label>
+                                        <div class="col-sm-9">
+                                            <p class= "form-control">
+                                                <%= @vendor.try(:first_name) %>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-lg-6">
+                                    <div class="form-group row">
+                                        <label for="fname" class="col-sm-3 text-right control-label col-form-label">Last Name</label>
+                                        <div class="col-sm-9">
+                                            <p class= "form-control">
+                                                <%= @vendor.last_name %>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-6">
+                                    <div class="form-group row">
+                                        <label for="fname" class="col-sm-3 text-right control-label col-form-label">Email</label>
+                                        <div class="col-sm-9">
+                                            <p class= "form-control">
+                                                <%= @vendor.try(:email) %>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-6">
+                                    <div class="form-group row">
+                                        <label for="fname" class="col-sm-3 text-right control-label col-form-label">Phone No</label>
+                                        <div class="col-sm-9">
+                                            <p class= "form-control">
+                                                <%= @vendor.try(:phone_number) %>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-lg-6">
+                                    <div class="form-group row">
+                                        <label for="fname" class="col-sm-3 text-right control-label col-form-label">Mobile Number</label>
+                                        <div class="col-sm-9">
+                                            <p class= "form-control">
+                                                <%= @vendor.try(:mobile_number) %>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-6">
+                                    <div class="form-group row">
+                                        <label for="fname" class="col-sm-3 text-right control-label col-form-label">Address</label>
+                                        <div class="col-sm-9">
+                                            <p class= "form-control">
+
+                                                <%= @vendor.address.try(:address_name)%>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-lg-6">
+                                    <div class="form-group row">
+                                        <label for="fname" class="col-sm-3 text-right control-label col-form-label">City</label>
+                                        <div class="col-sm-9">
+                                            <p class= "form-control">
+                                                <%= @vendor.address.try(:city_name) %>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-6">
+                                    <div class="form-group row">
+                                        <label for="fname" class="col-sm-3 text-right control-label col-form-label">State</label>
+                                        <div class="col-sm-9">
+                                            <p class= "form-control">
+                                                <%= @vendor.address.try(:state_name)%>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-lg-6">
+                                    <div class="form-group row">
+                                        <label for="fname" class="col-sm-3 text-right control-label col-form-label">Country</label>
+                                        <div class="col-sm-9">
+                                            <p class= "form-control">
+
+                                                <%= @vendor.address.try(:country_name)%>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-6">
+                                    <div class="form-group row">
+                                        <label for="fname" class="col-sm-3 text-right control-label col-form-label">Zip Code</label>
+                                        <div class="col-sm-9">
+                                            <p class= "form-control">
+                                                <%= @vendor.address.try(:zipcode)%>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-lg-6">
+                                    <div class="form-group row">
+                                        <label for="fname" class="col-sm-3 text-right control-label col-form-label">Source</label>
+                                        <div class="col-sm-9">
+                                            <p class= "form-control">
+                                                <%= @vendor.try(:source)%>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
-                    <hr>
 
-                    <div class="card-body">
-                        <h4 class="card-title">VENDOR INFO</h4>
-                        <div class="form-group row">
-                            <label for="fname" class="col-sm-3 text-right control-label col-form-label">Vendor Id</label>
-                            <div class="col-sm-9">
-                                <p class= "form-control">
-                                    <%= @vendor.id %>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="fname" class="col-sm-3 text-right control-label col-form-label">First Name</label>
-                            <div class="col-sm-9">
-                                <p class= "form-control">
-                                    <%= @vendor.first_name %>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="fname" class="col-sm-3 text-right control-label col-form-label">First Name</label>
-                            <div class="col-sm-9">
-                                <p class= "form-control">
-                                    <%= @vendor.last_name %>
-                                </p>
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label for="email1" class="col-sm-3 text-right control-label col-form-label">Email</label>
-                            <div class="col-sm-9">
-                                <p class= "form-control">
-                                    <%= @vendor.email %>
-                                </p>
-                            </div>
-                        </div>
-
-                    </div>
                 </div>
-
             </div>
         </div>
+
     </div>
-
 </div>
-
-
 
