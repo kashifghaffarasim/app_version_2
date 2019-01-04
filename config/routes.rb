@@ -29,7 +29,7 @@ Rails.application.routes.draw do
   resources :companies, only: [:index, :create, :edit, :update, :show]
   resources :profiles 
   resources :pools
-  
+  resources :team_members
   get '/dashboard' => 'dashboard#index'
   root 'welcomes#index'
  #get '/settings/:id/edit_company', to: 'settings#edit_company', as: :edit_company

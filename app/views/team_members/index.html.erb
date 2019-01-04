@@ -1,0 +1,85 @@
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-5 align-self-center">
+            <h4 class="page-title"> Members</h4>
+            <div class="d-flex align-items-center">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="<%= root_url %>">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="#">Members</a></li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="row">
+            <div class="col-12">
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="col-md-12 text-right">
+                            <%= link_to 'New Team Members', new_team_member_url,:class=>"btn btn-info btn-rounded"%>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <% unless flash[:notice].blank? %>
+                          <div class="flash_team_member">
+                              <div id="flash_notice_team_member" class="flash_team_member flash_notice_team_member clearfix hide_for_print">
+                                  <%= flash[:notice] %><i class="fa fa-check" style="float:right;"></i>
+                              </div>
+                          </div>
+                        <%end%> 
+                        <table id="demo-foo-addrow" class="table m-t-30 no-wrap table-hover contact-list" data-page-size="10">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th> Proifle Image </th>
+                                    <th> Full Name </th>
+                                    <th> Email </th>
+                                    <th> Address </th>
+                                    <th> City</th>
+                                    <th> State</th>
+                                    <th> Country</th>
+                                    <th> Role</th>
+                                    <th> Actions </th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% if !@team_members.blank?%>
+                                  <% @team_members.each_with_index  do |team_member, index| %>
+                                    <tr >
+                                        <td><%= index = index + 1 %></td>
+                                        <td>
+                                            <% if team_member.avatar and team_member.avatar.url %>
+                                              <img src="<%= team_member.avatar.url%>" class="img img-responsive" width="60">
+                                            <% end %>
+                                        </td>
+                                        <td><%= team_member.fullname rescue "" %></td>
+                                        <td><%= team_member.email%></td>
+                                        <td><%= team_member.address.try(:address_name)%> </td>
+                                        <td><%= team_member.address.try(:city_name)%> </td>
+                                        <td><%= team_member.address.try(:state_name)%> </td>
+                                        <td><%= team_member.address.try(:country_name)%> </td>
+                                        <td><%= team_member.roles.first.try(:name).capitalize%> </td>
+                                        <td>
+                                            <%= link_to '',edit_team_member_url(team_member), :class => "fa fa-edit"%>
+                                            <%= link_to '',team_member_url(team_member), :class => "fa fa-eye", :style => "color: green; padding-left: 5px; padding-right: 5px; font-size: 16px" %>
+                                            <%= link_to '',team_member_url(team_member), method: :delete,
+                                              data: { confirm: "Are you sure you want to delete?" }, 
+                                              :class => "fa fa-trash-alt" , :style=> "color: red"%>
+                                        </td>
+                                    </tr>
+                                  <% end %>
+                                <% end %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

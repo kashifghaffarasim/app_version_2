@@ -1,0 +1,197 @@
+<div> 
+    <div class="page-breadcrumb" >
+        <div class="row">
+            <div class="col-5 align-self-center">
+                <h4 class="page-title">Team Members</h4>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="<%= @team_members_url %>">Team Members</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Team Member  Profile</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h4 class="card-title" style="text-align: center;">VENDOR PROFILE </h4>
+                            <h6 class="card-subtitle"></h6>
+                        </div>
+                        <hr>
+
+                        <div class="card-body">
+
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-12">
+                                    <div class="form-group row">
+                                        <div class="col-sm-12 text-center">
+                                            <% if @team_member .avatar and @team_member .avatar.url %>
+                                              <img src="<%= @team_member.avatar.url%>" class="rounded-circle" width="150">
+                                            <% end %>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-6">
+                                    <div class="form-group row">
+                                        <label for="fname" class="col-sm-3 text-right control-label col-form-label">User Name</label>
+                                        <div class="col-sm-9">
+                                            <p class= "form-control">
+                                                <%= @team_member.try(:username) %>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-lg-6">
+                                    <div class="form-group row">
+                                        <label for="fname" class="col-sm-3 text-right control-label col-form-label">Type </label>
+                                        <div class="col-sm-9">
+                                            <p class= "form-control">
+                                                <%= @team_member.roles.first.try(:name) %>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-6">
+                                    <div class="form-group row">
+                                        <label for="fname" class="col-sm-3 text-right control-label col-form-label">First Name</label>
+                                        <div class="col-sm-9">
+                                            <p class= "form-control">
+                                                <%= @team_member.try(:first_name) %>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-lg-6">
+                                    <div class="form-group row">
+                                        <label for="fname" class="col-sm-3 text-right control-label col-form-label">Last Name</label>
+                                        <div class="col-sm-9">
+                                            <p class= "form-control">
+                                                <%= @team_member.last_name %>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-6">
+                                    <div class="form-group row">
+                                        <label for="fname" class="col-sm-3 text-right control-label col-form-label">Email</label>
+                                        <div class="col-sm-9">
+                                            <p class= "form-control">
+                                                <%= @team_member.try(:email) %>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-6">
+                                    <div class="form-group row">
+                                        <label for="fname" class="col-sm-3 text-right control-label col-form-label">Phone No</label>
+                                        <div class="col-sm-9">
+                                            <p class= "form-control">
+                                                <%= @team_member.try(:phone_number) %>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-lg-6">
+                                    <div class="form-group row">
+                                        <label for="fname" class="col-sm-3 text-right control-label col-form-label">Mobile Number</label>
+                                        <div class="col-sm-9">
+                                            <p class= "form-control">
+                                                <%= @team_member.try(:mobile_number) %>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-6">
+                                    <div class="form-group row">
+                                        <label for="fname" class="col-sm-3 text-right control-label col-form-label">Address</label>
+                                        <div class="col-sm-9">
+                                            <p class= "form-control">
+
+                                                <%= @team_member.address.try(:address_name)%>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-lg-6">
+                                    <div class="form-group row">
+                                        <label for="fname" class="col-sm-3 text-right control-label col-form-label">City</label>
+                                        <div class="col-sm-9">
+                                            <p class= "form-control">
+                                                <%= @vendor.address.try(:city_name) %>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-6">
+                                    <div class="form-group row">
+                                        <label for="fname" class="col-sm-3 text-right control-label col-form-label">State</label>
+                                        <div class="col-sm-9">
+                                            <p class= "form-control">
+                                                <%= @team_member.address.try(:state_name)%>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-12 col-lg-6">
+                                    <div class="form-group row">
+                                        <label for="fname" class="col-sm-3 text-right control-label col-form-label">Country</label>
+                                        <div class="col-sm-9">
+                                            <p class= "form-control">
+
+                                                <%= @team_member.address.try(:country_name)%>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-6">
+                                    <div class="form-group row">
+                                        <label for="fname" class="col-sm-3 text-right control-label col-form-label">Zip Code</label>
+                                        <div class="col-sm-9">
+                                            <p class= "form-control">
+                                                <%= @team_member.address.try(:zipcode)%>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
