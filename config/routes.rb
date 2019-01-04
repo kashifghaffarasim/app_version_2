@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   resources :vendors
   resources :jobs
   resources :calendars
+ # resources :address
   resources :settings, only: [:index]
   resources :companies, only: [:index, :create, :edit, :update, :show]
   resources :profiles 
@@ -31,8 +32,8 @@ Rails.application.routes.draw do
   
   get '/dashboard' => 'dashboard#index'
   root 'welcomes#index'
-#  get '/settings/:id/edit_company', to: 'settings#edit_company', as: :edit_company
-#  patch '/settings/update_company/:id', to: 'settings#update_company', as: :update_company
-#  get '/settings/:id/edit_address', to: 'settings#edit_address', as: :edit_address
-#  patch '/settings/update_address/:id', to: 'settings#update_address', as: :update_address
+ #get '/settings/:id/edit_company', to: 'settings#edit_company', as: :edit_company
+  #patch '/settings/update_company/:id', to: 'settings#update_company', as: :update_company
+  get '/companies/:id/edit_address', to: 'companies#edit_address', as: :edit_address
+  patch '/companies/update_address/:id', to: 'companies#update_address', as: :update_address
 end
