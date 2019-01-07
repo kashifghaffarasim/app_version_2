@@ -1,7 +1,7 @@
 <div class="page-breadcrumb">
     <div class="row">
         <div class="col-5 align-self-center">
-            <h4 class="page-title"> Vendors</h4>
+            <h4 class="page-title"> Pools </h4>
             <div class="d-flex align-items-center">
                 <nav aria-label="breadcrumb">
                     <ol class="breadcrumb">
@@ -13,6 +13,7 @@
         </div>
     </div>
 
+
     <div>
         <div class="row">
             <div class="col-12">
@@ -20,7 +21,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="col-md-12 text-right">
-                            <%= link_to 'New Pool', new_vendor_url,:class=>"btn btn-info btn-rounded"%>
+                            <%= link_to 'New Pool',  new_pool_url,:class=>"btn btn-info btn-rounded"%>
                         </div>
                     </div>
                     <div class="card-body">
@@ -35,41 +36,33 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th> Proifle Image </th>
-                                    <th> Full Name </th>
-                                    <th> Email </th>
-                                    <th> Address </th>
+                                    <th> Customer </th>
+                                    <th> Pool Name </th>
+                                    <th> Pool Type </th>
                                     <th> City</th>
                                     <th> State</th>
                                     <th> Country</th>
-                                    <th> Role</th>
+                                    <th> Status </th>
                                     <th> Actions </th>
-
                                 </tr>
                             </thead>
                             <tbody>
-                                <% if !@vendors.blank?%>
-                                  <% @vendors.each_with_index  do |vendor, index| %>
+                                <% if !@pools.blank?%>
+                                  <% @pools.each_with_index  do |pool, index| %>
                                     <tr >
                                         <td><%= index = index + 1 %></td>
+                                        <td><%= pool.user.fullname rescue "" %></td>
+                                        <td><%= pool.try(:pool_name)%></td>
+                                        <td><%= pool.try(:pool_type)%> </td>
+                                        <td><%= pool.address.try(:city_name)%> </td>
+                                        <td><%= pool.address.try(:state_name)%> </td>
+                                        <td><%= pool.address.try(:country_name)%> </td>
+                                        <td><%= pool.try(:pool_activity)%> </td>
                                         <td>
-                                            <% if vendor.avatar and vendor.avatar.url %>
-                                              <img src="<%= vendor.avatar.url%>" class="img img-responsive" width="60">
-                                            <% end %>
-                                        </td>
-                                        <td><%= vendor.fullname rescue "" %></td>
-                                        <td><%= vendor.email%></td>
-                                        <td><%= vendor.address.try(:address_name)%> </td>
-                                        <td><%= vendor.address.try(:city_name)%> </td>
-                                        <td><%= vendor.address.try(:state_name)%> </td>
-                                        <td><%= vendor.address.try(:country_name)%> </td>
-                                        <td><%= vendor.roles.first.try(:name).capitalize%> </td>
-                                        <td>
-                                            <%= link_to '',edit_vendor_url(vendor), :class => "fa fa-edit"%>
-                                            <%= link_to '',vendor_url(vendor), :class => "fa fa-eye", :style => "color: green; padding-left: 5px; padding-right: 5px; font-size: 16px" %>
-                                            <%= link_to '',vendor_url(vendor), method: :delete,
+                                            <%= link_to '',edit_pool_url(pool), :class => "fa fa-edit"%>
+                                            <%= link_to '',pool_url(pool), method: :delete,
                                               data: { confirm: "Are you sure you want to delete?" }, 
-                                              :class => "fa fa-trash-alt" , :style=> "color: red"%>
+                                              :class => "fa fa-trash-alt" , :style=> "color: red; margin-left: 12px"%>
                                         </td>
                                     </tr>
                                   <% end %>

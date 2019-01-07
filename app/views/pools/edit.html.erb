@@ -1,0 +1,47 @@
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-5 align-self-center">
+            <h4 class="page-title"> Edit Pool</h4>
+            <div class="d-flex align-items-center">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="<%= pools_url %>">Pools</a></li>
+                        <li class="breadcrumb-item"><a href="#">Edit Pool</a></li>
+
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body" style="    padding-bottom: 0px;">
+                    <h4 class="card-title">Edit Pool</h4>
+                </div>
+
+                <% flash.each do |key, value| %>
+                  <div class="alert alert-<%= key %>"><%= value %></div>
+                <% end %>
+                <hr>
+
+                <%= form_for @pool, url: pool_url(@pool) , :class => 'form-horizontal m-t-20' , html: { multipart: true } do |f|  %>
+
+                  <div class="card-body">
+                      <%= render 'pools/address' %>
+                      <%= render 'pools/form', pool: @pool %>
+                  </div>                      
+                  <hr>
+
+                  <div class="card-body">
+                      <div class="form-group m-b-0 text-right">
+                          <button type="submit" class="btn btn-info waves-effect waves-light">Save</button>
+                          <a href="<%=  pools_url %>" class="btn btn-dark waves-effect waves-light">Cancel</a>
+                      </div>
+                  </div>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</div>

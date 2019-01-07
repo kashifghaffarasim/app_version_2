@@ -1,0 +1,105 @@
+<div>
+    <hr>
+    <h4 class="card-title">Pool Summary</h4>
+    <div class="row">
+        <div class="col-sm-12 col-lg-6">
+            <div class="form-group row">
+                <label for="uname1" class="col-sm-3 text-right control-label col-form-label">Pool Name</label>
+                <div class="col-sm-9">
+                    <input  class="form-control" type="text" name="pool[pool_name]"  placeholder="Pool Name" required="" value="<%= @pool.try(:pool_name)%>">
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-lg-6">
+            <div class="form-group row">
+                <label for="nname" class="col-sm-3 text-right control-label col-form-label"> Pool Activity </label>
+                <div class="col-sm-9">
+                    <%= select_tag('pool[pool_activity]', options_for_select([['Lead', 'Lead'], ['FollowUp', 'FollowUp'], ['Active', 'Active'], ['Inactive', 'inactive']], selected: @pool.try(:pool_activity)), :class => "form-control") %>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12 col-lg-6">
+            <div class="form-group row">
+                <label for="uname1" class="col-sm-3 text-right control-label col-form-label">Pool Type</label>
+                <div class="col-sm-9">
+                    <input  class="form-control"  type="text" name="pool[pool_type]" value="<%= @pool.try(:pool_type)%>"  placeholder="Pool Type" required="">
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-lg-6">
+            <div class="form-group row">
+                <label for="nname" class="col-sm-3 text-right control-label col-form-label">Pool Volume</label>
+                <div class="col-sm-9">
+                    <input  class="form-control" type="text" name="pool[pool_volume]"  value="<%= @pool.try(:pool_volume)%>"  placeholder="Pool Volume" >
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12 col-lg-6">
+            <div class="form-group row">
+                <label for="uname1" class="col-sm-3 text-right control-label col-form-label"> Pool Volume2 </label>
+                <div class="col-sm-9">
+                    <input  class="form-control" type="text" name="address[pool_volume2]" value="<%= @pool.try(:pool_volume2)%>"  placeholder="Pool Volume2" >
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-lg-6">
+            <div class="form-group row">
+                <label for="nname" class="col-sm-3 text-right control-label col-form-label">Pool Gate Code</label>
+                <div class="col-sm-9">
+                    <input  class="form-control" type="text" name="pool[pool_gate_code]" value="<%= @pool.try(:pool_gate_code)%>"    placeholder="Pool Gate Code">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-sm-12 col-lg-6">
+            <div class="form-group row">
+                <label for="uname1" class="col-sm-3 text-right control-label col-form-label">Pool notes</label>
+                <div class="col-sm-9">
+                    <input  class="form-control" type="text" name="pool[pool_description]" value="<%= @pool.try(:pool_description)%>"  placeholder="Pool Notes" >
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-lg-6">
+            <div class="form-group row">
+                <label for="nname" class="col-sm-3 text-right control-label col-form-label">Pool Lifeguards</label>
+                <div class="col-sm-9">
+                    <input  class="form-control" type="text" name="pool[pool_lifeguards]" value="<%= @pool.try(:pool_lifeguards)%>"  placeholder="Pool Lifeguards">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="col-sm-12 col-lg-6">
+            <div class="form-group row">
+                <label for="nname" class="col-sm-3 text-right control-label col-form-label">Pool Photos</label>
+                <div class="col-sm-9">
+                    <input  class="form-control" type="file" name="pool[photos][]"  placeholder="Pool Photos" multiple>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-lg-6">
+            <div class="form-group row">
+                <label for="uname1" class="col-sm-3 text-right control-label col-form-label">Source</label>
+                <div class="col-sm-9">
+                    <%= select_tag('pool[pool_source_type]', options_for_select([['Maps', 'Maps'], ['Referal', 'Referal'], ['CL', 'CL'], ['PennyServer', 'PennyServer'], ['HomeAdviser', 'HomeAdviser'], ['AngiesList', 'AngiesList']], selected: @pool.try(:pool_source_type) ), :class => "form-control") %>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

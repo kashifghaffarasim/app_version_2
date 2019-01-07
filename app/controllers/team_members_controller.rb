@@ -1,15 +1,19 @@
 class TeamMembersController < ApplicationController
+
 	before_action :get_vendor, only: [:show, :edit, :update, :destroy]
 
 	def index
 		@team_members = User.where(company_id: current_user.try(:company_id)).order(id: :asc).with_any_role(:admin, :user)
 	end
+  
 	def new
 		@team_member  = User.new
 	end 
+  
 	def show
 		@team_member  = User.find_by_id(params[:id])
 	end
+  
 	def create
 		params[:user][:password] = '12345678'
 		@team_member  = User.new(user_params)
