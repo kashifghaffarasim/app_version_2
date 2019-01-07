@@ -1,5 +1,7 @@
 class SettingsController < ApplicationController
 
+  before_action :authenticate_user!
+  
 	def index
 
 	end
@@ -27,6 +29,5 @@ class SettingsController < ApplicationController
 	def destroy 
 
 	end 
-	private
 
 end

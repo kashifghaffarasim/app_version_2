@@ -1,6 +1,8 @@
 class CompaniesController < ApplicationController
   layout 'xtream-front', only: [:index, :create]
   
+  before_action :authenticate_user! , only: [:edit, :update, :show]
+  
   def index
     if session[:user].blank?
       redirect_to new_user_url
@@ -22,47 +24,66 @@ class CompaniesController < ApplicationController
     end
 
   end
+
+  def show
+    @company = Company.find_by_id(params[:id])
+  end
   
   def edit
-    puts"JJJJJ"
     @company = Company.find_by_id(params[:id])
-    
   end
   
   def update
     @company = Company.find_by_id(params[:id])
     if @company.update(company_params)
-      flash[:notice] = "settings update!"
-      #redirect_to vendors_url
+      address_update()
+      flash[:success] = "settings update!"
     else
-      flash[:notice] = "settings not update!"
-      #redirect_to vendors_url
+      flash[:error] = "settings not update!"
+      
     end
+    redirect_back(fallback_location: root_path)
   end
+  
   def edit_address
     @address = Address.find_by_id(params[:id])
   end
+  
   def update_address
     @address = Address.find_by_id(params[:id])
     if @address.update(address_params)
-      flash[:notice] = "settings update!"
-      #redirect_to vendors_url
+      flash[:success] = "settings update!"
     else
-      flash[:notice] = "settings not update!"
-      #redirect_to vendors_url
+      flash[:error] = "settings not update!"
     end
+    redirect_to settings_url
   end
 
   private
 
   def company_params
-    params.require(:company).permit(:name)
+    params.require(:company).permit(:name, :latitude, :logitude, :phone, :email, :website, :start_week, :avatar)
   end
+  
   def address_params
-    params.require(:address).permit(:address_name,:city_name,:country_name,:zipcode)
+    params.require(:address).permit(:address_name, :state_name ,:city_name,:country_name,:zipcode)
   end
-  def company_address
+
+  def address_update
+    if @company
+      if @company.address.blank?
+        @address = Address.new(address_params)
+        @address.company_id = @company.try(:id)
+        if @address.save
+        end
+      else
+        if @company.address.update(address_params)
+           
+        end
+      end
+    end
   end
+  
   def save_user(company)
     @user =  User.new(:first_name => session[:user]['first_name'], 
       :last_name => session[:user]['last_name'], 

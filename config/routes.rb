@@ -9,7 +9,6 @@ Rails.application.routes.draw do
   	end
   end
   
-  
   resources :welcomes, only: [:index] do
   	collection  do
   		get :pricing 
@@ -20,11 +19,14 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :settings do
+    resources :pool_settings, only: [:index, :create , :edit, :show, :destroy]
+  end
+  
   resources :customers
   resources :vendors
   resources :jobs
   resources :calendars
- # resources :address
   resources :settings, only: [:index]
   resources :companies, only: [:index, :create, :edit, :update, :show]
   resources :profiles 
@@ -32,7 +34,7 @@ Rails.application.routes.draw do
   resources :team_members
   get '/dashboard' => 'dashboard#index'
   root 'welcomes#index'
- #get '/settings/:id/edit_company', to: 'settings#edit_company', as: :edit_company
+  #get '/settings/:id/edit_company', to: 'settings#edit_company', as: :edit_company
   #patch '/settings/update_company/:id', to: 'settings#update_company', as: :update_company
   get '/companies/:id/edit_address', to: 'companies#edit_address', as: :edit_address
   patch '/companies/update_address/:id', to: 'companies#update_address', as: :update_address

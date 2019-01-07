@@ -7,7 +7,7 @@
 				<h4 class="modal-title" id="myModalLabel">Regional Info</h4>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 			</div>
-			<%= form_for @company , url: company_url, remote: true,  :authenticity_token => true do |f|%>
+			<%= form_for @company , url: company_url do |f|%>
 			<div class="modal-body">
 				<div class="form-group">
 					<label for="recipient-name" class="control-label">Company name</label>

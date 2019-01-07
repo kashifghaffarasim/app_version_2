@@ -8,99 +8,140 @@
                 <!-- User Profile-->
                 <li class="nav-small-cap"><i class="mdi mdi-dots-horizontal"></i> <span class="hide-menu">Personal</span></li>
 
-                <li class="nav-small-cap"><i class="mdi mdi-dots-horizontal"></i> <span class="hide-menu">Settings</span></li>
                 <li class="sidebar-item"> 
-                    <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                    <a class="sidebar-link has-arrow waves-effect waves-dark active" href="javascript:void(0)" 
+                       aria-expanded="false">
                         <i class="mdi mdi-collage"></i>
-                        <span class="hide-menu">Settings</span></a>
-                        <ul aria-expanded="false" class="collapse first-level">
-                            <li class="sidebar-item">
-                                <a href=""class = "sidebar-link" >Settings</a>
-                            </li>
-                        </ul>
-                        <ul aria-expanded="false" class="collapse first-level" id="settings_sidebar">
+                        <span class="hide-menu">Settings</span>
+                    </a>
+                    <ul aria-expanded="false" class="collapse first-level">
+                        <li class="sidebar-item"> 
+                            <a class="sidebar-link has-arrow waves-effect waves-dark" 
+                               href="javascript:void(0)"
+                               aria-expanded="false"><i class="mdi mdi-collage"></i>
+                                <span class="hide-menu">Company Settings</span></a>
+                            <ul aria-expanded="false" class="collapse second-level">
+                                <li class="sidebar-item"><a href="<%= settings_url%> " class="sidebar-link"><i class="mdi mdi-priority-low"></i><span class="hide-menu"> General Settings</span></a></li>
+                                <li class="sidebar-item"><a href="<%= team_members_url %>" class="sidebar-link"><i class="mdi mdi-rounded-corner"></i><span class="hide-menu"> Team Members</span></a></li>
+                                <li class="sidebar-item"><a href="<%= company_url(id: current_user.try(:company_id))%>" class="sidebar-link"><i class="mdi mdi-select-all"></i><span class="hide-menu"> Company Branding</span></a></li>
+                                <li class="sidebar-item"><a href="#" class="sidebar-link"><i class="mdi mdi-shape-plus"></i><span class="hide-menu"> Product & Services</span></a></li>
+                                <li class="sidebar-item"><a href="#" class="sidebar-link"><i class="mdi mdi-switch"></i><span class="hide-menu"> Custom Fields</span></a></li>
+                                <li class="sidebar-item"><a href="#" class="sidebar-link"><i class="mdi mdi-toggle-switch-off"></i><span class="hide-menu"> Notifications </span></a></li>
+                            </ul>
+                        </li>
+                        <li class="sidebar-item"> 
+                            <a class="sidebar-link has-arrow waves-effect waves-dark" 
+                               href="javascript:void(0)" aria-expanded="false">
+                                <i class="mdi mdi-receipt"></i>
+                                <span class="hide-menu">Work Setting</span>
+                            </a>
+                            <ul aria-expanded="false" class="collapse second-level">
+                                <li class="sidebar-item"><a href="form-basic.html" class="sidebar-link"><i class="mdi mdi-vector-difference-ba"></i><span class="hide-menu"> Pool </span></a></li>
+                                <li class="sidebar-item"><a href="form-horizontal.html" class="sidebar-link"><i class="mdi mdi-file-document-box"></i><span class="hide-menu"> Plan Builder </span></a></li>
+                                <li class="sidebar-item"><a href="form-actions.html" class="sidebar-link"><i class="mdi mdi-code-greater-than"></i><span class="hide-menu"> Quotes</span></a></li>
+                                <li class="sidebar-item"><a href="form-row-separator.html" class="sidebar-link"><i class="mdi mdi-code-equal"></i><span class="hide-menu"> Work Order </span></a></li>
+                                <li class="sidebar-item"><a href="form-bordered.html" class="sidebar-link"><i class="mdi mdi-flip-to-front"></i><span class="hide-menu"> Invoice </span></a></li>
+                                <li class="sidebar-item"><a href="form-striped-row.html" class="sidebar-link"><i class="mdi mdi-content-duplicate"></i><span class="hide-menu"> Folder Access</span></a></li>
+                                <li class="sidebar-item"><a href="form-detail.html" class="sidebar-link"><i class="mdi mdi-cards-outline"></i><span class="hide-menu"> Pool Service</span></a></li>
+                                <li class="sidebar-item"><a href="form-detail.html" class="sidebar-link"><i class="mdi mdi-cards-outline"></i><span class="hide-menu"> Spa  Service</span></a></li>
+                                <li class="sidebar-item"><a href="form-detail.html" class="sidebar-link"><i class="mdi mdi-cards-outline"></i><span class="hide-menu"> Chemical Items</span></a></li>
+                                <li class="sidebar-item"><a href="form-detail.html" class="sidebar-link"><i class="mdi mdi-cards-outline"></i><span class="hide-menu"> Email Options</span></a></li>
+                                <li class="sidebar-item"><a href="form-detail.html" class="sidebar-link"><i class="mdi mdi-cards-outline"></i><span class="hide-menu"> TimeSheet</span></a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
 
-                          <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-collage"></i><span class="hide-menu">Company Settings</span></a>
+                <li class="sidebar-item" style="display: none"> 
+                    <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false">
+                        <i class="mdi mdi-view-dashboard"></i>
+                        <span class="hide-menu">Settings</span>
+                    </a>
+                    <ul aria-expanded="false" class="collapse  first-level">
+                        <li class="sidebar-item">
+                            <a href="<%= settings_url%>" class="sidebar-link">
+                                <i class="mdi mdi-content-save-settings"></i>
+                                <span class="hide-menu"> General </span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item"><a href="<%= team_members_url%>" class="sidebar-link">
+                                <i class="mdi mdi-account-settings"></i>
+                                <span class="hide-menu"> Team Members </span></a>
+                        </li>
+                        <li class="sidebar-item"><a href="index3.html" class="sidebar-link"><i class="mdi mdi-adjust"></i><span class="hide-menu"> Cryptocurrency </span></a></li>
+                        <li class="sidebar-item"><a href="index4.html" class="sidebar-link"><i class="mdi mdi-adjust"></i><span class="hide-menu"> Overview </span></a></li>
+                        <li class="sidebar-item"><a href="index5.html" class="sidebar-link"><i class="mdi mdi-adjust"></i><span class="hide-menu"> E-Commerce </span></a></li>
+                        <li class="sidebar-item"><a href="index6.html" class="sidebar-link"><i class="mdi mdi-adjust"></i><span class="hide-menu"> Sales </span></a></li>
+                        <li class="sidebar-item"><a href="index7.html" class="sidebar-link"><i class="mdi mdi-adjust"></i><span class="hide-menu"> General </span></a></li>
+                        <li class="sidebar-item"><a href="index8.html" class="sidebar-link"><i class="mdi mdi-adjust"></i><span class="hide-menu"> Trendy </span></a></li>
+                        <li class="sidebar-item"><a href="index9.html" class="sidebar-link"><i class="mdi mdi-adjust"></i><span class="hide-menu"> Campaign </span></a></li>
+                        <li class="sidebar-item"><a href="index10.html" class="sidebar-link"><i class="mdi mdi-adjust"></i><span class="hide-menu"> Modern </span></a></li>
+                    </ul>
+                </li>
 
-                              <ul aria-expanded="false" class="collapse second-level">
-                                <li class="sidebar-item"><a href="<%= settings_url %>" class="sidebar-link "><i class="mdi mdi-priority-low"></i><span class="hide-menu">General</span></a></li>
-                                  <li class="sidebar-item"><a href="" class="sidebar-link "><i class="mdi mdi-rounded-corner"></i><span class="hide-menu">Team Members</span></a></li>
-                                  <li class="sidebar-item"><a href="" class="sidebar-link "><i class="mdi mdi-select-all"></i><span class="hide-menu">Company Branding</span></a></li>
-                                  <li class="sidebar-item"><a href="" class="sidebar-link"><i class="mdi mdi-shape-plus"></i><span class="hide-menu">Services &amp; Products</span></a></li>
-                                  <li class="sidebar-item"><a href="/custom_fields" class="sidebar-link "><i class="mdi mdi-switch"></i><span class="hide-menu">Custom Fields</span></a></li>
-                                  <li class="sidebar-item"><a href="" class="sidebar-link "><i class="mdi mdi-toggle-switch-off"></i><span class="hide-menu">Notifications</span></a></li>
-                              </ul>
-                          </li>
-
-                      </li>
-
-                  </ul>
-
-              </li>
-
-              <li class="sidebar-item">
-                <a  class = "sidebar-link" href="<%= calendars_url %>">
-                    <i class="mdi mdi-collage"></i>
-                    <span class="hide-menu">Scheduler</span></a>
-                </a>
-            </li>
-
-
-            <li class="sidebar-item">
-                <a  class = "sidebar-link">
-                    <i class="mdi mdi-view-dashboard"></i>
-                    <span class="hide-menu">Expenses</span>
-                </a>
-            </li>
-
-            <li class="sidebar-item">
-                <a class = "sidebar-link">
-                    <i class="mdi mdi-view-dashboard">
-                    </i>
-                    <span class="hide-menu">Times Sheets</span>   
-                </a>
-
-
-            </li> 
-            <li class="sidebar-item">
-                <a href="<%= vendors_url %>"  class = "sidebar-link" >
-                    <i class="mdi mdi-view-dashboard">
-                    </i>
-                    <span class="hide-menu">Vendors</span>   
-
-
-                </a>
-            </li>
-
-
-            <li class="sidebar-item">
-                <a  class = "sidebar-link" >
-                    <i class="font-24 mdi mdi-comment-processing"></i>
-                    <span class="hide-menu">  Communications
-                    </span>
-                </a>
-            </li>
-
-
-            <li class="sidebar-item"> <a class="has-arrow sidebar-link" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-playlist-plus"></i> <span class="hide-menu">Admin</span></a>
-                <ul aria-expanded="false" class="collapse first-level">
-                    <li class="sidebar-item">
-                        <a href=""class = "sidebar-link" >Change Plan</a>
-                    </li>
-                    <li class="sidebar-item"><a class = "sidebar-link" >Billing</a></li>
-                    <li class="sidebar-item"><a class ="sidebar-link" >Payroll</a></li>
-                    <li class="sidebar-item"><a class = "sidebar-link">QuickBooks</a></li>
-                    <li class="sidebar-item"></li>
-                </ul>
-            </li>
+                <li class="sidebar-item">
+                    <a  class = "sidebar-link" href="<%= calendars_url %>">
+                        <i class="mdi mdi-collage"></i>
+                        <span class="hide-menu">Scheduler</span></a>
+                    </a>
+                </li>
 
 
+                <li class="sidebar-item">
+                    <a  class = "sidebar-link">
+                        <i class="mdi mdi-view-dashboard"></i>
+                        <span class="hide-menu">Expenses</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a class = "sidebar-link">
+                        <i class="mdi mdi-view-dashboard">
+                        </i>
+                        <span class="hide-menu">Times Sheets</span>   
+                    </a>
 
 
-        </ul>
+                </li> 
+                <li class="sidebar-item">
+                    <a href="<%= vendors_url %>"  class = "sidebar-link" >
+                        <i class="mdi mdi-view-dashboard">
+                        </i>
+                        <span class="hide-menu">Vendors</span>   
 
-    </nav>
-    <!-- End Sidebar navigation -->
-</div>
-<!-- End Sidebar scroll-->
+
+                    </a>
+                </li>
+
+
+                <li class="sidebar-item">
+                    <a  class = "sidebar-link" >
+                        <i class="font-24 mdi mdi-comment-processing"></i>
+                        <span class="hide-menu">  Communications
+                        </span>
+                    </a>
+                </li>
+
+
+                <li class="sidebar-item"> <a class="has-arrow sidebar-link" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-playlist-plus"></i> <span class="hide-menu">Admin</span></a>
+                    <ul aria-expanded="false" class="collapse first-level">
+                        <li class="sidebar-item">
+                            <a href=""class = "sidebar-link" >Change Plan</a>
+                        </li>
+                        <li class="sidebar-item"><a class = "sidebar-link" >Billing</a></li>
+                        <li class="sidebar-item"><a class ="sidebar-link" >Payroll</a></li>
+                        <li class="sidebar-item"><a class = "sidebar-link">QuickBooks</a></li>
+                        <li class="sidebar-item"></li>
+                    </ul>
+                </li>
+
+
+
+
+            </ul>
+
+        </nav>
+        <!-- End Sidebar navigation -->
+    </div>
+    <!-- End Sidebar scroll-->
 </aside>

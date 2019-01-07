@@ -1,5 +1,6 @@
 class TeamMembersController < ApplicationController
-
+ 
+  before_action :authenticate_user!
 	before_action :get_vendor, only: [:show, :edit, :update, :destroy]
 
 	def index
