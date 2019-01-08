@@ -1,0 +1,108 @@
+<div class="modal fade none-border" id="add-new-pool_data">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title"><strong>Add</strong> a category</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      </div>
+      <%= form_for @pool, url: update_pool_data_url, remote: true,  :authenticity_token => true do |f| %>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-6">
+            <label class="control-label">Type</label>
+            <%= f.select(:pool_type ,[[ "In Ground", "inground" ],["Above Ground","aboveground"]],{}, {:class=> "form-control"})  %>
+          </div>
+          <div class="col-md-6">
+            <label class="control-label">Shape</label>
+              <%= f.select(:shape ,[[ "Rectangular", "rectangular" ],["Oval","oval"],["Kidney","kidney"]],{}, {:class=> "form-control"})  %>
+          </div>
+          <div class="col-md-6">
+            <label class="control-label">Brand</label>
+            <%= f.text_field :equip_pump_brand, autofocus: true,:class=>"form-control form-white" %>
+          </div>
+
+          <div class="col-md-6">
+            <label class="control-label">Model</label>
+            <%= f.text_field :equip_model, autofocus: true ,:class=>"form-control form-white"%>
+          </div>
+
+          <div class="col-md-6">
+            <label class="control-label">Horsepower</label>
+            <%= f.text_field :equip_horsepower, autofocus: true ,:class=>"form-control form-white"%>
+          </div>
+          <div class="col-md-6">
+            <label class="control-label">Service Factor:</label>
+            <%= f.text_field :equip_service_factor,:class=>"form-control form-white" %>
+          </div>
+          <div class="col-md-6">
+            <label class="control-label">Voltage/Amperage</label>
+            <%= f.text_field :equip_voltage,:class=>"form-control form-white" %>
+          </div>
+          <div class="col-md-6">
+            <label class="control-label">Filter Brand</label>
+            <%= f.text_field :filter_brand,:class=>"form-control form-white" %>
+          </div>
+          <div class="col-md-6">
+            <label class="control-label">Filter Model</label>
+            <%= f.text_field :filter_model,:class=>"form-control form-white" %>
+          </div>
+          <div class="col-md-6">
+            <label class="control-label">Filter Type</label>
+              <%= f.select(:filter_type ,[[ "Cartridge", "cartridge" ],["Sand","sand"],["De","de"]],{}, {:class=> "form-control"})  %>
+          </div>
+          <div class="col-md-6">
+            <label class="control-label">Filter Cartridge</label>
+            <%= f.text_field :filter_cartridge,:class=>"form-control form-white" %>
+          </div>
+          <div class="col-md-6">
+            <label class="control-label">Date replaced</label>
+            <%= f.text_field :filter_date_replaced,:class=>"form-control form-white" %>
+          </div>
+          <div class="col-md-6">
+            <label class="control-label"><h10>Filter DE</h10><br>
+            Replacement Grid part #</label>
+            <%= f.text_field :filter_de,:class=>"form-control form-white" %>
+          </div>
+          <div class="col-md-6">
+            <label class="control-label">Heater Brand</label>
+            <%= f.text_field :heater_brand,:class=>"form-control form-white" %>
+          </div>
+          <div class="col-md-6">
+            <label class="control-label">Heater Model</label>
+            <%= f.text_field :heater_model,:class=>"form-control form-white" %>
+          </div>
+          <div class="col-md-6">
+            <label class="control-label">Heater Size</label>
+            <%= f.text_field :heater_size,:class=>"form-control form-white" %>
+          </div>
+          <div class="col-md-6">
+            <label class="control-label">Heater Type</label>
+             <%= f.select(:heater_type ,[[ "Electrical", "electrical" ],["Natural Gas","natural_gas"],["Oil","oil"],["Solar","solar"]],{}, {:class=> "form-control"})  %>
+          </div>
+          <div class="col-md-6">
+            <label class="control-label">Time Clock Brand</label>
+            <%= f.text_field :time_clock_brand,:class=>"form-control form-white" %>
+          </div>
+          <div class="col-md-6">
+            <label class="control-label">Time Clock Model</label>
+            <%= f.text_field :time_clock_model,:class=>"form-control form-white" %>
+          </div>
+          <div class="col-md-6">
+            <label class="control-label">Time Clock Voltage</label>
+            <%= f.text_field :time_clock_voltage,:class=>"form-control form-white" %>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <%= f.submit "Save", :class=>"btn btn-secondary waves-effect",:id=>"save" %>
+        <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+      </div>
+      <% end %>
+    </div>
+  </div>
+  <script>
+    $("#save").click(function() {
+      
+      $('#add-new-pool_data').modal('hide');
+    })
+  </script>
