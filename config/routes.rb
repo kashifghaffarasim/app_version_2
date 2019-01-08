@@ -28,7 +28,13 @@ Rails.application.routes.draw do
  resources :settings, only: [:index]
  resources :companies, only: [:index, :create, :edit, :update, :show]
  resources :profiles 
- resources :pools
+ resources :pools do
+  collection do
+    get :map , via: [:get, :post]
+    post :map_address , via: [:post]
+  end
+
+ end
  resources :team_members
 
  get '/dashboard' => 'dashboard#index'
