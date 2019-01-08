@@ -60,6 +60,7 @@
                                         <td><%= pool.try(:pool_activity)%> </td>
                                         <td>
                                             <%= link_to '',edit_pool_url(pool), :class => "fa fa-edit"%>
+                                            <%= link_to '',pool_url(pool), :class => "fa fa-eye", :style => "color: green; padding-left: 5px; padding-right: 5px; font-size: 16px" %>
                                             <%= link_to '',pool_url(pool), method: :delete,
                                               data: { confirm: "Are you sure you want to delete?" }, 
                                               :class => "fa fa-trash-alt" , :style=> "color: red; margin-left: 12px"%>
