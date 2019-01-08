@@ -23,24 +23,7 @@
                         <div class="card-body">
                             <h4 class="card-title" style="text-align: center;">POOL</h4>
                             <h6 class="card-subtitle"></h6>
-                            <div class="col-md-12 text-right">
-                                <% if Pool.find_by_company_id( current_user.company_id).pool_datum.blank? %>
-                                <button class="btn btn-info btn-rounded" id="pool" >Pool Data</button>
-                                
-                                <% else %>
-                                <a class="btn btn-info btn-rounded" href="<%= edit_pool_data_url(Pool.find_by_company_id(current_user.company_id).pool_datum.id)%>" data-remote="true">
-                                Pool Data</a>
-                                <% end %>
-                                <% if Pool.find_by_company_id( current_user.company_id).pool_datum.blank? %>
-                                <button class="btn btn-info btn-rounded" id="spa">Spa Data</button> 
-                                <% else %>
-                                <a class="btn btn-info btn-rounded" href="<%= edit_spa_data_url(Pool.find_by_company_id(current_user.company_id).pool_datum.id)%>" data-remote="true">
-                                Spa Data</a>
-                                <% end %>
-                                
-                                <a class="btn btn-info btn-rounded"style="color: #fff">
-                                Map</a>
-                            </div>
+                            
                         </div>
                         <hr>
 
@@ -169,37 +152,5 @@
 </div>
 
 
-<div id="new">
-</div>
 
-<script type="text/javascript">
-  $("#pool").click(function() {
-    console.dir("hahahah------")
-    $.ajax({
-      url: "/data/pool_data_new",
-      type: "GET",
-      success: function(response){
-         $("#save").click(function() {
-          console.dir("hahahah---[[[---")
-          $('#add-new-pool_data').modal('hide');
-       //   document.getElementsByClassName("modal-backdrop").style.display = "none";
-
-   })
-     }})
-})
-  $("#spa").click(function() {
-    console.dir("hahahah------")
-    $.ajax({
-      url: "/data/spa_data_new",
-      type: "GET",
-      success: function(response){
-         $("#save").click(function() {
-          console.dir("hahahah---[[[---")
-          $('#add-new-spa_data').modal('hide');
-      })
-
-     }})
-})  
-  
-</script>
 

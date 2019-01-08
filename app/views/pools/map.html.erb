@@ -1,0 +1,162 @@
+ 
+
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmTCyAoxWibrZ9tlXX2i3XYWOkfBW6f98&libraries=places&callback=initialize"
+async defer></script>
+<div class="page-breadcrumb">
+	<div class="row">
+		<div class="col-5 align-self-center">
+			<h4 class="page-title"> Map Pool</h4>
+			<div class="d-flex align-items-center">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="<%= pools_url %>">Pools</a></li>
+						<li class="breadcrumb-item"><a href="#">Map Pool</a></li>
+
+					</ol>
+				</nav>
+			</div>
+		</div>
+	</div>
+	<style type="text/css">
+	#map {
+		height: 100%;
+	}
+	#pool-address {
+		position: absolute;
+		top: 8%;
+		left: 16%;
+		z-index: 5;
+		background-color: #fff;
+		padding: 5px;
+		border: 1px solid #999;
+		text-align: center;
+		font-family: 'Roboto','sans-serif';
+		line-height: 30px;
+		padding-left: 10px;
+	}
+</style>
+<div class="row">
+	<div class="col-12">
+		<div class="card">
+			<div class="card-body" style="    max-height: 42px;
+">
+				<% unless flash[:notice].blank? %>
+				<div class="flash_team_member">
+					<div id="flash_notice_team_member" class="flash_team_member flash_notice_team_member clearfix hide_for_print">
+						<%= flash[:notice] %><i class="fa fa-check" style="float:right;"></i>
+					</div>
+				</div>
+				<% end %>
+			</div>
+			<div class="map">
+				<a class="btn btn-info btn-rounded" id="pool-address" style="">Save New Address</a>
+				<div id="map_canvas" style="height: 600px;"></div>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+
+<div class="modal fade none-border" id="address">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Pool Address</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			</div>
+			<form class="edit_pool" id="edit_pool_5" action="<%= map_address_pools_url %>" accept-charset="UTF-8" method="post">
+				<div class="modal-body">
+					<div class="row">
+						<div class="col-md-6">
+							<label class="control-label">Address</label>
+							<input class="form-control" id="input-address" name="address[address_name]" value="<%= @pool.address_name%>">
+							<input class="form-control" style="display: none !important;" name="id" value="<%= @pool.id %>" >
+						</div>
+					</div>
+				</div>
+
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-info waves-effect waves-light" id="update">Update</button>
+					<button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+</div>
+</div>
+
+
+<script>
+	var citylist = [
+	["<%= @pool.address_name %>"]
+	];
+	var geocoder, marker, map;
+
+
+	function initialize() {
+		geocoder = new google.maps.Geocoder();
+		var latlng = new google.maps.LatLng(-0.397, 5.644)
+		var options = {
+			zoom: 6,
+			center: latlng,
+			mapTypeId: google.maps.MapTypeId.ROADMAP
+		}
+		map = new google.maps.Map(document.getElementById("map_canvas"), options);
+		for (var i = 0; i < 10; i++) {
+			var address = citylist[i][0]
+			codeAddress(address);
+		}
+	};
+	function codeAddress(address) {
+		geocoder.geocode({ 'address': address }, function(results, status) {
+			if (status === google.maps.GeocoderStatus.OK) {
+				map.setCenter(results[0].geometry.location);
+				marker = new google.maps.Marker({
+					map: map,
+					position: results[0].geometry.location,
+					draggable: true
+				});
+			} else {
+				alert("Geocode unsuccessful");
+			}
+			google.maps.event.addListener(marker, 'dragend', function() {
+				console.dir("hahha")
+
+				console.dir(marker.getPosition().lat())
+				var latlng = {lat: marker.getPosition().lat(), lng:  marker.getPosition().lng()};
+				console.dir(latlng)
+				geocoder.geocode({'location': latlng}, function(results, status) {
+					if (status === 'OK') {
+						if (results[0]) {
+							 	//map.setZoom(6);
+							 	console.dir(results[0].formatted_address);
+							 	document.getElementById("input-address").value = results[0].formatted_address;
+
+							 } else {
+							 	window.alert('No results found');
+							 }
+							} else {
+								window.alert('Geocoder failed due to: ' + status);
+							}
+						});	
+			});
+		});
+
+	};
+
+</script>
+<script type="">
+	
+
+	$("#pool-address").click(function() {
+		console.dir("hahahah---[[[---")
+		$('#address').modal('show');
+	}) 
+	$("#update").click(function() {
+		console.dir("hahahah---[[[---")
+		$('#address').modal('hide');
+	}) 
+	
+</script>
