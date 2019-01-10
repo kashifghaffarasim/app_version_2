@@ -1,3 +1,5 @@
+
+
 <div class="page-breadcrumb">
     <div class="row">
         <div class="col-5 align-self-center">
@@ -21,65 +23,138 @@
                     <div class="card-body">
                         <div class="col-md-12 text-right">
                             <%= link_to 'New Team Members', new_team_member_url,:class=>"btn btn-info btn-rounded"%>
+                            <% if !@team_members.blank?%>
+                            <a id="show_map" class="btn btn-info btn-rounded" style="color: #fff">Show Map</a>
+                            <% end %>
                         </div>
                     </div>
                     <div class="card-body">
                         <% unless flash[:notice].blank? %>
-                          <div class="flash_team_member">
-                              <div id="flash_notice_team_member" class="flash_team_member flash_notice_team_member clearfix hide_for_print">
-                                  <%= flash[:notice] %><i class="fa fa-check" style="float:right;"></i>
-                              </div>
+                        <div class="flash_team_member">
+                          <div id="flash_notice_team_member" class="flash_team_member flash_notice_team_member clearfix hide_for_print">
+                              <%= flash[:notice] %><i class="fa fa-check" style="float:right;"></i>
                           </div>
-                        <%end%> 
-                        <table id="demo-foo-addrow" class="table m-t-30 no-wrap table-hover contact-list" data-page-size="10">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th> Proifle Image </th>
-                                    <th> Full Name </th>
-                                    <th> Email </th>
-                                    <th> Address </th>
-                                    <th> City</th>
-                                    <th> State</th>
-                                    <th> Country</th>
-                                    <th> Role</th>
-                                    <th> Actions </th>
+                      </div>
+                      <%end%> 
+                      <table id="demo-foo-addrow" class="table m-t-30 no-wrap table-hover contact-list" data-page-size="10">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th> Proifle Image </th>
+                                <th> Full Name </th>
+                                <th> Email </th>
+                                <th> Address </th>
+                                <th> City</th>
+                                <th> State</th>
+                                <th> Country</th>
+                                <th> Role</th>
+                                <th> Actions </th>
 
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <% if !@team_members.blank?%>
-                                  <% @team_members.each_with_index  do |team_member, index| %>
-                                    <tr >
-                                        <td><%= index = index + 1 %></td>
-                                        <td>
-                                            <% if team_member.avatar and team_member.avatar.url %>
-                                              <img src="<%= team_member.avatar.url%>" class="img img-responsive" width="60">
-                                            <% end %>
-                                        </td>
-                                        <td><%= team_member.fullname rescue "" %></td>
-                                        <td><%= team_member.email%></td>
-                                        <td><%= team_member.address.try(:address_name)%> </td>
-                                        <td><%= team_member.address.try(:city_name)%> </td>
-                                        <td><%= team_member.address.try(:state_name)%> </td>
-                                        <td><%= team_member.address.try(:country_name)%> </td>
-                                        <td><%= team_member.roles.first.try(:name).capitalize%> </td>
-                                        <td>
-                                            <%= link_to '',edit_team_member_url(team_member), :class => "fa fa-edit"%>
-                                            <%= link_to '',team_member_url(team_member), :class => "fa fa-eye", :style => "color: green; padding-left: 5px; padding-right: 5px; font-size: 16px" %>
-                                            <%= link_to '',team_member_url(team_member), method: :delete,
-                                              data: { confirm: "Are you sure you want to delete?" }, 
-                                              :class => "fa fa-trash-alt" , :style=> "color: red"%>
-                                        </td>
-                                    </tr>
-                                  <% end %>
-                                <% end %>
-                            </tbody>
-                        </table>
-                    </div>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% if !@team_members.blank?%>
+                            <% @team_members.each_with_index  do |team_member, index| %>
+                            <tr >
+                                <td><%= index = index + 1 %></td>
+                                <td>
+                                    <% if team_member.avatar and team_member.avatar.url %>
+                                    <img src="<%= team_member.avatar.url%>" class="img img-responsive" width="60">
+                                    <% end %>
+                                </td>
+                                <td><%= team_member.fullname rescue "" %></td>
+                                <td><%= team_member.email%></td>
+                                <td><%= team_member.address.try(:address_name)%> </td>
+                                <td><%= team_member.address.try(:city_name)%> </td>
+                                <td><%= team_member.address.try(:state_name)%> </td>
+                                <td><%= team_member.address.try(:country_name)%> </td>
+                                <td><%= team_member.roles.first.try(:name).capitalize%> </td>
+                                <td>
+                                    <%= link_to '',edit_team_member_url(team_member), :class => "fa fa-edit"%>
+                                    <%= link_to '',team_member_url(team_member), :class => "fa fa-eye", :style => "color: green; padding-left: 5px; padding-right: 5px; font-size: 16px" %>
+                                    <%= link_to '',team_member_url(team_member), method: :delete,
+                                    data: { confirm: "Are you sure you want to delete?" }, 
+                                    :class => "fa fa-trash-alt" , :style=> "color: red"%>
+                                </td>
+                            </tr>
+                            <% end %>
+                            <% end %>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
 </div>
+</div>
+<% if !@team_members.blank? %>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmTCyAoxWibrZ9tlXX2i3XYWOkfBW6f98&libraries=places&callback=initialize"
+async defer></script>
+<div class="modal fade none-border" id="add-new-job">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title"><strong>Members Map Location</strong> </h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    </div>
 
+    <div class="modal-body">
+        <div class="row">
+
+          <div class="col-md-12">
+            <div id="map_canvas" style="height: 500px;"></div>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+</div>
+<script type="text/javascript">
+    $("#show_map").click(function() {
+       $('#add-new-job').modal('show');
+   })
+</script>
+
+
+<script>
+    var citylist = [
+    <% @team_members.each do |i| %>
+    <% puts"nanana {i}" %>
+    ["<%= i.address.address_name %>"],
+    <% end %>
+    ];
+    console.dir(citylist)
+    var geocoder, marker, map;
+
+
+    function initialize() {
+        geocoder = new google.maps.Geocoder();
+        var latlng = new google.maps.LatLng(-0.397, 5.644)
+        var options = {
+            zoom: 6,
+            center: latlng,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+        map = new google.maps.Map(document.getElementById("map_canvas"), options);
+        for (var i = 0; i < 10; i++) {
+            var address = citylist[i][0]
+            codeAddress(address);
+        }
+    };
+    function codeAddress(address) {
+        geocoder.geocode({ 'address': address }, function(results, status) {
+            if (status === google.maps.GeocoderStatus.OK) {
+                map.setCenter(results[0].geometry.location);
+                marker = new google.maps.Marker({
+                    map: map,
+                    position: results[0].geometry.location,
+                });
+            } else {
+                alert("Geocode unsuccessful");
+            }
+        });
+
+    };
+
+</script>
+<% end %>
