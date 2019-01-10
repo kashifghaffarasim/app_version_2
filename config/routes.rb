@@ -36,6 +36,7 @@ Rails.application.routes.draw do
 
  end
  resources :team_members
+ resources :plans
  resources :routings, only: [:index]
 
  get '/dashboard' => 'dashboard#index'
