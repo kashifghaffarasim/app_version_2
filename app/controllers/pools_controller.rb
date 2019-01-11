@@ -1,12 +1,23 @@
 class PoolsController < ApplicationController
-
+skip_before_action :verify_authenticity_token
   before_action :authenticate_user!
   before_action :get_pool, only: [:show, :edit, :update, :destroy]
   
   def index
     @pools = Pool.where(company_id: current_user.try(:company_id)).order(id: :asc)
   end
-
+  def map
+    @pool = Pool.find_by_id(params[:id]).address
+  end
+  def map_address
+    @address = Address.find_by_id(params[:id])
+    if @address.update(address_params)
+      flash[:notice] = "Pool Address Updated!"
+      redirect_to map_pools_url(id:@address.pool_id)
+    else
+      flash[:notice] = "Pool Address not Updated try again!"
+    end 
+  end
   def show
     @pool = Pool.find_by_id(params[:id])
   end
@@ -44,7 +55,7 @@ class PoolsController < ApplicationController
     redirect_to pools_url
   end
   def pool_data_new
-    
+
     @pool = PoolDatum.new
     
   end

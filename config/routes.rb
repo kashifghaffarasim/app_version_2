@@ -35,6 +35,16 @@ Rails.application.routes.draw do
   get '/dashboard' => 'dashboard#index'
   root 'welcomes#index'
   #get '/settings/:id/edit_company', to: 'settings#edit_company', as: :edit_company
+
+ resources :pools do
+  collection do
+    get :map , via: [:get, :post]
+    post :map_address , via: [:post]
+  end
+ end
+ resources :plans
+ resources :routings, only: [:index]
+
   #patch '/settings/update_company/:id', to: 'settings#update_company', as: :update_company
   get '/companies/:id/edit_address', to: 'companies#edit_address', as: :edit_address
   patch '/companies/update_address/:id', to: 'companies#update_address', as: :update_address
