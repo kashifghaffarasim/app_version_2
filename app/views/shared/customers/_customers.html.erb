@@ -1,0 +1,11 @@
+<%if customer.blank?%>
+  <p>  We don't have customer </p>
+<% else %>
+  <h5> Some Recent Customer(s)</h5>
+  <div class="row">
+      <% customer.each do |customer| %>
+
+      <% end %>
+  </div>
+
+<% end %>

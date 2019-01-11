@@ -1,0 +1,34 @@
+<div class="card-body">
+    <h4 class="card-title">Job info</h4>
+    <div class="form-group row">
+        <label for="fname" class="col-sm-3 text-right control-label col-form-label">Job Name</label>
+        <div class="col-sm-9">
+            <%#= f.text_field :name, autofocus: true ,:placeholder=>"First Name Here",:class=>"form-control"%>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="email1" class="col-sm-3 text-right control-label col-form-label">Start Time</label>
+        <div class="col-sm-9">
+            <%#= f.text_field :start_time, autofocus: true ,:type=>"time",:class=>"form-control", :required => true ,:min=>"01:00", :max=>"23:59"%>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label for="cono1" class="col-sm-3 text-right control-label col-form-label">Amount</label>
+        <div class="col-sm-9">
+            <%#= f.text_field :amount, autofocus: true ,:class=>"form-control",placeholder: "Amount No Here"%>
+
+        </div>
+    </div>
+    <div class="form-group row" id="login_credentials">
+        <label for="lname" class="col-sm-3 text-right control-label col-form-label">Description</label>
+        <div class="col-sm-9">
+            <%#= f.text_field :description, autofocus: true ,:placeholder=>"description Name Here",:class=>"form-control"%>
+        </div>
+    </div>
+    <hr>
+    <div class="col-md-12 ">
+        <%#= submit_tag "Create job",:class=>"btn btn-info",:style => "float: right;"%>
+    </div>
+
+
+</div>

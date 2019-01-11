@@ -1,7 +1,10 @@
 class JobsController < ApplicationController
 
+  before_action :authenticate_user!
+
 	def index
-		@job = Job.all
+    @customers =  User.where(company_id: current_user.try(:company_id)).order(id: :asc).with_any_role(:customer).last(4)
+    @job = Job.all
 	end
 
 	def show
@@ -49,6 +52,7 @@ class JobsController < ApplicationController
 			redirect_to jobs_url
 		end
 	end
+  
 
 	private
 	def job_params
