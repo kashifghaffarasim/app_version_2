@@ -21,7 +21,7 @@ Rails.application.routes.draw do
 
   namespace :settings do
     resources :pool_settings, only: [:index, :create , :edit, :show, :destroy,:update]
-    resources :notification_options, only: [:index, :create , :edit, :show, :destroy,:update]
+    resources :notification_options, only: [:index, :create , :edit, :show, :destroy,:update,:new]
   end
   
   resources :customers
