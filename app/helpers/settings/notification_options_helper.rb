@@ -1,0 +1,2 @@
+module Settings::NotificationOptionsHelper
+end

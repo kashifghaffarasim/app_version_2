@@ -1,0 +1,134 @@
+<div id="app_wrapper">
+	<div class="page-wrapper">
+		<!-- ============================================================== -->
+		<!-- Bread crumb and right sidebar toggle -->
+		<!-- ============================================================== -->
+		<div class="page-breadcrumb">
+			<div class="row">
+				<div class="col-5 align-self-center">
+					<h4 class="page-title">Notification Option</h4>
+					<div class="d-flex align-items-center">
+						<nav aria-label="breadcrumb">
+							<ol class="breadcrumb">
+								<li class="breadcrumb-item"><a href="#">Home</a></li>
+								<li class="breadcrumb-item active" aria-current="page">Notification Option</li>
+							</ol>
+						</nav>
+					</div>
+				</div>
+				<div class="col-7 align-self-center">
+					<div class="d-flex no-block justify-content-end align-items-center">
+						<div class="m-r-10">
+							<div class="lastmonth"></div>
+						</div>
+						<div class=""><small>LAST MONTH</small>
+							<h4 class="text-info m-b-0 font-medium">$58,256</h4></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- ============================================================== -->
+			<!-- End Bread crumb and right sidebar toggle -->
+			<!-- ============================================================== -->
+			<!-- ============================================================== -->
+			<!-- Container fluid  -->
+			<!-- ============================================================== -->
+			<div class="container-fluid">
+				<!-- ============================================================== -->
+				<!-- Start Page Content -->
+				<!-- ============================================================== -->
+				<!-- Row -->
+				<div class="row">
+					<div class="col-12">
+						<div class="card">
+
+							<div id="settings_area">
+								<%=form_tag settings_notification_options_url do %>
+								<%if current_user.company.notification_options.blank? %>
+								<div class="card-body">
+									<h4 class="card-title">Email Overview</h4>
+									<h6 class="card-subtitle">
+										Customize the e-mail subject line and body for Invoices, Quotes, Payment and Deposit Receipts, and Statements that you send through CopperService. <br><br> You can use the {{VARIABLES}} as placeholders for values that change. <br> Check out <a target="_blank" href="https://learn.getcopperservice.com/hc/en-us/articles/200705904">our documentation</a> for a list of all available variable tags. 
+									</h6>
+								</div>
+								<hr>
+								<div class="card-body">
+									<h4 class="card-title">Invoices</h4>
+									<div class="form-group row">
+										<label class="col-sm-3 text-right control-label col-form-label">Subject Line</label>
+										<div class="col-sm-9">
+											<input type="text" value="current_user.company.notification_options.subject" name="notification_option[subject]" class="form-control">
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-3 text-right control-label col-form-label" for="work_configuration_invoice_default_email_message">Message</label>
+										<div class="col-sm-9">
+											<textarea rows="10" name="notification_option[message_content]" id="work_configuration_invoice_default_email_message" class="form-control">
+												<%= current_user.company.notification_options.message_content%>
+											</textarea>
+										</div>
+									</div>
+								</div>
+								<%else%>
+								<div class="card-body">
+									<h4 class="card-title">Email Overview</h4>
+									<h6 class="card-subtitle">
+										Customize the e-mail subject line and body for Invoices, Quotes, Payment and Deposit Receipts, and Statements that you send through CopperService. <br><br> You can use the {{VARIABLES}} as placeholders for values that change. <br> Check out <a target="_blank" href="https://learn.getcopperservice.com/hc/en-us/articles/200705904">our documentation</a> for a list of all available variable tags. 
+									</h6>
+								</div>
+								<hr>
+								<div class="card-body">
+									<h4 class="card-title">Invoices</h4>
+									<div class="form-group row">
+										<label class="col-sm-3 text-right control-label col-form-label" for="work_configuration_invoice_default_email_subject">User Type</label>
+										<div class="col-sm-9">
+											<select class="form-control" name="notification_option[message_type]" value="vendor" required="true">
+												<option value>Choose Type</option>
+												<option value="customer">Customer</option>
+												<option value="team_member">Team</option>
+												
+											</select>
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-3 text-right control-label col-form-label" for="work_configuration_invoice_default_email_subject">Subject Line</label>
+										<div class="col-sm-9">
+											<input type="text" value="Invoice from {{COMPANY_NAME}} - {{INVOICE_SUBJECT}}" name="notification_option[subject]" class="form-control">
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-3 text-right control-label col-form-label" for="work_configuration_invoice_default_email_message">Message</label>
+										<div class="col-sm-9">
+											<textarea rows="10" name="notification_option[message_content]" class="form-control">
+Greetings {{CLIENT_NAME}},
+
+Just a reminder – we have a service call appointment {DATE} at {TIME}.
+If you need to CHANGE or CANCEL your appointment, please call {SERVICE NUMBER}. 
+
+Thanks for your attention.
+{{COMPANY_NAME}}
+											</textarea>
+										</div>
+									</div>
+								</div>
+								<%end%>
+								<div class="card-body">
+									<div class="form-group m-b-0 text-right">
+										<button type="submit" value="Update Settings" name="commit" data-disable-with="Updating..." class="btn btn-info waves-effect waves-light" >
+										Update Settings</button>
+									</div>
+								</div>
+								<% end %>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+
+
+

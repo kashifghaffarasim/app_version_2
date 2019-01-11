@@ -20,7 +20,8 @@ Rails.application.routes.draw do
   end
 
   namespace :settings do
-    resources :pool_settings, only: [:index, :create , :edit, :show, :destroy]
+    resources :pool_settings, only: [:index, :create , :edit, :show, :destroy,:update]
+    resources :notification_options, only: [:index, :create , :edit, :show, :destroy,:update]
   end
   
   resources :customers
@@ -36,14 +37,15 @@ Rails.application.routes.draw do
   root 'welcomes#index'
   #get '/settings/:id/edit_company', to: 'settings#edit_company', as: :edit_company
 
- resources :pools do
-  collection do
-    get :map , via: [:get, :post]
-    post :map_address , via: [:post]
+  resources :pools do
+    collection do
+      get :map , via: [:get, :post]
+      post :map_address , via: [:post]
+    end
   end
- end
- resources :plans
- resources :routings, only: [:index]
+  resources :plans
+  resources :routings, only: [:index]
+
 
   #patch '/settings/update_company/:id', to: 'settings#update_company', as: :update_company
   get '/companies/:id/edit_address', to: 'companies#edit_address', as: :edit_address

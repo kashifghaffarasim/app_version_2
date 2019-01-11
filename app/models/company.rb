@@ -4,7 +4,8 @@ class Company < ApplicationRecord
   
   has_one :address
   has_many :users
-  
+  has_many :pool_settings
+  has_many :notification_options
   def save_address(params)
     a = Address.create(company_id: self.id, 
       address_name: params[:address_name], 
