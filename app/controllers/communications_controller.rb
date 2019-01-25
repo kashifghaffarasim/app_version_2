@@ -33,10 +33,11 @@ class CommunicationsController < ApplicationController
 		if @email.save
 			EmailNotificationMailer.email_notification(@email).deliver
 			flash[:success] = "Email Sent Successfully to #{params[:email_notification][:user_email]}" 
-			render 'communications/flash'
+      render "flash.js.erb"
+			
 		else
 			flash[:danger] = "Email Not Sent to #{params[:email_notification][:user_email]} Try Again"
-			render 'communications/flash'
+		  render "flash.js.erb"
 		end 
 	end
 
