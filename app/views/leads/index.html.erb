@@ -1,0 +1,85 @@
+
+
+<div class="page-breadcrumb">
+	<div class="row">
+		<div class="col-5 align-self-center">
+			<h4 class="page-title">Leads</h4>
+			<div class="d-flex align-items-center">
+				<nav aria-label="breadcrumb">
+					<ol class="breadcrumb">
+						<li class="breadcrumb-item"><a href="<%= root_url %>">Dashboard</a></li>
+						<li class="breadcrumb-item"><a href="#">Leads</a></li>
+					</ol>
+				</nav>
+			</div>
+		</div>
+	</div>
+
+	<div>
+		<div class="row">
+			<div class="col-12">
+
+				<div class="card">
+					<div class="card-body">
+						<div class="col-md-12 text-right">
+							<a class="btn btn-info btn-rounded" id= "new_lead" style="color: #fff">Import Leads</a> 
+							<a class="btn btn-info btn-rounded" href="<%= map_leads_url %>" style="color: #fff">Map Leads</a> 
+							
+						</div>
+					</div>
+					<div class="card-body">
+						<% flash.each do |key, value| %>
+						<div class="alert alert-<%= key %>"><%= value %></div>
+						<% end %>
+						<table id="demo-foo-addrow" class="table m-t-30 no-wrap table-hover contact-list" data-page-size="10">
+							<thead>
+								<tr>
+									<th>#</th>
+									<th> Full Name </th>
+									<th> Email </th>
+									<th> Address </th>
+									<th> City</th>
+									<th> State</th>
+									<th> Country</th>
+									<th> status</th>
+									
+								</tr>
+							</thead>
+							<tbody>
+								<% if !@leads.blank?%>
+								<% @leads.each_with_index  do |lead, index| %>
+								<tr >
+									<td><%= index = index + 1 %></td>
+									<td><%= lead.fullname rescue "" %></td>
+									<td><%= lead.email %></td>
+									<td><%= lead.address.try(:address_name)%> </td>
+									<td><%= lead.address.try(:city_name)%> </td>
+									<td><%= lead.address.try(:state_name)%> </td>
+									<td><%= lead.address.try(:country_name)%> </td>
+									<td><%= lead.status %></td>
+								</tr>
+								<% end %>
+								<% end %>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="lead-import"></div>
+
+<script type="text/javascript">
+	$("#new_lead").click(function () {
+		$.ajax({
+			url: "/leads/new",
+			type: "GET",
+			success: function () {
+				$("#save").click(function () {
+					$('#lead').modal('hide');
+				})
+			}})
+	})
+</script>

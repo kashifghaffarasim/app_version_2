@@ -1,0 +1,24 @@
+<div class="modal none-border" id="lead">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title"><strong>Add</strong> a category</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			</div>
+			<%= form_tag leads_path , multipart: true  do  %>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-6">
+						<label class="control-label">Import File:</label>
+						<%= file_field_tag :file, :type => 'text/csv' %>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<%= submit_tag "Import CSV", :class=>"btn btn-success waves-effect waves-light",:id=>"save" %>
+				<button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+			</div>
+			<% end %>
+		</div>
+	</div>
+</div>

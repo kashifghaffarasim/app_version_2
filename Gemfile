@@ -14,6 +14,7 @@ gem 'puma', '~> 3.11'
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
+
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'mini_racer', platforms: :ruby
 
@@ -25,8 +26,8 @@ gem 'jbuilder', '~> 2.5'
 
 gem 'jquery-rails'
 gem "jquery-ui-rails"
-
-
+gem 'will_paginate', '~> 3.1', '>= 3.1.6'
+gem 'will_paginate-bootstrap4'
 gem 'devise'
 gem "rolify"
 gem "paperclip", git: "git://github.com/thoughtbot/paperclip.git"
