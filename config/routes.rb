@@ -24,9 +24,21 @@ Rails.application.routes.draw do
     resources :notification_options, only: [:index, :create , :edit, :show, :destroy,:update,:new]
   end
   
-  resources :customers
+  resources :customers  do
+    collection do
+      get :list_customers
+    end
+  end
+  resources :estimates
+  resources :invoices
+  
+  resources :jobs do
+    collection do 
+     get  :customer_pool
+    end
+  end
+  
   resources :vendors
-  resources :jobs
   resources :calendars
   resources :settings, only: [:index]
   resources :companies, only: [:index, :create, :edit, :update, :show]
@@ -35,7 +47,6 @@ Rails.application.routes.draw do
   resources :team_members
   get '/dashboard' => 'dashboard#index'
   root 'welcomes#index'
-  #get '/settings/:id/edit_company', to: 'settings#edit_company', as: :edit_company
 
   resources :pools do
     collection do

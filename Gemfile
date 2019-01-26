@@ -31,6 +31,9 @@ gem 'devise'
 gem "rolify"
 gem "paperclip", git: "git://github.com/thoughtbot/paperclip.git"
 
+gem 'nested_form_fields'
+
+
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
@@ -44,6 +47,8 @@ gem "paperclip", git: "git://github.com/thoughtbot/paperclip.git"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
+
+
 gem 'rails-erd', group: :development
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
