@@ -55,8 +55,28 @@ Rails.application.routes.draw do
     end
   end
   resources :plans
-  resources :routings, only: [:index]
+  resources :leads do
+    collection do 
+      get :map
 
+    end
+  end
+  resources :routings, only: [:index]
+  resources :back_ups do 
+    collection do 
+      get :generate_csv 
+      post :import_csv
+    end
+  end
+  resources :communications do
+    collection do
+      get :sents
+   
+      get :receive
+    end
+
+  end
+  get 'attachment/:id', to: "communications#attachment", as: :attachment
 
   #patch '/settings/update_company/:id', to: 'settings#update_company', as: :update_company
   get '/companies/:id/edit_address', to: 'companies#edit_address', as: :edit_address

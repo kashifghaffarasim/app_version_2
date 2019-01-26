@@ -1,0 +1,128 @@
+<div class="page-wrapper">
+    <!-- ============================================================== -->
+    <!-- Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-5 align-self-center">
+                <h4 class="page-title">Form Horizontal</h4>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Library</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-7 align-self-center">
+                <div class="d-flex no-block justify-content-end align-items-center">
+                    <div class="m-r-10">
+                        <div class="lastmonth"></div>
+                    </div>
+                    <div class=""><small>LAST MONTH</small>
+                        <h4 class="text-info m-b-0 font-medium">$58,256</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+        <!-- ============================================================== -->
+        <!-- Start Page Content -->
+        <!-- ============================================================== -->
+
+
+
+
+
+
+
+
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title">Manage Data</h4>
+                        <h6 class="card-subtitle">Import Data</h6>
+                        <hr>
+                        <div class="card-body">
+                            <div class="manage-data">
+                                <h3>Import Customers</h3>
+                                Here you can import new Customer data or update existing data.
+                                <%=link_to "Import",generate_csv_back_ups_url(:csv_file=>"clients"),:remote=>true, data: {toggle: "modal", target: '#client_modal'},:class=>"btn btn-info waves-effect waves-light",:style=>"float:right;" , :id => "import"%>
+                                <%=link_to "Download Template File",generate_csv_back_ups_url(:temp=>"clients"),:class=>"btn btn-info waves-effect waves-light",:style=>"float:right;"%>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+                <div class="card">
+
+                    <div class="card-body">
+                        <h4 class="card-title">Export Data</h4>
+                        <hr>
+                        <div class="card-body">
+                            <div class="manage-data">
+                                <h3>Export Customers</h3>
+                                Here you can export all existing Customer data.
+                                <%=link_to "Export",generate_csv_back_ups_url(:csv_file=>"customer"),:class=>"btn btn-info waves-effect waves-light",:style=>"float:right;"%>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="modal none-border" id="customer">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><strong>Add</strong> a category</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <%= form_tag import_csv_back_ups_url , multipart: true  do  %>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="control-label">Import File:</label>
+                        <%= file_field_tag :file, :type => 'text/csv' ,:require =>true%>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <%= submit_tag "Import CSV", :class=>"btn btn-success waves-effect waves-light",:id=>"save" %>
+                <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+            </div>
+            <% end %>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+
+    $("#import").click(function () {
+        $('#customer').modal('show');
+    })
+
+    $("#save").click(function () {
+        $('#customer').modal('hide');
+    })
+
+</script>

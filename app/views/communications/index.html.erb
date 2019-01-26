@@ -1,0 +1,187 @@
+ 
+<div class="email-app">
+
+	<div class="left-part">
+
+		<a class="ti-menu ti-close btn btn-success show-left-part d-block d-md-none" href="javascript:void(0)"></a>
+		<div class="scrollable" style="height:100%;">
+			<div class="p-15">
+				<a id="compose_mail" class="waves-effect waves-light btn btn-danger d-block" href="javascript: void(0)">Compose</a>
+			</div>
+			<div class="divider"></div>
+			<ul class="list-group">
+				<li>
+					<small class="p-15 grey-text text-lighten-1 db">Folders</small>
+				</li>
+				<li class="list-group-item">
+					<a href="<%= receive_communications_url %>" data-remote="true" id="link-inbox" class="active list-group-item-action"><i class="mdi mdi-inbox"></i> Inbox <span class="label label-success float-right"><%=EmailNotification.where(receiver_id: current_user.id).length%></span></a>
+				</li>
+				
+				<li class="list-group-item">
+					
+					<li class="list-group-item">
+						<a href="<%=sents_communications_url%>"data-remote="true" class="list-group-item-action" id="link-sent"> <i class="mdi mdi-email"></i><span class="label label-success float-right"><%=EmailNotification.where(sender_id: current_user.id).length%></span> Sent Mail </a>
+					</li>
+					<li class="list-group-item">
+						<hr>
+					</li>
+					
+					<li class="list-group-item">
+						<a href="javascript:void(0)" class="list-group-item-action"> <i class="mdi mdi-delete"></i> Trash </a>
+					</li>
+					<li class="list-group-item">
+						<hr>
+					</li>
+					
+				</ul>
+			</div>
+		</div>
+		
+
+		
+		<div id="sent">
+			<%= render "receive"%>
+		</div>
+		
+		<!-- ============================================================== -->
+		<!-- Right Part  Mail Compose -->
+		<!-- ============================================================== -->
+		<div class="right-part mail-compose bg-white" id="email" style="display: none;">
+			<div id="flash"></div>
+			<div class="p-20 border-bottom">
+				<div class="d-flex align-items-center">
+					<div>
+						<h4>Compose</h4>
+						<span>create new message</span>
+					</div>
+					<div class="ml-auto">
+						<button id="cancel_compose" class="btn btn-dark">Back</button>
+					</div>
+				</div>
+			</div>
+			<!-- Action part -->
+			<!-- Button group part -->
+			<div class="card-body">
+				<%= form_for @email,url: communications_url,:remote => true,html: { multipart: true } do |f|%>
+				<div class="form-group">
+
+					<%= f.select(:user_email, User.all.collect {|n| [ n.email, n.email ]},{},:class=>"form-control" ,:placeholder=>"To")%>
+
+
+				</div>
+				<div class="form-group">
+					<%= f.text_field :subject,:class=>"form-control", :placeholder=>"Subject" %>
+				</div>
+				
+				<%= f.text_area :body,:id=>"summernote" %>
+
+				
+				<h4>Attachment</h4>
+				<div class="dropzone" id="dzid">
+					<div class="fallback">
+						<%= f.file_field :attachment   %>
+					</div>
+				</div>
+
+				<button type="submit" class="btn btn-success m-t-20"><i class="far fa-envelope"></i> Send</button>
+				<button type="submit" class="btn btn-dark m-t-20">Discard</button>
+				<% end %>
+				<!-- Action part -->
+			</div>
+		</div>
+		<!-- ============================================================== -->
+		<!-- Right Part  Mail detail -->
+		<!-- ============================================================== -->
+		<div class="right-part mail-details bg-white" style="display: none;">
+			<div class="card-body bg-light">
+				<button type="button" id="back_to_inbox" class="btn btn-outline-secondary font-18 m-r-10"><i class="mdi mdi-arrow-left"></i></button>
+				<div class="btn-group m-r-10" role="group" aria-label="Button group with nested dropdown">
+					<button type="button" class="btn btn-outline-secondary font-18"><i class="mdi mdi-reply"></i></button>
+					<button type="button" class="btn btn-outline-secondary font-18"><i class="mdi mdi-alert-octagon"></i></button>
+					<button type="button" class="btn btn-outline-secondary font-18"><i class="mdi mdi-delete"></i></button>
+				</div>
+				<div class="btn-group m-r-10" role="group" aria-label="Button group with nested dropdown">
+					<div class="btn-group" role="group">
+						<button id="btnGroupDrop1" type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="mdi mdi-folder font-18 "></i> </button>
+						<div class="dropdown-menu" aria-labelledby="btnGroupDrop1"> <a class="dropdown-item" href="javascript:void(0)">Dropdown link</a> <a class="dropdown-item" href="javascript:void(0)">Dropdown link</a> </div>
+					</div>
+					<div class="btn-group" role="group">
+						<button id="btnGroupDrop1" type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="mdi mdi-label font-18"></i> </button>
+						<div class="dropdown-menu" aria-labelledby="btnGroupDrop1"> <a class="dropdown-item" href="javascript:void(0)">Dropdown link</a> <a class="dropdown-item" href="javascript:void(0)">Dropdown link</a> </div>
+					</div>
+				</div>
+			</div>
+			<div class="card-body border-bottom">
+				<h4 class="m-b-0">Your Message title goes here</h4>
+			</div>
+			<div class="card-body border-bottom">
+				<div class="d-flex no-block align-items-center m-b-40">
+					<div class="m-r-10"><img src="../../assets/images/users/1.jpg" alt="user" class="rounded-circle" width="45"></div>
+					<div class="">
+						<h5 class="m-b-0 font-16 font-medium">Hanna Gover <small> ( hgover@gmail.com )</small></h5><span>to Suniljoshi19@gmail.com</span>
+					</div>
+				</div>
+				<h4 class="m-b-15">Hey Hi,</h4>
+				<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi.</p>
+				<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi.</p>
+			</div>
+			<div class="card-body">
+				<h4><i class="fa fa-paperclip m-r-10 m-b-10"></i> Attachments <span>(3)</span></h4>
+				<div class="row">
+					<div class="col-md-2">
+						<a href="javascript:void(0)"> <img class="img-thumbnail img-responsive" alt="attachment" src="../../assets/images/big/img1.jpg"> </a>
+					</div>
+					<div class="col-md-2">
+						<a href="javascript:void(0)"> <img class="img-thumbnail img-responsive" alt="attachment" src="../../assets/images/big/img2.jpg"> </a>
+					</div>
+					<div class="col-md-2">
+						<a href="javascript:void(0)"> <img class="img-thumbnail img-responsive" alt="attachment" src="../../assets/images/big/img3.jpg"> </a>
+					</div>
+				</div>
+				<div class="border m-t-20 p-15">
+					<p class="p-b-20">click here to <a href="javascript:void(0)">Reply</a> or <a href="javascript:void(0)">Forward</a></p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		$(document).ready(function() {
+			$(".pagination").find("a").attr("data-remote", true);
+
+
+			$('#summernote').summernote({
+				height: 200,
+				callbacks: {
+					onKeyup: function(e) {
+						console.log('Key is released:', e.keyCode);
+						var content = $('textarea[name="email_notification[body]"]').html($('#summernote').summernote('code'));
+					}
+				}
+				
+			});
+
+		});
+
+		$("#link-inbox").click(function () {
+			
+			
+			//document.getElementById("email_receives").style.display = "";
+		});
+		$("#link-sent").click(function () {
+			//document.getElementById("email_sents").style.display = "";
+			//document.getElementById("email_receives").style.display = "email_sents";
+		});
+		$("#compose_mail").click(function () {
+
+			document.getElementById("inbox").style.display = "none";
+
+			document.getElementById("email").style.display = "";
+		});
+		$("#cancel_compose").click(function () {
+
+			document.getElementById("inbox").style.display = "";
+
+			document.getElementById("email").style.display = "none";
+		});
+	</script>
