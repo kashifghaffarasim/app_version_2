@@ -1,100 +1,139 @@
-	<div id="email_receives">
-	<div class="right-part mail-list bg-white" id="inbox"> 
-			<div class="p-15 b-b">
-				<div class="d-flex align-items-center">
-					<div>
-						<h4>Mailbox </h4>
-						<span>Here is the list of mail</span>
-					</div>
-					<div class="ml-auto">
-						<input placeholder="Search Mail" id="" type="text" class="form-control">
-					</div>
-				</div>
-			</div>
-
-	<div class="bg-light p-15 d-flex align-items-center do-block">
-				<div class="btn-group m-t-5 m-b-5">
-					<div class="custom-control custom-checkbox">
-						<input type="checkbox" class="custom-control-input sl-all" id="cstall">
-						<label class="custom-control-label" for="cstall">Check All</label>
-					</div>
+<div id="email_receives">
+	<div class="mail-list bg-white" id="inbox"> 
+		<div class="p-15 b-b">
+			<div class="d-flex align-items-center">
+				<div>
+					<h4>Mailbox </h4>
+					<span>Here is the list of mail</span>
 				</div>
 				<div class="ml-auto">
-					<div class="btn-group m-r-10" role="group" aria-label="Button group with nested dropdown">
-						<button type="button" class="btn btn-outline-secondary font-18"><i class="mdi mdi-reload"></i></button>
-						<button type="button" class="btn btn-outline-secondary font-18"><i class="mdi mdi-alert-octagon"></i></button>
-						<button type="button" class="btn btn-outline-secondary font-18"><i class="mdi mdi-delete"></i></button>
-					</div>
-					<div class="btn-group m-r-10" role="group" aria-label="Button group with nested dropdown">
-						<div class="btn-group" role="group">
-							<button id="btnGroupDrop1" type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="mdi mdi-folder font-18 "></i> </button>
-							<div class="dropdown-menu" aria-labelledby="btnGroupDrop1"> <a class="dropdown-item" href="javascript:void(0)">Dropdown link</a> <a class="dropdown-item" href="javascript:void(0)">Dropdown link</a> </div>
-						</div>
-						<div class="btn-group" role="group">
-							<button id="btnGroupDrop1" type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="mdi mdi-label font-18"></i> </button>
-							<div class="dropdown-menu" aria-labelledby="btnGroupDrop1"> <a class="dropdown-item" href="javascript:void(0)">Dropdown link</a> <a class="dropdown-item" href="javascript:void(0)">Dropdown link</a> </div>
-						</div>
-					</div>
+					<input placeholder="Search Mail" id="" type="text" class="form-control">
 				</div>
 			</div>
-	<div class="table-responsive" id="email_receives">
-		<table class="table email-table no-wrap table-hover v-middle" >
-			<tbody>
-				<% if !@email_receives.blank?%>
-				<% @email_receives.each do |receive|%>
-					<tr class="unread" id="a" href="<%= communication_url(id: sender.id,status: "receive" ,page: params[:page]) %>">
-					<!-- label -->
-					<td class="chb">
-						<div class="custom-control custom-checkbox">
-							<input type="checkbox" class="custom-control-input" id="cst3">
-							<label class="custom-control-label" for="cst3">&nbsp;</label>
-						</div>
-					</td>
-					<!-- star -->
-					<td class="starred"><i class="far fa-star"></i></td>
-					<!-- User -->
-					<td class="user-image"><img src="<%= User.find_by_id(receive.receiver_id).avatar%>" alt="user" class="rounded-circle" width="30"></td>
-					<td class="user-name max-texts">
-						<h6 class="m-b-0"><%= User.find_by_id(receive.receiver_id).fullname%></h6>
-					</td>
-					<!-- Message -->
-					<td class="max-texts"> <a class="link" href="javascript: void(0)"><%= receive.subject[0..30] if !receive.subject.blank?%></a></td>
-					<!-- Attachment -->
-					<td class="clip"><i class="fa fa-paperclip"></i></td>
-					<!-- Time -->
-					<td class="time"> <%=receive.created_at.strftime('%a, %d %b %Y %H:%M:%S') %> </td>
-				</tr>
-				<% end %>
-				<% end %>
-			</tbody>
-		</table>
+		</div>
+
+		<div class="bg-light p-15 d-flex align-items-center do-block">
+			<div class="btn-group m-t-5 m-b-5">
+				<div class="custom-control custom-checkbox">
+					<input type="checkbox" class="custom-control-input sl-all"  id="cstall">
+					<label class="custom-control-label" for="cstall" >Check All</label>
+				</div>
+			</div>
+			<div class="ml-auto">
+				<div class="btn-group m-r-10" role="group" aria-label="Button group with nested dropdown">
+					<button type="button" class="btn btn-outline-secondary font-18"><i class="mdi mdi-reload"></i></button>
+					<button type="button" class="btn btn-outline-secondary font-18"><i class="mdi mdi-alert-octagon"></i></button>
+					<button type="button" class="btn btn-outline-secondary font-18" onclick="destroy(this);" ><i class="mdi mdi-delete"></i></button>
+				</div>
+			</div>
+		</div>
+		
+		<div class="table-responsive" id="email_receives">
+			<table class="table email-table no-wrap table-hover v-middle" >
+				
+				<tbody id="body">
+					<% if !@email_receives.blank?%>
+					<% @email_receives.each do |receive|%>
+					<tr  <% if receive.status != true %> class="unread" <% end %> id="a" >
+						<!-- label -->
+						<td class="chb">
+							<div class="custom-control custom-checkbox">
+								<input type="checkbox" class="custom-control-input" value="<%=receive.id%>" id="cst<%=receive.id%>">
+								<label class="custom-control-label" for="cst<%=receive.id%>">&nbsp;</label>
+							</div>
+						</td>
+						<!-- 
+							<td class="starred"><i class="far fa-star"></i></td>star -->
+							<!-- User -->
+							<td class="user-image" onclick="myJsFunc(<%= receive.id%>);"><img src="<%= User.find_by_id(receive.receiver_id).avatar%>" alt="user" class="rounded-circle" width="30"></td>
+							<td class="user-name max-texts"  onclick="myJsFunc(<%= receive.id%>);">
+								<h6 class="m-b-0"><%= User.find_by_id(receive.receiver_id).fullname%></h6>
+							</td>
+							<!-- Message -->
+							<td class="max-texts" onclick="myJsFunc(<%= receive.id%>);"> <a class="link" href="<%= communication_url(id: receive.id,status: "receive" ,page: params[:page]) %>" id="<%=receive.id %>"data-remote="true"><%= receive.subject[0..30] if !receive.subject.blank?%></a></td>
+							<!-- Attachment -->
+							<td class="clip" onclick="myJsFunc(<%= receive.id%>);"><i class="fa fa-paperclip"></i></td>
+							<!-- Time -->
+							<td class="time" onclick="myJsFunc(<%= receive.id%>);"> <%= receive.created_at.strftime('%a, %d %b %Y %H:%M:%S') %> </td>
+						</tr>
+						<% end %>
+						<% end %>
+					</tbody>
+				</table>
+			</div>
+			<div class="p-15 m-t-30">
+				<nav aria-label="Page navigation example">
+					<% if !@email_receives.blank?%>
+					<%= will_paginate(@email_receives, :params => { :controller => "communications", :action => "receives" },list_classes: %w(pagination justify-content-center) )%>
+					<% end %>
+				</nav>
+			</div>
+		</div>
 	</div>
-	<div class="p-15 m-t-30">
-		<nav aria-label="Page navigation example">
-			<% if !@email_receives.blank?%>
-			<%= will_paginate @email_receives,  list_classes: %w(pagination justify-content-center) %>
-			<% end %>
-		</nav>
-	</div>
-</div>
 
 	<script type="text/javascript">
+
+		function myJsFunc(id){
+			URL =$("#"+id+"").attr('href');
+			$.ajax({
+				url: URL,
+				type: "GET",
+			})
+			return false;
+		}
 		$(document).ready(function() {
-			$(document).ready(function() {
 			$(".pagination").find("a").attr("data-remote", true);
+			$("#unread-receive").text("<%= unread_receive() %>");
+			$("#unread-sent").text("<%= unread_sent() %>");
+
 		});
-		$(document).ready(function(){
-			$('table tr').click(function(){
-				URL =$(this).attr('href');
-				//alert('you will be redirected to' + ' ' + URL);
-					console.dir("hahahah------")
-					$.ajax({
-						url: URL,
-						type: "GET",
-						})
-				return false;
+		function destroy(source){
+			var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+			var ids = []
+			for (var i = 0; i < checkboxes.length; i++) {
+				if (checkboxes[i].id != "cstall"){
+					if (checkboxes[i].checked ){
+						if (checkboxes[i] != source)
+							ids.push([parseInt(checkboxes[i].value)])
+					}
+				}
+			}
+			if (  ids.length > 0){
+				$.ajax({
+					url: "/communications/"+ids+"",
+					type: "DELETE",
+					data: {status: "receive"},
+				})
+			}
+		}
+
+
+		$(function() {
+			"use strict";
+
+			var mail = $('.email-table .max-texts a');
+
+			$('.email-table').find('tr > td:first-child').find('input[type=checkbox]').on('change', function() {
+
+				console.dir("-a--acheck")
+				if ($(this).is(':checked')) {
+					$(this).parents('tr').addClass('selected');
+				} else {
+					$(this).parents('tr').removeClass('selected');
+				}
 			});
-		});
+
+			$(".sl-all").on('click', function() {
+				$('.email-table input:checkbox').not(this).prop('checked', this.checked);
+				if ($('.email-table input:checkbox').is(':checked')) {
+					$('.email-table input:checkbox').parents('tr').addClass('selected');
+				} else {
+					$('.email-table input:checkbox').parents('tr').removeClass('selected');
+				}
+			});
+
+
+
 		});
 	</script>
 </div>

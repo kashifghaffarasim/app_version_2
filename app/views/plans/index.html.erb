@@ -1,3 +1,10 @@
+<style type="text/css">
+  .disabled {
+  pointer-events: none;
+  cursor: default;
+  opacity: 0.6;
+}
+</style>
 <div class="page-wrapper">   
   <!-- ============================================================== -->
   <!-- Bread crumb and right sidebar toggle -->
@@ -26,22 +33,20 @@
         </div>
       </div>
     </div>
-
     <div class="container-fluid">
-
       <div class="row">
         <div class="col-12" >
           <div class="card">
             <div class="card-body">
               <h2 class="title" style="text-align: center;">15 day FREE trial with all plans!</h2>
               <p class="intro" style="text-align: center;">CopperService's pricing is simple and you can change your plan at any time. </p> 
-
-              <% flash.each do |key, value| %>
-              <div class="alert alert-<%= key %>"><%= value %></div>
-              <% end %>
+          
+              <div id="flash">
+                <%= render "flash"%>
+              </div>
+            
               <div class="card-group" id="price-plan">
                 <div class="card m-t-30 border-top border-left ">
-                  <%= form_tag plans_url do %>
                   <div class="p-15 text-center ">
                     <h4 class="card-title m-t-10">SOLO</h4>
                     <h2 class="display-5 position-relative m-t-20 m-b-10">
@@ -63,32 +68,26 @@
                       <li class="border-bottom p-20">
                         <i class="ti-reload m-r-5"></i>10 Gb
                       </li>
-
-
                       <li class="border-bottom p-20">
-
-                        <input name="plan[plan_name]" type="hidden" value="solo">
                         <%if current_user.plan_id.blank?%>
-                        <%= button_tag :class=>"btn btn-success btn-cta-primary heading1" do %>Choose Plan<br/>
-                        <span class="extra">30 day free trial</span>
-                        <%end%>
+                        <a href="<%=new_plan_url(plan_name: "solo") %>" class="btn btn-success btn-cta-primary heading1" data-remote="true" >Choose Plan<br/>
+                          <span class="extra">30 day free trial</span>
+                        </a>
                         <%elsif @plan.plan_name == "solo"%>
-                        <%= button_tag :class=>"btn btn-success btn-cta-primary heading1" ,:disabled => true do %>Selected Plan<br/>
-                        <span class="extra">30 day free trial</span>
-                        <%end%>
+                        <a href="<%=new_plan_url(plan_name: "solo") %>" class="disabled btn btn-success btn-cta-primary heading1 " data-remote="true">Selected Plan<br/>
+                          <span class="extra">30 day free trial</span>
+                        </a>
                         <%else%>  
-                        <%= button_tag :class=>"btn btn-success btn-cta-primary heading1" do %>Down Grade Plan<br/>
-                        <span class="extra">30 day free trial</span>
-                        <%end%>
+                        <a href="<%=new_plan_url(plan_name: "solo") %>" data-remote="true"class="btn btn-success btn-cta-primary heading1">Down Grade Plan<br/>
+                          <span class="extra">30 day free trial</span>
+                        </a>
                         <%end%>
                       </li>
                     </ul>
 
                   </div>
-                  <%  end %> 
                 </div>
                 <div class="card m-t-30 border-top border-left ">
-                  <%= form_tag plans_url  do %> 
 
                   <div class="card border-top m-t-30" >
                     <h5 class="price-label text-white text-center bg-info " style="    left:73%;">POPULAR</h5>
@@ -119,21 +118,21 @@
                           <input name="plan[plan_name]" type="hidden" value="team">
 
                           <%if current_user.plan_id.blank?%>
-                          <%= button_tag :class=>"btn btn-success btn-cta-primary heading2" do %>Choose Plan<br/>
-                          <span class="extra">30 day free trial</span>
-                          <%end%>
+                          <a href="<%=new_plan_url(plan_name: "team") %>" data-remote="true"class="btn btn-success btn-cta-primary heading2" >Choose Plan<br/>
+                            <span class="extra">30 day free trial</span>
+                          </a>
                           <%elsif @plan.plan_name=="team"%>
-                          <%= button_tag :class=>"btn btn-success btn-cta-primary heading2", :disabled => true do %>Selected Plan<br/>
-                          <span class="extra">30 day free trial</span>
-                          <%end%>
+                          <a href="<%=new_plan_url(plan_name: "team") %>"  data-remote="true" class="disabled btn btn-success btn-cta-primary heading2" disabled>Selected Plan<br/>
+                            <span class="extra">30 day free trial</span>
+                          </a>
                           <%elsif @plan.plan_name=="solo"%>
-                          <%= button_tag :class=>"btn btn-success btn-cta-primary heading2" do %>Upgrade Plan<br/>
-                          <span class="extra">30 day free trial</span>
-                          <%end%>
+                          <a href="<%=new_plan_url(plan_name: "team") %>"  data-remote="true" class="btn btn-success btn-cta-primary heading2">Upgrade Plan<br/>
+                            <span class="extra">30 day free trial</span>
+                          </a>
                           <%elsif @plan.plan_name=="business"%>  
-                          <%= button_tag :class=>"btn btn-success btn-cta-primary heading2" do %>Down Grade Plan<br/>
+                          <a href="<%=new_plan_url(plan_name: "team") %>"  data-remote="true" class="btn btn-success btn-cta-primary heading2">Down Grade Plan<br/>
                           <span class="extra">30 day free trial</span>
-                          <%end%>
+                          </a>
                           <%end%>
 
 
@@ -141,10 +140,8 @@
                       </ul>
                     </div>
                   </div>
-                  <%end%> 
                 </div>
                 <div class="card bg-light border-top border-left ">
-                  <%= form_tag plans_url   do %> 
 
                   <div class="p-15 text-center">
                     <h4 class="card-title m-t-40 text-center">BUSINESS</h4>
@@ -167,48 +164,42 @@
                       <li class="border-bottom p-20">
                         <i class="ti-reload m-r-5"></i>100 Gb
                       </li>
-
-
                       <li class="border-bottom p-20">
-                        <input name="plan[plan_name]" type="hidden" value="business">
 
                         <%if current_user.plan_id.blank?%>
-                        <%= button_tag :class=>"btn btn-info btn-cta-primary heading3" do %>Choose Plan<br/>
+                         <a href="<%=new_plan_url(plan_name: "business") %>"  data-remote="true"  class="btn btn-info btn-cta-primary heading3" >Choose Plan<br/>
                         <span class="extra">30 day free trial</span>
-                        <%end%>
+                        </a>
                         <%elsif @plan.plan_name =="business"%>
-                        <%= button_tag :class=>"btn btn-info btn-cta-primary heading3" ,:disabled => true do %>Selected Plan<br/>
+                         <a href="<%=new_plan_url(plan_name: "business") %>"  data-remote="true"  class="disabled btn btn-info btn-cta-primary heading3" >Selected Plan<br/>
                         <span class="extra">30 day free trial</span>
-                        <%end%>
+                        </a>>
                         <%elsif @plan.plan_name =="team"%>
-                        <%= button_tag :class=>"btn btn-info btn-cta-primary heading3" do %>Upgrade Plan<br/>
+                         <a href="<%=new_plan_url(plan_name: "business") %>"  data-remote="true"  class="btn btn-info btn-cta-primary heading3" >Upgrade Plan<br/>
                         <span class="extra">30 day free trial</span>
-                        <%end%>
+                        </a>
                         <%elsif @plan.plan_name =="solo"%>  
-                        <%= button_tag :class=>"btn btn-info btn-cta-primary heading3" do %>Upgrade Plan<br/>
+                        <a href="<%=new_plan_url(plan_name: "business") %>"  data-remote="true"  class="btn btn-info btn-cta-primary heading3" >Upgrade Plan<br/>
                         <span class="extra">30 day free trial</span>
-                        <%end%>
+                        </a>
                         <%end%>
                       </li>
                     </ul>
                   </div>
-                  <% end %>
                 </div>
-
               </div>
             </div>
           </div>
         </div>
-
       </div>
-
     </div>
-
   </div>
 
 
 
+  <div id="payment_pay">
 
+  </div>
 
 
 

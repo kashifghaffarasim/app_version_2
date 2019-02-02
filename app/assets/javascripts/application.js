@@ -15,6 +15,7 @@
 //= require popper.min.js
 //= require bootstrap.min.js
 //= require app.min.js
+//= require jquery.remotipart
 //= require app.init.horizontal.js
 //= require footable.all.min.js
 //= require footable-init.js
@@ -38,4 +39,3 @@
 //= reqiure jquery-ui.min.js
 //= require app-style-switcher.js
 //= require activestorage
-
