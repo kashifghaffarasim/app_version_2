@@ -37,5 +37,7 @@
 //= require fullcalendar.min.js
 //= reqiure jquery-ui.min.js
 //= require app-style-switcher.js
+//= require nested_form_fields
+//= require jobs.js
 //= require activestorage
 

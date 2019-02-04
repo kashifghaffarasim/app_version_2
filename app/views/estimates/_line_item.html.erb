@@ -1,0 +1,41 @@
+
+
+<div class="col-md-3">
+    <div class="form-group row">
+        <%= f.text_field :name , :class => "form-control" , :placeholder=>"Name"%>
+    </div>
+</div>
+
+<div class="col-md-5">
+    <div class="form-group row">
+        <div class="col-md-11">
+            <%= f.text_field :description , :class => "form-control" , :placeholder=>"Description"%>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-1">
+    <div class="form-group row">
+        <div class="col-md-9">
+            <%= f.text_field :quantity , :class => "form-control" , :onkeyup=>"AddQuantity(this.id)" , :pattern => "\d{1,9}"%>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-1">
+    <div class="form-group row">
+        <div class="col-md-9">
+            <%= f.text_field :unit_cost , :class => "form-control" , :onkeyup=>"AddPrice(this.id)", :pattern => "\d{1,5}"%>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-1">
+    <div class="form-group row">
+        <div class="col-md-12">
+            <%= f.number_field :total , :class => "form-control" , :readonly => true%>
+        </div>
+    </div>
+</div>
+
+

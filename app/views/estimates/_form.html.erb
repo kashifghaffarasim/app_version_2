@@ -1,0 +1,187 @@
+<div class="card-body">
+    <div class="card-body">
+        <%= f.hidden_field :user_id , :class => "form-control", :value => "#{current_user.try(:id)}" %>
+        <%= f.hidden_field :company_id , :class => "form-control" , :value => "#{current_user.try(:company_id)}"%>
+        <%= f.hidden_field :pool_id , :class => "form-control" , :value => "#{@pool.try(:id)}"%>
+    </div>
+
+    <div class="row" style=" padding-bottom: 10px">
+        <div class="col-md-6 text-left" >
+            <div class="row" style="margin-left: 30px">
+                <b>Address :</b>
+                <div class="col-md-10">
+                    <% if  @pool.address %>
+                      <span> <%= @pool.address.try(:address_name) %> </span> , 
+                      <br>
+                      <span> <%= @pool.address.try(:city_name) %> </span> ,
+                      <span> <%= @pool.address.try(:country_name) %> </span>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 text-right">
+            <div class="row">
+                <div class="col-md-6"></div>
+                <div class="col-md-6">
+                    <div class="form-group row p-t-15">
+                        <label for="inputEmail3" class="col-sm-6 text-right control-label col-form-label">
+                            Estimate #
+                        </label>
+                        <div class="col-sm-4">
+                            <%= f.text_field :job_number , :class => "form-control" , :placeholder=>"0", :value => "#{SecureRandom.random_number(10000)}"%>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6"></div>
+                <div class="col-md-6">
+                    <div class="form-group row p-t-15">
+                        <label for="inputEmail3" class="col-sm-6 text-right control-label col-form-label">
+                            Tax (%)
+                        </label>
+                        <div class="col-sm-4">
+                            <%= f.number_field :tax , :min => 0, :class => "form-control" , :placeholder=>"0", :onkeyup=> "getGrandTotal()"%>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6"></div>
+                <div class="col-md-6">
+                    <div class="form-group row p-t-15">
+                        <label for="inputEmail3" class="col-sm-6 text-right control-label col-form-label">
+                            Discount ($)
+                        </label>
+                        <div class="col-sm-4">
+                            <%= f.number_field :discount , :min => 0, :class => "form-control" , :placeholder=>"0", :onkeyup=> "getGrandTotal()"%>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="display: none">
+                <div class="col-md-6"></div>
+                <div class="col-md-6">
+                    <div class="form-group row p-t-15">
+                        <label for="inputEmail3" class="col-sm-6 text-right control-label col-form-label">
+                            Require Deposit
+                        </label>
+                        <div class="col-sm-4">
+                            <%= f.text_field :job_number , :class => "form-control" , :placeholder=>"0"%>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" style="background: #443e3e2b; padding: 11px;
+         border-radius: 5px;
+         padding-top: 19px;
+         color: #000;" >
+        <div class="col-md-9">
+            <h4 class="card-title" style="font-weight: 300; font-size: 15px"> Work Items</h4>
+        </div>
+        <div class="col-md-1">
+            <h4 class="card-title" style="font-weight: 300; font-size: 15px"> Qty. </h4>
+        </div>
+        <div class="col-md-1">
+            <h4 class="card-title" style="font-weight: 300; font-size: 15px"> Unit Cost </h4>
+        </div>
+        <div class="col-md-1">
+            <h4 class="card-title" style="font-weight: 300; font-size: 15px"> Total </h4>
+        </div>
+    </div>
+
+    <div id="loadItems">
+
+        <%= f.nested_fields_for :line_items do |ff| %>
+          <div class="row" style="margin-top: 10px">
+
+              <div class="col-md-1">
+                  <div class="form-group row">
+
+                      <%= ff.remove_nested_fields_link "–" , :class => 'btn btn-danger'%>
+
+                  </div>
+              </div>
+              <%= render 'estimates/line_item', f: ff %>
+          </div>
+        <% end %>
+    </div>
+
+
+
+    <div class="row">
+        <button id="addnewItem" class="btn btn-default btn-outline" type="button"> <span>
+                <i class="fa fa-plus"></i> 
+                <%=  f.add_nested_fields_link :line_items  %>
+            </span> 
+        </button>
+    </div>
+    <div class="row">
+        <div class="col-md-12" style="text-align: right; margin-bottom: 5px">
+            <div class="row" style="text-align: right"> 
+                <div class="col-md-9"></div>
+                <div class="col-md-2">  Sub Total:  </div>
+                <div class="col-md-1"> 
+                    <%= f.text_field :sub_total , :class => "form-control " , :readonly => true%>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12" style="text-align: right; margin-bottom: 5px">
+            <div class="row" style="text-align: right"> 
+                <div class="col-md-9"></div>
+                <div class="col-md-2">  Tax:  </div>
+                <div class="col-md-1"> 
+                    <input type="text" id="tax" class="form-control " readonly>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-12" style="text-align: right;  margin-bottom: 5px">
+            <div class="row" style="text-align: right"> 
+                <div class="col-md-9"></div>
+                <div class="col-md-2">  Discount:  </div>
+                <div class="col-md-1"> 
+                    <input type="text" id="discount" class="form-control" readonly>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12" style="text-align: right">
+            <div class="row" style="text-align: right"> 
+                <div class="col-md-9"></div>
+                <div class="col-md-2">  Total Estimate:  </div>
+                <div class="col-md-1"> 
+                    <%= f.text_field :grand_total , :class => "form-control" , :readonly => true%>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<hr>
+<div class="col-md-12 ">
+    <%= submit_tag "Create Estimate",:class=>"btn btn-info",:style => "float: right;"%>
+</div>
+
+
+
+
+<script>
+  $(document).ready(function () {
+      var value = document.getElementById('job_tax').value;
+
+      if (!value) {
+          console.log("ready!");
+          document.getElementById('job_sub_total').setAttribute('value', 0);
+          document.getElementById('discount').setAttribute('value', 0);
+          document.getElementById('tax').setAttribute('value', 0);
+          document.getElementById('job_grand_total').setAttribute('value', 0);
+      }
+  });
+</script>

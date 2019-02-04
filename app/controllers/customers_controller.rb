@@ -3,10 +3,10 @@ class CustomersController < ApplicationController
   before_action :authenticate_user!
   before_action :get_customer, only: [:show, :edit, :update, :destroy]
 
-
   def index
     @customers =  User.where(company_id: current_user.try(:company_id)).order(id: :asc).with_any_role(:customer)
   end
+  
   def new
     @customer = User.new
   end
@@ -34,12 +34,12 @@ class CustomersController < ApplicationController
       flash[:danger] = "Email already used with other users. Please try with new email"
       render :new
     end
-	
-
   end
+  
   def edit
     @customer = User.find_by_id(params[:id])
   end 
+  
   def update
     @customer = User.find_by_id(params[:id])
     if @customer.update(user_params)
@@ -53,6 +53,7 @@ class CustomersController < ApplicationController
 
     end
   end 
+  
   def destroy
     @customer = User.find_by_id(params[:id])
     if @customer.destroy
@@ -63,7 +64,13 @@ class CustomersController < ApplicationController
       redirect_to customers_url
     end
   end
+  
+  def list_customers
+    @customers =  User.where("company_id = ? AND (first_name LIKE ? OR last_name LIKE ?)", params[:company_id], "%#{params[:name]}%", "%#{params[:name]}%").order(id: :asc).with_any_role(:customer)
+  end
+  
   private
+  
   def user_params
     params.require(:user).permit(:first_name, :last_name, :email, :company_id ,:source, :username, :phone_number, :mobile_number, :avatar)
 	end

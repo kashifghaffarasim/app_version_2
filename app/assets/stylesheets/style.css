@@ -13707,3 +13707,11 @@ File: scss
 .service-panel-toggle{
     display: none
 }
+.add_nested_fields_link{
+    margin-top: 20px;
+    color: #fff !important;
+}
+
+.remove_nested_fields_link{
+    color: #fff !important;
+}

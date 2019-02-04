@@ -6,16 +6,36 @@ class JobsController < ApplicationController
     @customers =  User.where(company_id: current_user.try(:company_id)).order(id: :asc).with_any_role(:customer).last(4)
     @job = Job.all
 	end
-
+  
+  
+  def customer_pool
+    session.delete(:pool_id)
+    @user = User.find_by_id(params[:user_id])
+    @pools = Pool.where(user_id: params[:user_id])
+    if @pools.count == 1
+      session[:pool_id] = @pools.last.try(:id)
+      if session[:type] == 'Estimate'
+        redirect_to new_estimate_url
+      else
+        redirect_to new_job_url
+      end
+    end
+  end
+  
+  
 	def show
 		@job = Job.find_by_id(params[:id])
 	end
 
 	def new
-		@job = Job.new
+    
+    @pool = Pool.find_by_id(params[:pool_id])
+		@job = Job.new(job_type: 'estimate')
+    
 	end
 
 	def create
+    kasjdkasjd
 		@job = Job.create(job_params)
 		if @job.save
 			flash[:notice] = "Job Created!"
