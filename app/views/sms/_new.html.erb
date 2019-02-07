@@ -1,0 +1,28 @@
+<div class="mail-compose bg-white" id="inbox" >
+	<div id="flash"></div>
+	<div class="p-20 border-bottom">
+		<div class="d-flex align-items-center">
+			<div>
+				<h4>Compose</h4>
+				<span>create new message</span>
+			</div>
+			<div class="ml-auto">
+				<a id="cancel_compose" href="<%= receives_sms_url %>" data-remote="true"  class="btn btn-dark">Back</a>
+			</div>
+		</div>
+	</div>
+	<!-- Action part -->
+	<!-- Button group part -->
+	<div class="card-body">
+		<%= form_for @sms,url: sms_url, remote: true do |f|%>
+		<div class="form-group">
+			<%= f.select(:user_number, User.where(company_id: 11).order(id: :asc).with_any_role(:customer,:vendor,:admin,:user).collect {|n| [  "#{n.fullname} (#{n.mobile_number})",n.id ]},{},:class=>"form-control" ,:placeholder=>"To")%>
+		</div>
+		<div class="form-group">
+		<%= f.text_area :body,:class=>"form-control",:placeholder=>"Text Here...",:rows=>"6",:style=>"  resize: none;"%>
+		</div>
+		<button id="submit" type="submit" class="btn btn-success m-t-20" data-remote="true" ><i class="far fa-envelope"></i> Send</button>
+		<% end %>
+		<!-- Action part -->
+	</div>
+</div>

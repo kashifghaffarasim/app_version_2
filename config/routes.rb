@@ -60,10 +60,14 @@ Rails.application.routes.draw do
   resources :communications do
     collection do
       get :sents
-   
       get :receives
     end
-
+  end
+  resources :sms do
+    collection do
+      get :sents
+      get :receives
+    end
   end
   get 'attachment/:id', to: "communications#attachment", as: :attachment
 
