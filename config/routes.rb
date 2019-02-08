@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  post '/rate' => 'rater#create', :as => 'rate'
   devise_for :users, skip: :all
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   resources :users , only: [:index, :new, :create] do
@@ -29,7 +30,12 @@ Rails.application.routes.draw do
       get :list_customers
     end
   end
-  resources :estimates
+  resources :estimates do
+    collection do
+      post :convert_invoice
+      post :send_email
+    end
+  end
   resources :invoices
   
   resources :jobs do
@@ -71,11 +77,13 @@ Rails.application.routes.draw do
   resources :communications do
     collection do
       get :sents
-   
       get :receives
     end
 
   end
+  
+  resources :line_items
+  
   get 'attachment/:id', to: "communications#attachment", as: :attachment
 
   #patch '/settings/update_company/:id', to: 'settings#update_company', as: :update_company
