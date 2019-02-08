@@ -1,0 +1,40 @@
+
+<div> 
+    <div class="page-breadcrumb" >
+        <div class="row">
+            <div class="col-5 align-self-center">
+
+                <h4 class="page-title">Create Estimate</h4>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="<%= dashboard_url %>">Dashboards</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Estimate</li>
+                        </ol>
+                    </nav>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="card-title" >
+                            <span style="font-weight: 400;"> Estimate for </span><a href="#"> <%= @pool.user.try(:fullname) %> </a>
+                        </h4>
+                        <h6 class="card-subtitle"></h6>
+                    </div>
+                    <hr style="    margin: 0px;">
+
+                    <%= form_for @estimate, url: estimates_url do |f| %>
+                      <%= render 'estimates/form', f: f %>
+                    <% end %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

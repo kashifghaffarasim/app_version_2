@@ -5,35 +5,34 @@ class PlansController < ApplicationController
 
 	end 
 
+	def new 
+	end 
+
 	def create
+		@customer = Stripe::Customer.create(
+			:email => params[:email],
+			:source  => params[:stripeToken]
+			)
 		if current_user.plan_id.blank?
 			@plan = Plan.new(params_plan)
-			if @plan.save
-				@plan.pricing(@plan)
+			if @plan.save_with_payment
+				@plan.pricing(@plan,@customer,params[:stripeToken])
 				plan_id_to_user()
 				flash[:success] = "Your Plan Successfully Create!"
-				redirect_to plans_url
 			else
-				redirect_to plans_url
-				 flash[:danger] = "Your Plan not Saved try again"
+				flash[:danger] = "Your Plan not Saved try again"
 			end
 		else
 			@plan = Plan.find_by_id(current_user.plan_id)
 			if @plan.update(params_plan)
-				@plan.pricing(@plan)
+				@plan.pricing(@plan,@customer, params[:stripeToken])
 				flash[:success] = "Your Plan Successfully Update!"
-				redirect_to plans_url
-		
 			else
 				flash[:danger] = "Your Plan not Update try again"
-				redirect_to plans_url
 			end
 		end
-
-      
-       
-	end 
-
+		render "index"
+	end
 	private
 
 	def params_plan

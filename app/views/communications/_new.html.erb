@@ -1,0 +1,56 @@
+<div class="mail-compose bg-white" id="inbox" >
+	<div id="flash"></div>
+	<div class="p-20 border-bottom">
+		<div class="d-flex align-items-center">
+			<div>
+				<h4>Compose</h4>
+				<span>create new message</span>
+			</div>
+			<div class="ml-auto">
+				<a id="cancel_compose" href="<%= receives_communications_url %>" data-remote="true"  class="btn btn-dark">Back</a>
+			</div>
+		</div>
+	</div>
+	<!-- Action part -->
+	<!-- Button group part -->
+	<div class="card-body">
+		<%= form_for @email,url: communications_url, html:{ multipart: true ,remote: true} do |f|%>
+		<div class="form-group">
+
+			<%= f.select(:user_email, User.all.collect {|n| [ n.email, n.email ]},{},:class=>"form-control" ,:placeholder=>"To")%>
+
+
+		</div>
+		<div class="form-group">
+			<%= f.text_field :subject,:class=>"form-control", :placeholder=>"Subject" %>
+		</div>
+
+		<%= f.text_area :body,:id=>"summernote" %>
+
+
+		<h4>Attachment</h4>
+		<div class="dropzone">
+
+			<%= f.file_field :attachment   %>
+		</div>
+		<button id="submit" type="submit" class="btn btn-success m-t-20" data-remote="true" ><i class="far fa-envelope"></i> Send</button>
+		<% end %>
+		<!-- Action part -->
+	</div>
+</div>
+<script >
+	$(document).ready(function() {
+		$(".pagination").find("a").attr("data-remote", true);
+		$('#summernote').summernote({
+			height: 200,
+			callbacks: {
+				onKeyup: function(e) {
+					var content = $('textarea[name="email_notification[body]"]').html($('#summernote').summernote('code'));
+				}
+			}
+
+		});
+		
+
+	});
+</script>

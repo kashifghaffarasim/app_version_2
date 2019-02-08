@@ -15,6 +15,7 @@
 //= require popper.min.js
 //= require bootstrap.min.js
 //= require app.min.js
+//= require jquery.remotipart
 //= require app.init.horizontal.js
 //= require footable.all.min.js
 //= require footable-init.js
@@ -40,4 +41,3 @@
 //= require nested_form_fields
 //= require jobs.js
 //= require activestorage
-

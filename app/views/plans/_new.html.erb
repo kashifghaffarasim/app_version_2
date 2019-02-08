@@ -1,0 +1,87 @@
+  <script type="text/javascript">
+    Stripe.setPublishableKey('pk_test_GhLHT0qhavwwbLgMl1a9AKAv');
+  </script>
+  <div class="modal fade none-border" id="add-new-job">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title"><strong>Add</strong> a category</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        </div>
+        <%= form_tag plans_url ,id: "payment-form" ,authenticity_token: true,remote: true do |f| %>
+
+                        <input name="plan[plan_name]" type="hidden" value="<%=  params[:plan_name]%>">
+
+        <div class="modal-body">
+          <div class="row">
+          
+              <p class="payment-errors"></p>
+          
+            <div class="col-md-6">
+              <label class="control-label">Your email</label>
+              <input value="<%= current_user.email if current_user %>"name="email" type="text" size="20" data-stripe="email">
+            </div>
+            <div class="col-md-6">
+              <label class="control-label">Card Number</label>
+                 <input type="text" size="20" data-stripe="number">
+            </div>
+            
+            <div class="col-md-6">
+              <label class="control-label">Security Code on Card (CVV)</label>
+              <input value="123" type="text" size="4" data-stripe="cvc"/>
+
+            </div>
+
+            <div class="col-md-6">
+              <label class="control-label">Card Expiration</label>
+              <input value="12" type="text" size="2" data-stripe="exp-month"/>
+              <input value="2020" type="text" size="4" data-stripe="exp-year"/>
+            </div>
+
+
+          </div>
+        </div>
+        <div class="modal-footer">
+            <button type="submit" class="submit" value="Submit Payment">Submit Payment</button>
+
+         <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+       </div>
+       <div id="stripe_error">
+        <noscript>JavaScript is not enabled and is required for this form. First enable it in your web browser settings.</noscript>
+      </div>
+      <% end %>
+    </div>
+  </div>
+  <script >
+  $(function() {
+    var $form = $('#payment-form');
+    $form.submit(function(event) {
+      // Disable the submit button to prevent repeated clicks:
+      $form.find('.submit').prop('disabled', true);
+      // Request a token from Stripe:
+      Stripe.card.createToken($form, stripeResponseHandler);
+      // Prevent the form from being submitted:
+      return false;
+    });
+  });
+  function stripeResponseHandler(status, response) {
+    // Grab the form:
+    var $form = $('#payment-form');
+    if (response.error) { // Problem!
+      // Show the errors on the form:
+       $form.find('.payment-errors').text('');
+      $form.find('.payment-errors').text(response.error.message);
+      $form.find('.submit').prop('disabled', false); // Re-enable submission
+    } else { // Token was created!
+      // Get the token ID:
+      var token = response.id;
+      // Insert the token ID into the form so it gets submitted to the server:
+      $form.append($('<input type="hidden" name="stripeToken">').val(token));
+      // Submit the form:
+      $form.get(0).submit();
+    }
+  };
+
+ 
+
+</script>

@@ -4,8 +4,5 @@ $(function() {
     $(".preloader").fadeOut();
     $(".alert" ).fadeOut(5000);
     
-
- 
 });
-
 
