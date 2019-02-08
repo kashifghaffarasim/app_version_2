@@ -2,14 +2,14 @@
 
 <div class="col-md-3">
     <div class="form-group row">
-        <%= f.text_field :name , :class => "form-control" , :placeholder=>"Name"%>
+        <%= f.text_field :name , :class => "form-control" , :placeholder=>"Name", :required => true%>
     </div>
 </div>
 
 <div class="col-md-5">
     <div class="form-group row">
         <div class="col-md-11">
-            <%= f.text_field :description , :class => "form-control" , :placeholder=>"Description"%>
+            <%= f.text_field :description , :class => "form-control" , :placeholder=>"Description", :required => true%>
         </div>
     </div>
 </div>
@@ -17,7 +17,7 @@
 <div class="col-md-1">
     <div class="form-group row">
         <div class="col-md-9">
-            <%= f.text_field :quantity , :class => "form-control" , :onkeyup=>"AddQuantity(this.id)" , :pattern => "\d{1,9}"%>
+            <%= f.text_field :quantity , :class => "form-control" , :onkeyup=>"AddQuantity(this.id)"  , :required => true%>
         </div>
     </div>
 </div>
@@ -25,7 +25,7 @@
 <div class="col-md-1">
     <div class="form-group row">
         <div class="col-md-9">
-            <%= f.text_field :unit_cost , :class => "form-control" , :onkeyup=>"AddPrice(this.id)", :pattern => "\d{1,5}"%>
+            <%= f.text_field :unit_cost , :class => "form-control" , :onkeyup=>"AddPrice(this.id)", :required => true%>
         </div>
     </div>
 </div>

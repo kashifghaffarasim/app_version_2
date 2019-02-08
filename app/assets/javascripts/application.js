@@ -40,4 +40,12 @@
 //= require app-style-switcher.js
 //= require nested_form_fields
 //= require jobs.js
+//= require jquery.rateyo
+//= require date/picker.js
+//= require date/picker.date.js
+//= require date/picker.time.js
+//= require date/legacy.js
+//= require date/moment.js
+//= require date/daterangepicker.js
+//= require date/datetimepicker.init.js
 //= require activestorage

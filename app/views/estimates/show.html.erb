@@ -1,0 +1,104 @@
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-5 align-self-center">
+            <h4 class="page-title">Estimate</h4>
+            <div class="d-flex align-items-center">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Estimate</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-body printableArea">
+                <h3><b>ESTIMATES</b> <span class="pull-right">#<%= @estimate.job_number %></span></h3>
+                <hr>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="pull-left">
+                            <address style="margin-left: 10px">
+                                <h3>
+                                    <b class="text-danger">
+                                        <%=  customer_name(@estimate) %>
+                                    </b>
+                                </h3>
+                                <% if  @pool.address %>
+                                  <p class="text-muted m-l-7">
+                                      <%= @pool.address.try(:address_name) %>,
+                                      <br> <%= @pool.address.try(:city_name) %>,
+                                      <br> <%= @pool.address.try(:country_name) %>
+                                  </p>
+                                <% end %>
+                            </address>
+                        </div>
+                        <div class="pull-right text-right">
+                            <address>
+                                <p class="m-t-30"><b>Estimate Date :</b> 
+                                    <i class="fa fa-calendar"></i>  <%= @estimate.created_at.strftime("%b/%m/%Y")  %></p>
+                            </address>
+                        </div>
+                    </div>
+                    <%if !@estimate.line_items.blank?%>
+                      <div class="col-md-12">
+                          <div class="table-responsive m-t-40" style="clear: both;">
+                              <table class="table table-hover">
+                                  <thead>
+                                      <tr>
+                                          <th class="text-center">#</th>
+                                          <th class="text-left">Name</th>
+                                          <th>Description</th>
+                                          <th class="text-right">Quantity</th>
+                                          <th class="text-right">Unit Cost</th>
+                                          <th class="text-right">Total</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      <% @estimate.line_items.each_with_index do |item, index| %>
+                                        <tr>
+                                            <td class="text-center"><%= index + 1%> </td>
+                                            <td class="text-left"><%= item.name%> </td>
+                                            <td><%= item.description%></td>
+                                            <td class="text-right"> <%= item.quantity %> </td>
+                                            
+                                            <td class="text-right"> $<%= item.unit_cost %> </td>
+                                            <td class="text-right"> $<%= item.total %>  </td>
+                                        </tr>
+                                      <% end %>
+                                  </tbody>
+                              </table>
+                          </div>
+                      </div>
+                    <% end %>
+                    <div class="col-md-12">
+                        <div class="pull-right m-t-30 text-right">
+                            <p>Sub - Total amount: $<%= @estimate.sub_total%> </p>
+                            <p>Tax (%): $<%= getTaxAmount(@estimate) %>  </p>
+                            <p>Discount($): $<%= @estimate.discount %>  </p>
+                            <hr>
+                            <h3><b>Total :</b> $<%= @estimate.grand_total %> </h3>
+                        </div>
+                        <div class="clearfix"></div>
+                        <hr>
+                        <div class="text-right">
+                            
+                            <a href="<%= %>" class="btn btn-danger" style="color: #fff" > 
+                                Convert to Work Order
+                            </a>
+                            <a href="<%= estimates_url%>"  class="btn btn-default btn-outline" > 
+                                Cancel
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

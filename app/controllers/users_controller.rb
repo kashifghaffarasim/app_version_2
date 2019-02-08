@@ -13,7 +13,6 @@ class UsersController < ApplicationController
   def create
     session[:user] = params[:user]
     @user = User.find_by_email(params[:user][:email])
-    puts"---------------------- check user", @user.inspect
     if @user.blank?
       redirect_to companies_url
     else

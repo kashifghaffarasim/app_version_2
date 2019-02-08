@@ -14,16 +14,12 @@
     </div>
 </div>
 
-
-
-
-
 <div class="container-fluid">
     <div class="row">
         <div class="col-12" style=" background: #fff; padding: 0px">
 
             <!-- Nav tabs -->
-            <%= render 'jobs/tabs', tab: @count %>
+            <%= render 'jobs/tabs', tab: 1 %>
 
             <!-- Tab panes -->
             <div class="tab-content m-t-20">
@@ -32,7 +28,9 @@
                     <div class="col-12">
 
                         <div class="card">
-
+                            <% flash.each do |key, value| %>
+                              <div class="alert alert-<%= key %>"><%= value %></div>
+                            <% end %>
                             <div class="card-body">
                                 <div  class="row" style="margin-top: 10px">
                                     <div class="col-md-4 col-12 text-left">
@@ -64,8 +62,6 @@
                                             <th>Estimate #</th>
                                             <th>Customer </th>
                                             <th>Estimated Date</th>
-                                            <th>Address</th>
-                                            <th>Star Rating</th>
                                             <th>Total Amont</th>
                                             <th>Actions</th>
                                         </tr>
@@ -75,23 +71,26 @@
                                         <% if !@estimates.blank?%>
                                           <% @estimates.each do |job| %>
                                             <tr >
-                                                <td><%= job.try(:id) %></td>
-                                                <td><%= job.user.fullname rescue "" %></td>
-                                                <td><%= job.name.titleize rescue "" %></td>
-                                                <td><%= job.start_time  %></td>
+                                                <td><%= job.try(:job_number) %></td>
+                                                <td><%=  customer_name(job) %></td>
+                                                <td><%= job.created_at.strftime("%b/%m/%Y")  %></td>
+                                                <td><%= job.grand_total  %></td>
 
-                                                <td><%= link_to 'Edit',edit_job_url(job), :class => "btn btn-info"%></td>
-                                                <td><%= link_to 'Show',job_url(job), :class => "btn btn-info"%></td>
-                                                <td><%= link_to 'Delete',job_url(job), method: :delete, data: { confirm: "Are you sure you want to delete?" }, :class => "btn btn-info" ,:method => :delete%>
+                                                <td>
+                                                    <%= link_to '',edit_estimate_url(job), :class => "fa fa-edit"%>
+                                                    <%= link_to '',estimate_url(job), :class => "fa fa-file-alt", :style => "color: green; padding-left: 5px; padding-right: 5px; font-size: 16px" %>
+                                                    <%= link_to '',estimate_url(job), :class => "fa fa-eye", :style => "color: green; padding-left: 5px; padding-right: 5px; font-size: 16px" %>
+                                                    <%= link_to '',estimate_url(job), method: :delete,
+                                                      data: { confirm: "Are you sure you want to delete?" }, 
+                                                      :class => "fa fa-trash-alt" , :style=> "color: red"%>
+                                                    <%= link_to '',customer_url(job), method: :post,
+                                                      data: { confirm: "Are you sure you want to delete?" }, 
+                                                      :class => "fa fa-envelope" , :style=> "color: green; margin-left: 5px"%>
                                                 </td>
                                             </tr>
 
                                           <% end %>
-                                        <% else %>
-                                      <p style="text-align: center">
-                                      <h6> No Estimate.</h6>
-                                      </p>
-                                    <% end %>
+                                        <% end %>
 
                                     </tbody>
                                 </table>
@@ -161,18 +160,18 @@
 
 <script type="text/javascript">
   function checkInput(number) {
-    var value  = document.getElementById("textValue").value;
-    $.ajax({
-              type: "GET",
-              url: "/customers/list_customers",
-              data: {
-                  company_id: <%= current_user.try(:company_id)%>,
-                  name: value
-              },
-              cache: false,
-              success: function (data) {
-              }
-          });
+      var value = document.getElementById("textValue").value;
+      $.ajax({
+          type: "GET",
+          url: "/customers/list_customers",
+          data: {
+              company_id: <%= current_user.try(:company_id)%>,
+              name: value
+          },
+          cache: false,
+          success: function (data) {
+          }
+      });
   }
 
 </script>

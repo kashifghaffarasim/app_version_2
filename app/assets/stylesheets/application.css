@@ -17,5 +17,9 @@
  *= require fullcalendar.min.css
  *= require dataTables.bootstrap4.css
  *= require footable.core.min.css
+ *= require jquery.rateyo
+ *= require date/default.css
+ *= require date/default.date.css
+ *= require date/default.time.css
  *= require style.css
  */

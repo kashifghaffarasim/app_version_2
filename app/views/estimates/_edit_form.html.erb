@@ -1,10 +1,13 @@
 <div class="card-body">
+
     <div class="card-body">
-        <%= f.hidden_field :user_id , :class => "form-control", :value => "#{current_user.try(:id)}" %>
-        <%= f.hidden_field :company_id , :class => "form-control" , :value => "#{current_user.try(:company_id)}"%>
-        <%= f.hidden_field :pool_id , :class => "form-control" , :value => "#{@pool.try(:id)}"%>
+        <%= f.hidden_field :rating , :class => "form-control" %>
+        <%= f.hidden_field :job_type, :value => "Estimate" %>
     </div>
 
+    <% flash.each do |key, value| %>
+      <div class="alert alert-<%= key %>"><%= value %></div>
+    <% end %>
     <div class="row" style=" padding-bottom: 10px">
         <div class="col-md-6 text-left" >
             <div class="row" style="margin-left: 30px">
@@ -17,6 +20,9 @@
                       <span> <%= @pool.address.try(:country_name) %> </span>
                     <% end %>
                 </div>
+            </div>
+            <div class="row" style="margin-left: 30px; margin-top: 30px">
+                <b>Job Rating:</b> <div id="rateYo"></div>
             </div>
         </div>
 
@@ -42,7 +48,22 @@
                             Tax (%)
                         </label>
                         <div class="col-sm-4">
-                            <%= f.number_field :tax , :min => 0, :class => "form-control" , :placeholder=>"0", :onkeyup=> "getGrandTotal()"%>
+                            <%= f.number_field :tax , :min => 0, :max => 100, :class => "form-control" , 
+                              :placeholder=>"0", :onkeyup=> "getTax(this.id)"%>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6"></div>
+                <div class="col-md-6">
+                    <div class="form-group row p-t-15">
+                        <label for="inputEmail3" class="col-sm-6 text-right control-label col-form-label">
+                            Discount ($)
+                        </label>
+                        <div class="col-sm-4">
+                            <%= f.number_field :discount , :min => 0, :class => "form-control" , :placeholder=>"0", :onkeyup=> "getDiscount(this.id)"%>
                         </div>
                     </div>
                 </div>
@@ -52,23 +73,10 @@
                 <div class="col-md-6">
                     <div class="form-group row p-t-15">
                         <label for="inputEmail3" class="col-sm-6 text-right control-label col-form-label">
-                            Discount ($)
-                        </label>
-                        <div class="col-sm-4">
-                            <%= f.number_field :discount , :min => 0, :class => "form-control" , :placeholder=>"0", :onkeyup=> "getGrandTotal()"%>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row" style="display: none">
-                <div class="col-md-6"></div>
-                <div class="col-md-6">
-                    <div class="form-group row p-t-15">
-                        <label for="inputEmail3" class="col-sm-6 text-right control-label col-form-label">
                             Require Deposit
                         </label>
                         <div class="col-sm-4">
-                            <%= f.text_field :job_number , :class => "form-control" , :placeholder=>"0"%>
+                            <%= f.text_field :deposit , :class => "form-control" , :placeholder=>"0"%>
                         </div>
                     </div>
                 </div>
@@ -136,7 +144,7 @@
                 <div class="col-md-9"></div>
                 <div class="col-md-2">  Tax:  </div>
                 <div class="col-md-1"> 
-                    <input type="text" id="tax" class="form-control " readonly>
+                    <input type="text" id="tax" class="form-control " readonly >
                 </div>
             </div>
         </div>
@@ -147,7 +155,7 @@
                 <div class="col-md-9"></div>
                 <div class="col-md-2">  Discount:  </div>
                 <div class="col-md-1"> 
-                    <input type="text" id="discount" class="form-control" readonly>
+                    <input type="text" id="discount" class="form-control" readonly >
                 </div>
             </div>
         </div>
@@ -166,22 +174,44 @@
 </div>
 <hr>
 <div class="col-md-12 ">
-    <%= submit_tag "Create Estimate",:class=>"btn btn-info",:style => "float: right;"%>
+    <%= submit_tag "Update Estimate",:class=>"btn btn-info",:style => "float: right;"%>
 </div>
 
 
 
 
-<script>
-  $(document).ready(function () {
-      var value = document.getElementById('job_tax').value;
 
+<script>
+
+  $(document).ready(function () {
+
+      var value = document.getElementById('job_tax').value;
       if (!value) {
           console.log("ready!");
           document.getElementById('job_sub_total').setAttribute('value', 0);
           document.getElementById('discount').setAttribute('value', 0);
           document.getElementById('tax').setAttribute('value', 0);
-          document.getElementById('job_grand_total').setAttribute('value', 0);
+      } else {
+        console.log(value);
+         var disvalue = document.getElementById('job_discount').value;
+         document.getElementById('tax').setAttribute('value', value);
+         document.getElementById('discount').setAttribute('value', disvalue);
+         
       }
+      
+      var rating = document.getElementById('job_rating').value;
+      var avgRate = 0;
+      if (rating) {
+          avgRate = rating;
+      }
+      $("#rateYo").rateYo({
+          rating: avgRate,
+          precision: 2,
+          halfStar: true,
+          onSet: function (rating, rateYoInstance) {
+                        document.getElementById('job_rating').setAttribute('value', rating);
+                  }
+      });
+
   });
 </script>

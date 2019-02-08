@@ -1,0 +1,69 @@
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" 
+     aria-labelledby="exampleModalLabel1">
+    <div class="modal-dialog" role="document" style=" max-width: 600px;">
+        <div class="modal-content" style="border-radius: 6px">
+            <div class="modal-header" style="  border-radius: 5px;  background: #023aaf;
+                 color: #fff; border-bottom-left-radius: 0px; border-bottom-right-radius: 0px">
+                <h4 class="modal-title" id="exampleModalLabel1"> New Job (Select Customer)</h4>
+                <button style=" color: #fff; opacity: 1" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" >
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <h6>Which Client would you like to use for this Job?</h6>
+
+                    </div>
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <input class="form-control" 
+                                           onkeyup="checkInput('num1');"
+                                           placeholder="Search Customer" 
+                                           id="textValue"
+                                           />
+                                </div>
+                            </div>
+                            <div class="col-md-2" style="text-align: center; padding: 6px; font-weight: bold">
+                                — OR —
+                            </div>
+                            <div class="col-md-5">
+                                <a href="<%= new_customer_url %>" class="btn btn-block btn-outline-info">
+                                    <b> Create New Customer </b>    
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12" id="customers">
+                        <%= render 'shared/customers/customers',  customer: @customers%>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+  function checkInput(number) {
+      var value = document.getElementById("textValue").value;
+      $.ajax({
+          type: "GET",
+          url: "/customers/list_customers",
+          data: {
+              company_id: <%= current_user.try(:company_id)%>,
+              name: value
+          },
+          cache: false,
+          success: function (data) {
+          }
+      });
+  }
+
+</script>

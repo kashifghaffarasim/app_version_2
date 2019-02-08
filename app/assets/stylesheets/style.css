@@ -5187,3 +5187,7 @@ File: scss
     color: #fff !important;
 }
 
+.page-wrapper{
+    display: block
+}
+

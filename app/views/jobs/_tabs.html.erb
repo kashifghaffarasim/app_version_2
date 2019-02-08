@@ -1,20 +1,17 @@
+
 <ul class="nav nav-tabs customtab" role="tablist">
     <li class="nav-item"> 
-        <a class="nav-link active" data-toggle="tab" href="#home2" role="tab">
-            <span class="hidden-sm-up"><i class="ti-home"></i>
-            </span> 
-            <span class="hidden-xs-down">Estimates</span>
+        <a class="nav-link <%= 'active' if tab == 1 %> " href="<%= estimates_url %> " >
+
+            <span class="hidden-xs-down">Estimates </span>
         </a> 
     </li>
-    <li class="nav-item"> <a class="nav-link" data-toggle="tab" 
-                             href="#profile2" role="tab">
-            <span class="hidden-sm-up">
-                <i class="ti-user"></i></span> 
+    <li class="nav-item"> 
+        <a class="nav-link <%= 'active' if tab == 2 %>"  href="<%= jobs_url %> ">
             <span class="hidden-xs-down"> Work Orders</span></a> 
     </li>
     <li class="nav-item"> 
-        <a class="nav-link" data-toggle="tab" href="#messages2" role="tab">
-            <span class="hidden-sm-up"><i class="ti-email"></i></span> 
+        <a class="nav-link <%= 'active' if tab == 3 %>" href="<%= invoices_url %>">
             <span class="hidden-xs-down">Inovices </span></a> 
     </li>
 </ul>

@@ -30,8 +30,8 @@
                     </div>
                     <hr style="    margin: 0px;">
 
-                    <%= form_for @estimate, url: estimates_url do |f| %>
-                      <%= render 'estimates/form', f: f %>
+                    <%= form_for @estimate, url: estimate_url(@estimate) do |f| %>
+                      <%= render 'estimates/edit_form', f: f %>
                     <% end %>
                 </div>
             </div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_03_070420) do
+ActiveRecord::Schema.define(version: 2019_02_08_111854) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 2019_01_03_070420) do
     t.datetime "updated_at", null: false
     t.integer "user_id"
     t.integer "company_id"
+    t.integer "pool_id"
   end
 
   create_table "companies", force: :cascade do |t|
@@ -36,21 +37,87 @@ ActiveRecord::Schema.define(version: 2019_01_03_070420) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
+    t.string "phone"
+    t.string "email"
+    t.string "website"
+    t.string "start_week"
+    t.string "avatar_file_name"
+    t.string "avatar_content_type"
+    t.bigint "avatar_file_size"
+    t.datetime "avatar_updated_at"
+  end
+
+  create_table "email_notifications", force: :cascade do |t|
+    t.string "user_email"
+    t.string "subject"
+    t.string "body"
+    t.integer "sender_id"
+    t.integer "receiver_id"
+    t.boolean "status", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "attachment_file_name"
+    t.string "attachment_content_type"
+    t.bigint "attachment_file_size"
+    t.datetime "attachment_updated_at"
+  end
+
+  create_table "job_assign_visits", force: :cascade do |t|
+    t.integer "job_id"
+    t.string "start_time"
+    t.string "end_time"
+    t.integer "user_id"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.string "status", default: "In Progresss"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "jobs", force: :cascade do |t|
     t.integer "company_id"
     t.integer "user_id"
-    t.integer "address_id"
     t.integer "pool_id"
-    t.string "name"
     t.datetime "start_time"
-    t.string "amount"
     t.string "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "status"
     t.datetime "end_time"
+    t.string "job_number"
+    t.float "sub_total"
+    t.float "discount"
+    t.float "tax"
+    t.float "grand_total"
+    t.text "messages"
+    t.string "job_type"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.integer "assign_to"
+    t.float "deposit"
+    t.integer "rating"
+    t.integer "customer_id"
+    t.string "schudle"
+  end
+
+  create_table "line_items", force: :cascade do |t|
+    t.integer "job_id"
+    t.string "name"
+    t.integer "quantity"
+    t.float "unit_cost"
+    t.float "total"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "notification_options", force: :cascade do |t|
+    t.text "subject"
+    t.string "message_type"
+    t.text "message_content"
+    t.integer "company_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "notifications", force: :cascade do |t|
@@ -73,15 +140,16 @@ ActiveRecord::Schema.define(version: 2019_01_03_070420) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "pools", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "address_id"
-    t.string "name"
-    t.string "description"
+  create_table "pool_data", force: :cascade do |t|
+    t.integer "pool_id"
     t.string "pool_type"
-    t.string "pool_shape"
-    t.string "pool_size"
-    t.string "pool_gallonage"
+    t.string "shape"
+    t.string "type_manufacturer"
+    t.string "type_model"
+    t.string "type_serial_number"
+    t.string "type_color"
+    t.string "type_voltage"
+    t.string "surface_material"
     t.string "equip_pump_brand"
     t.string "equip_model"
     t.string "equip_horsepower"
@@ -91,6 +159,11 @@ ActiveRecord::Schema.define(version: 2019_01_03_070420) do
     t.string "filter_model"
     t.string "filter_type"
     t.string "filter_cartridge"
+    t.string "cartridge_size"
+    t.string "cartridge_part"
+    t.string "cartridge_date"
+    t.string "filter_sand_model"
+    t.string "filter_sand_size"
     t.string "filter_date_replaced"
     t.string "filter_de"
     t.string "heater_brand"
@@ -102,14 +175,42 @@ ActiveRecord::Schema.define(version: 2019_01_03_070420) do
     t.string "time_clock_voltage"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "property_id"
-    t.float "depth"
-    t.float "depth2"
-    t.float "length"
-    t.float "width"
-    t.float "width2"
-    t.float "diameter"
+  end
+
+  create_table "pool_settings", force: :cascade do |t|
+    t.string "name"
     t.integer "company_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "pools", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "address_id"
+    t.string "pool_name"
+    t.string "pool_description"
+    t.string "pool_type"
+    t.string "pool_volume"
+    t.string "pool_volume2"
+    t.string "pool_gate_code"
+    t.string "pool_source_type"
+    t.string "pool_lifeguards"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "pool_activity"
+    t.integer "company_id"
+  end
+
+  create_table "rating_caches", force: :cascade do |t|
+    t.string "cacheable_type"
+    t.bigint "cacheable_id"
+    t.float "avg", null: false
+    t.integer "qty", null: false
+    t.string "dimension"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cacheable_id", "cacheable_type"], name: "index_rating_caches_on_cacheable_id_and_cacheable_type"
+    t.index ["cacheable_type", "cacheable_id"], name: "index_rating_caches_on_cacheable_type_and_cacheable_id"
   end
 
   create_table "roles", force: :cascade do |t|
@@ -120,6 +221,16 @@ ActiveRecord::Schema.define(version: 2019_01_03_070420) do
     t.datetime "updated_at", null: false
     t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id"
     t.index ["resource_type", "resource_id"], name: "index_roles_on_resource_type_and_resource_id"
+  end
+
+  create_table "sms", force: :cascade do |t|
+    t.string "user_number"
+    t.string "body"
+    t.integer "sender_id"
+    t.integer "receiver_id"
+    t.boolean "status", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "user_notifications", force: :cascade do |t|
@@ -154,6 +265,7 @@ ActiveRecord::Schema.define(version: 2019_01_03_070420) do
     t.bigint "avatar_file_size"
     t.datetime "avatar_updated_at"
     t.string "source"
+    t.string "status"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

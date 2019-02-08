@@ -1,0 +1,65 @@
+<hr>
+<%= form_for @job, url: line_items_url(job_id: @job.id) , remote: true do |ff| %>
+  <div class="row" style=" padding-right: 20px;">
+      <div class="col-md-1" style="    position: absolute;
+           margin-left: 10px;">
+          <div class="form-group row">
+              <%= ff.remove_nested_fields_link "–" , :class => 'btn btn-danger'%>
+          </div>
+      </div>
+      <%= ff.nested_fields_for :line_items do |f| %>
+        <div class="row" style=" margin-left: 60px">
+            <div class="col-md-3">
+                <div class="form-group row">
+                    <%= f.text_field :name , :class => "form-control" , :placeholder=>"Name", :required => true%>
+                </div>
+            </div>
+
+            <div class="col-md-5">
+                <div class="form-group row">
+                    <div class="col-md-11">
+                        <%= f.text_field :description , :class => "form-control" , :placeholder=>"Description", :required => true%>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-1">
+                <div class="form-group row">
+                    <div class="col-md-9">
+                        <%= f.text_field :quantity , :class => "form-control" , :onkeyup=>"AddQuantity(this.id)"  , :required => true%>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-1">
+                <div class="form-group row">
+                    <div class="col-md-9">
+                        <%= f.text_field :unit_cost , :class => "form-control" , :onkeyup=>"AddPrice(this.id)", :required => true%>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-1">
+                <div class="form-group row">
+                    <div class="col-md-12">
+                        <%= f.number_field :total , :class => "form-control" , :readonly => true%>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="clearfix"></div>
+
+                <div class="text-right">
+
+                    <a href="http://localhost:3000/estimates" class="btn btn-default btn-outline"> 
+                        Save
+                    </a>
+                </div>
+            </div>
+        </div>
+      <% end %>
+  </div>
+  <hr>
+<% end %>
+
+

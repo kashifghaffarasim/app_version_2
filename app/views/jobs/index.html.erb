@@ -24,7 +24,7 @@
         <div class="col-12" style=" background: #fff; padding: 0px">
 
             <!-- Nav tabs -->
-            <%= render 'jobs/tabs', tab: @count %>
+            <%= render 'jobs/tabs', tab: 2 %>
 
             <!-- Tab panes -->
             <div class="tab-content m-t-20">
@@ -37,66 +37,56 @@
                             <div class="card-body">
                                 <div  class="row" style="margin-top: 10px">
                                     <div class="col-md-4 col-12 text-left">
-                                        <h4> Estimates </h4>
+                                        <h4> Jobs </h4>
                                     </div>
                                     <div class="col-md-8 col-12 text-right">
-                                        <%= link_to 'New Estimate', new_job_url(type: 'estimate'),:class=>"btn btn-info btn-rounded"%>
                                         <button type="button" class="btn btn-info" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">
-                                            New Estimates
+                                            New Job
                                         </button>
                                     </div>
                                 </div>
                             </div>
 
 
-
                             <div class="card-body">
                                 <% unless flash[:notice].blank? %>
-
                                   <div class="flash_team_member">
                                       <div id="flash_notice_team_member" class="flash_team_member flash_notice_team_member clearfix hide_for_print">
                                           <%= flash[:notice] %><i class="fa fa-check" style="float:right;"></i>
                                       </div>
                                   </div>
-
                                 <%end%> 
 
                                 <table id="demo-foo-addrow" class="table m-t-30 no-wrap table-hover contact-list" data-page-size="10">
-                                    <thead>
 
+                                    <thead>
                                         <tr>
-                                            <th>Estimate #</th>
+                                            <th>#</th>
                                             <th>Customer </th>
-                                            <th>Estimated Date</th>
-                                            <th>Address</th>
-                                            <th>Star Rating</th>
-                                            <th>Total Amont</th>
+                                            <th>Start Date</th>
                                             <th>Actions</th>
                                         </tr>
-
                                     </thead>
-                                    <tbody>
-                                        <% if !@job.blank?%>
-                                          <% @job.each do |job| %>
-                                            <tr >
-                                                <td><%= job.try(:id) %></td>
-                                                <td><%= job.user.fullname rescue "" %></td>
-                                                <td><%= job.name.titleize rescue "" %></td>
-                                                <td><%= job.start_time  %></td>
 
-                                                <td><%= link_to 'Edit',edit_job_url(job), :class => "btn btn-info"%></td>
-                                                <td><%= link_to 'Show',job_url(job), :class => "btn btn-info"%></td>
-                                                <td><%= link_to 'Delete',job_url(job), method: :delete, data: { confirm: "Are you sure you want to delete?" }, :class => "btn btn-info" ,:method => :delete%>
+                                    <tbody>
+                                        <% if !@jobs.blank?%>
+                                          <% @jobs.each do |job| %>
+                                            <tr>
+                                                <td><%= job.try(:job_number) %></td>
+                                                <td><%=  customer_name(job) %></td>
+                                                <td><%= job.start_date.strftime("%b/%m/%Y")  %></td>
+
+
+                                                <td>
+                                                    <%= link_to '',edit_job_url(job), :class => "fa fa-edit"%>
+                                                    <%= link_to '',job_url(job), :class => "fa fa-eye", :style => "color: green; padding-left: 5px; padding-right: 5px; font-size: 16px" %>
+                                                    <%= link_to '',job_url(job), method: :delete,
+                                                      data: { confirm: "Are you sure you want to delete?" }, 
+                                                      :class => "fa fa-trash-alt" , :style=> "color: red"%>
                                                 </td>
                                             </tr>
-
                                           <% end %>
-                                        <% else %>
-                                      <p style="text-align: center">
-                                      <h6> No Estimate.</h6>
-                                      </p>
-                                    <% end %>
-
+                                        <% end %>
                                     </tbody>
                                 </table>
                             </div>
@@ -112,50 +102,5 @@
 <br>
 <br>
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" 
-     aria-labelledby="exampleModalLabel1">
-    <div class="modal-dialog" role="document" style=" max-width: 600px;">
-        <div class="modal-content" style="border-radius: 6px">
-            <div class="modal-header" style="  border-radius: 5px;  background: #023aaf;
-                 color: #fff; border-bottom-left-radius: 0px; border-bottom-right-radius: 0px">
-                <h4 class="modal-title" id="exampleModalLabel1"> New Estimate (Select Customer)</h4>
-                <button style=" color: #fff; opacity: 1" type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
+<%= render 'modal' %>
 
-                <div class="row">
-                    <div class="col-md-12">
-                        <h6>Which Client would you like to use for this Estimate?</h6>
-
-                    </div>
-                    <div class="col-md-12">
-                        <div class="row">
-                            <div class="col-md-5">
-                                <div class="form-group">
-                                    <input class="form-control" id="message-text1" placeholder="Search Customer"/>
-                                </div>
-                            </div>
-                            <div class="col-md-2" style="text-align: center; padding: 6px; font-weight: bold">
-                                — OR —
-                            </div>
-                            <div class="col-md-5">
-                                <button type="button" class="btn btn-block btn-outline-info">
-                                    <b> Create New Customer </b>    
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col-md-12">
-
-                        <%= render 'shared/customers/customers',  customer: @customers%>
-
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </div>
-</div>

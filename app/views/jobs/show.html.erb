@@ -1,154 +1,162 @@
-
-
-<script type="text/javascript">$.LiveAddress("2676492808779544509");</script>
-
-<div > 
-	<!-- ============================================================== -->
-	<!-- Bread crumb and right sidebar toggle -->
-	<!-- ============================================================== -->
-	<div class="page-breadcrumb" >
-		<div class="row">
-			<div class="col-5 align-self-center">
-				<h4 class="page-title">Form Horizontal</h4>
-				<div class="d-flex align-items-center">
-					<nav aria-label="breadcrumb">
-						<ol class="breadcrumb">
-							<li class="breadcrumb-item"><a href="#">Home</a></li>
-							<li class="breadcrumb-item active" aria-current="page">Library</li>
-						</ol>
-					</nav>
-				</div>
-			</div>
-			<div class="col-7 align-self-center">
-				<div class="d-flex no-block justify-content-end align-items-center">
-					<div class="m-r-10">
-						<div class="lastmonth"></div>
-					</div>
-					<div class=""><small>LAST MONTH</small>
-						<h4 class="text-info m-b-0 font-medium">$58,256</h4></div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- ============================================================== -->
-		<!-- End Bread crumb and right sidebar toggle -->
-		<!-- ============================================================== -->
-		<!-- ============================================================== -->
-		<!-- Container fluid  -->
-		<!-- ============================================================== -->
-		<div class="container-fluid">
-			<!-- ============================================================== -->
-			<!-- Start Page Content -->
-			<!-- ============================================================== -->
-			<!-- Row -->
-			<div class="row">
-				<div class="col-12">
-					<div class="card">
-						<div class="card-body">
-							<h4 class="card-title" style="text-align: center;">JOB SETTINGS</h4>
-							<h6 class="card-subtitle"></h6>
-						</div>
-						<hr>
-
-						<div class="card-body">
-							<h4 class="card-title">JOB INFO</h4>
-							<div class="form-group row">
-								<label for="fname" class="col-sm-3 text-right control-label col-form-label">Job Id</label>
-								<div class="col-sm-9">
-									<p class= "form-control">
-									<%= @job.id %>
-									</p>
-								</div>
-							</div>
-							<div class="form-group row">
-								<label for="fname" class="col-sm-3 text-right control-label col-form-label">User Id</label>
-								<div class="col-sm-9">
-									<p class= "form-control">
-									<%= @job.user_id %>
-									</p>
-								</div>
-							</div>
-							<div class="form-group row">
-								<label for="fname" class="col-sm-3 text-right control-label col-form-label">Job</label>
-								<div class="col-sm-9">
-									<p class= "form-control">
-									<%= @job.name %>
-									</p>
-								</div>
-							</div>
-							<div class="form-group row">
-								<label for="fname" class="col-sm-3 text-right control-label col-form-label">Time</label>
-								<div class="col-sm-9">
-									<p class= "form-control">
-									<%= @job.start_time %>
-								</p>
-								</div>
-							</div>
-							<div class="form-group row">
-								<label for="email1" class="col-sm-3 text-right control-label col-form-label">Amount</label>
-								<div class="col-sm-9">
-									<p class= "form-control">
-									<%= @job.amount %>
-								</p>
-								</div>
-							</div>
-							<div class="form-group row">
-								<label for="email1" class="col-sm-3 text-right control-label col-form-label">Description</label>
-								<div class="col-sm-9">
-									<p class= "form-control">
-									<%= @job.description %>
-								</p>
-								</div>
-							</div>
-							
-						</div>
-					</div>
-
-				</div>
-			</div>
-		</div>
-
-	</div>
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-5 align-self-center">
+            <h4 class="page-title"> Job </h4>
+            <div class="d-flex align-items-center">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"> Job </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
 </div>
 
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-body printableArea">
+                <h3><b>JOB</b> <span class="pull-right">#<%= @job.job_number %></span></h3>
+
+                <hr>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="pull-left">
+                            <address style="margin-left: 10px">
+                                <h3>
+                                    <b class="text-danger">
+                                        <%=  customer_name(@job) %>
+                                    </b>
+                                </h3>
+                                <% if  @pool.address %>
+                                  <p class="text-muted m-l-7">
+                                      <%= @pool.address.try(:address_name) %>,
+                                      <br> <%= @pool.address.try(:city_name) %>,
+                                      <br> <%= @pool.address.try(:country_name) %>
+                                  </p>
+                                <% end %>
+                            </address>
+                        </div>
+                        <div class="pull-right text-right">
+                            <address>
+                                <p class="m-t-30"><b>Start Date :</b> 
+                                    <i class="fa fa-calendar"></i>  <%= @job.start_date.strftime("%b/%m/%Y")  %>
+                                </p>
+                                <p class="m-t-30"><b>End Date :</b> 
+                                    <i class="fa fa-calendar"></i>  <%= @job.end_date.strftime("%b/%m/%Y")  %>
+                                </p>
+                            </address>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12" style="background: #e6e6e65e; border-radius: 5px"> 
+                        <div class="col-md-12">
+                            <%= form_for @job, url: line_item_url, method: :put do |f| %>
+                              <div class="row">
+                                  <div class="col-md-4" style=" padding: 14px;
+                                       font-size: 15px;
+                                       font-weight: bold;">
+                                      Work Items 
+                                  </div>
+                                  <div class="col-md-8 text-right" style="padding: 14px;">
+                                      <button id="addnewItem" class="btn btn-default btn-outline" type="button"> <span>
+                                              <i class="fa fa-plus"></i> 
+                                              <%=  f.add_nested_fields_link :line_items  %>
+                                          </span> 
+                                      </button>
+                                  </div>
+                                  <div class="col-md-12" style="margin-top: -13px">
+                                      <hr>
+                                  </div>
+
+                                  <%= f.hidden_field :job_id, :value => "#{@job.id}" %>
+                                  <div class="col-md-12">
+                                      <div id="loadItems">
+
+                                          <%= f.nested_fields_for :line_items do |ff| %>
+                                            <div class="row" style="margin-top: 10px">
+                                                <div class="col-md-1">
+                                                    <div class="form-group row">
+
+                                                        <%= ff.remove_nested_fields_link "–" , :class => 'btn btn-danger'%>
+                                                    </div>
+                                                </div>
+                                                <%= render 'jobs/line_item', f: ff %>
+                                            </div>
+
+                                          <% end %>
+                                      </div>
+                                  </div>
+
+                                  <div class="col-md-12 " id="myDIV" style="padding-bottom: 20px; display: none;     border-bottom: 1px solid #ddd;
+                                       margin-bottom: 22px;">
+                                       <%= submit_tag "Save",:class=>"btn btn-info",:style => "float: right;"%>
+                                  </div>
+                              </div>
+                            <% end %>
+                        </div>
+                    </div>
 
 
 
-<script type="text/javascript">
-	$("#blah").mouseover(function () {
-		$('#blah').Jcrop({
-			onSelect: showCoords,
-			onChange: showCoords
-		});
 
-	})
+                    <div class="col-md-12" style="background: #e6e6e65e; border-radius: 5px; margin-top: 20px; border: 1px solid #ddd"> 
+                        <div class="col-md-12">
+                            <%= form_for @job, url: line_item_url, method: :put do |f| %>
+                              <div class="row">
+                                  <div class="col-md-4" style=" padding: 14px;
+                                       font-size: 15px;
+                                       font-weight: bold;">
+                                      Plan to Visit 
+                                  </div>
+                                  <div class="col-md-8 text-right" style="padding: 14px;">
+                                      <button id="addnewItem" class="btn btn-default btn-outline" 
+                                              type="button"> <span>
+                                              <i class="fa fa-plus"></i> 
+                                          </span> 
+                                      </button>
+                                  </div>
+                                  <div class="col-md-12" style="margin-top: -13px">
+                                      <hr>
+                                  </div>
 
-	$("#datepicker").datepicker({format: 'yyyy-mm-dd'});
+                                  <%= f.hidden_field :job_id, :value => "#{@job.id}" %>
+                                  <div class="col-md-12">
+                                      <div id="loadItems">
 
-	$(".inner").click(function () {
-		$(".inner").html('');
-		$(".inner").removeClass("button");
-		$(".pwd").html('<div><%= label_tag :password %> <i>(leave blank if you dont want to change it)</i><br /><%= password_field_tag :password,'', autocomplete: "off" ,:style=>"margin-left: 6%;"%></div><div><%= label_tag :password_confirmation %><br /><%= password_field_tag :password_confirmation,'', autocomplete: "off" ,:style=>"margin-left: 6%;"%></div>');
-	});
+                                          <%= f.nested_fields_for :line_items do |ff| %>
+                                            <div class="row" style="margin-top: 10px">
+                                                <div class="col-md-1">
+                                                    <div class="form-group row">
+
+                                                        <%= ff.remove_nested_fields_link "–" , :class => 'btn btn-danger'%>
+                                                    </div>
+                                                </div>
+                                                <%= render 'jobs/line_item', f: ff %>
+                                            </div>
+
+                                          <% end %>
+                                      </div>
+                                  </div>
+
+                                  <div class="col-md-12 " id="myDIV" style="padding-bottom: 20px; display: none;     border-bottom: 1px solid #ddd;
+                                       margin-bottom: 22px;">
+                                      <%= submit_tag "Save",:class=>"btn btn-info",:style => "float: right;"%>
+                                  </div>
+                              </div>
+                            <% end %>
+                        </div>
+                    </div>
 
 
 
-	$('.mobile_number_team_member').keyup(function () {
-        foo = $(this).val().split("-").join(""); // remove hyphens
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-        foo = foo.match(new RegExp('.{1,4}$|.{1,3}', 'g')).join("-");
-
-        $(this).val(foo);
-
-    });
-
-</script>
-<style type="text/css">
-#settings_area form input.wide[type="text"]{
-	width: 100%;
-} 
-#user_avatar{
-	padding: 0;
-}
-</style>
 
