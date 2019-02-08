@@ -79,7 +79,12 @@ Rails.application.routes.draw do
       get :sents
       get :receives
     end
-
+  end
+  resources :sms do
+    collection do
+      get :sents
+      get :receives
+    end
   end
   
   resources :line_items

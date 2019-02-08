@@ -42,7 +42,7 @@ class CommunicationsController < ApplicationController
 			end 
 		else
 			flash[:danger] = "Email Not Sent to #{params[:email_notification][:user_email]} Try Again"
-			render "create.js.erb"	
+			render "new.js.erb"	
 		end 
 	end
 

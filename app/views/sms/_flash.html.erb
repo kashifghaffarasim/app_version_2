@@ -1,0 +1,16 @@
+ 
+ <div class="new_add" id="dau">
+ 	<% flash.each do |key, value| %>
+ 		<div class="alert alert-<%= key %>"><%= value %><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button></div>
+ 	<% end %>
+ </div>
+
+ 
+
+ <script type="text/javascript">
+ setTimeout(function () {
+  $('.alert').fadeOut('fast');
+  $("#dau").remove();
+  <%= flash.clear %>
+   }, 3000);
+ </script>

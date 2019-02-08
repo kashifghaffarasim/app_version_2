@@ -1,0 +1,55 @@
+<div class="mail-details bg-white" style="" id="show">
+	<div class="card-body bg-light">
+		<% if params[:status] == "sent" %>
+		<a href="<%= sents_sms_url(page: params[:page]) %>" data-remote="true" >
+			<button  formaction="" id="back_to_inbox" class="btn btn-outline-secondary font-18 m-r-10"><i class="mdi mdi-arrow-left"></i></button>
+		</a>
+		<% else %>
+		<a href="<%= receives_sms_url(page: params[:page])%>" data-remote="true">
+			<button  id="back_to_inbox" class="btn btn-outline-secondary font-18 m-r-10"><i class="mdi mdi-arrow-left"></i></button>
+		</a>
+		<% end %>
+		<div class="btn-group m-r-10" role="group" aria-label="Button group with nested dropdown">
+			<button type="button" class="btn btn-outline-secondary font-18" onclick="destroy(this);"><i class="mdi mdi-delete"></i></button>
+		</div>
+	</div>
+	<div class="card-body border-bottom">
+		<h4 class="m-b-0"></h4>
+	</div>
+
+	<div class="card-body border-bottom">
+		<div class="d-flex no-block align-items-center m-b-40">
+			<div class="m-r-10"><img src="<%= User.find_by_id(@sms.sender_id).avatar%>" alt="user" class="rounded-circle" width="45"></div>
+			<div class="">
+				<h5 class="m-b-0 font-16 font-medium"><%= User.find_by_id(@sms.sender_id).fullname%> <small> ( <%= User.find_by_id(@sms.sender_id).mobile_number %>)</small></h5><span>to <%= @sms.user_number%></span>
+			</div>
+		</div>
+		<h4 class="m-b-15"></h4>
+		<p></p>
+		<%= @sms.body if !@sms.body.blank?%>
+	</div>
+	
+
+</div>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+
+		$("#unread-receive").text("<%= unread_receive_sms() %>");
+		$("#unread-sent").text("<%= unread_sent_sms() %>");
+	});
+	function destroy(source){
+		var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+		
+		console.log("ids" +<%= @sms.id %>+"")
+		$.ajax({
+			url: "/sms/"+<%= @sms.id %>+"",
+			type: "DELETE",
+			<% if params[:status] == "sent" %>
+			data: {status: "sent"},
+			<% else %>
+			data: {status: "receive"},
+			<% end %>
+		})
+	}
+</script>
