@@ -1,0 +1,162 @@
+<div class="card-body">
+
+    <div class="card-body" style="    position: absolute;">
+        <%= f.hidden_field :user_id , :class => "form-control", :value => "#{current_user.try(:id)}" %>
+        <%= f.hidden_field :company_id , :class => "form-control" , :value => "#{current_user.try(:company_id)}"%>
+        <%= f.hidden_field :pool_id , :class => "form-control" , :value => "#{@pool.try(:id)}"%>
+        <%= f.hidden_field :job_type, :value => "Job" %>
+        <%= f.hidden_field :status, :value => "Pending" %>
+        <%= f.hidden_field :customer_id, :value => "#{@pool.user.try(:id)}" %>
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-md-12" style="text-align: right; margin-bottom: 5px">
+            <div class="row" style="border-bottom: 1px solid #ddd; padding-left: 20px; padding-right: 20px">
+                <div class="col-sm-12 col-lg-6" >
+                    <div class="form-group row">
+                        <label for="email2" class="col-sm-3 text-right control-label col-form-label">
+                            Work Order
+                        </label>
+                        <div class="col-sm-9">
+                            <%= f.select(:schudle, ["One Off", "Recurring Contract"].collect {|n| [ n ]},{},:class=>"form-control" ,:placeholder=>"To")%>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="row" style="padding-top: 20px">
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="col-sm-3 text-right control-label col-form-label">Job #</label>
+                        <div class="col-md-9">
+                            <%= f.text_field :job_number , :class => "form-control" , :placeholder=>"0", :value => "#{SecureRandom.random_number(10000)}", :required => ""%>
+                        </div>
+                    </div>
+                </div>
+                <!--/span-->
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="col-sm-3 text-right control-label col-form-label">Description</label>
+                        <div class="col-md-9">
+                            <textarea rows="2" name="job[description]" id="myTextarea" cols="50" class="form-control"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="padding-top: 20px">
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="col-sm-3 text-right control-label col-form-label">Start Date</label>
+                        <div class="col-md-9">
+                            <input type="date" name="job[start_date]" class="form-control" required="">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="col-sm-3 text-right control-label col-form-label">End Date</label>
+                        <div class="col-md-9">
+                            <input type="date" name="job[end_date]" class="form-control" required="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="padding-top: 20px">
+                <div class="col-md-3">
+                    <h4> Visit :</h4> 
+                </div>
+                <div class="col-md-4">
+                    This job will show up in schedules on the start date 
+                </div>
+            </div>
+
+            <div class="row" style="padding-top: 20px; display: none">
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="col-sm-3 text-right control-label col-form-label">Start Time</label>
+                        <div class="col-md-9">
+                            <input type="datetime" class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Default Pickatime</label>
+                        <h6 class="card-subtitle">To use add <code>.pickatime</code> class for Default PickaDate Picker.</h6>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                    <span class="ti-alarm-clock"></span>
+                                </span>
+                            </div>
+                            <input type="text" class="form-control pickatime picker__input" placeholder="Default Pickatime" readonly="" id="P1331682768" aria-haspopup="true" aria-expanded="false" aria-readonly="false" aria-owns="P1331682768_root"><div class="picker picker--time" id="P1331682768_root" aria-hidden="true"><div class="picker__holder" tabindex="-1" style=""><div class="picker__frame"><div class="picker__wrap"><div class="picker__box"><ul class="picker__list" role="listbox" aria-controls="P1331682768"><li class="picker__list-item" data-pick="0" role="option" aria-label="12:00 AM">12:00 AM</li><li class="picker__list-item" data-pick="30" role="option" aria-label="12:30 AM">12:30 AM</li><li class="picker__list-item" data-pick="60" role="option" aria-label="1:00 AM">1:00 AM</li><li class="picker__list-item" data-pick="90" role="option" aria-label="1:30 AM">1:30 AM</li><li class="picker__list-item" data-pick="120" role="option" aria-label="2:00 AM">2:00 AM</li><li class="picker__list-item" data-pick="150" role="option" aria-label="2:30 AM">2:30 AM</li><li class="picker__list-item" data-pick="180" role="option" aria-label="3:00 AM">3:00 AM</li><li class="picker__list-item" data-pick="210" role="option" aria-label="3:30 AM">3:30 AM</li><li class="picker__list-item" data-pick="240" role="option" aria-label="4:00 AM">4:00 AM</li><li class="picker__list-item picker__list-item--selected picker__list-item--highlighted picker__list-item--viewset" data-pick="270" role="option" aria-label="4:30 AM" aria-selected="true" aria-activedescendant="true">4:30 AM</li><li class="picker__list-item" data-pick="300" role="option" aria-label="5:00 AM">5:00 AM</li><li class="picker__list-item" data-pick="330" role="option" aria-label="5:30 AM">5:30 AM</li><li class="picker__list-item" data-pick="360" role="option" aria-label="6:00 AM">6:00 AM</li><li class="picker__list-item" data-pick="390" role="option" aria-label="6:30 AM">6:30 AM</li><li class="picker__list-item" data-pick="420" role="option" aria-label="7:00 AM">7:00 AM</li><li class="picker__list-item" data-pick="450" role="option" aria-label="7:30 AM">7:30 AM</li><li class="picker__list-item" data-pick="480" role="option" aria-label="8:00 AM">8:00 AM</li><li class="picker__list-item" data-pick="510" role="option" aria-label="8:30 AM">8:30 AM</li><li class="picker__list-item" data-pick="540" role="option" aria-label="9:00 AM">9:00 AM</li><li class="picker__list-item" data-pick="570" role="option" aria-label="9:30 AM">9:30 AM</li><li class="picker__list-item" data-pick="600" role="option" aria-label="10:00 AM">10:00 AM</li><li class="picker__list-item" data-pick="630" role="option" aria-label="10:30 AM">10:30 AM</li><li class="picker__list-item" data-pick="660" role="option" aria-label="11:00 AM">11:00 AM</li><li class="picker__list-item" data-pick="690" role="option" aria-label="11:30 AM">11:30 AM</li><li class="picker__list-item" data-pick="720" role="option" aria-label="12:00 PM">12:00 PM</li><li class="picker__list-item" data-pick="750" role="option" aria-label="12:30 PM">12:30 PM</li><li class="picker__list-item" data-pick="780" role="option" aria-label="1:00 PM">1:00 PM</li><li class="picker__list-item" data-pick="810" role="option" aria-label="1:30 PM">1:30 PM</li><li class="picker__list-item" data-pick="840" role="option" aria-label="2:00 PM">2:00 PM</li><li class="picker__list-item" data-pick="870" role="option" aria-label="2:30 PM">2:30 PM</li><li class="picker__list-item" data-pick="900" role="option" aria-label="3:00 PM">3:00 PM</li><li class="picker__list-item" data-pick="930" role="option" aria-label="3:30 PM">3:30 PM</li><li class="picker__list-item" data-pick="960" role="option" aria-label="4:00 PM">4:00 PM</li><li class="picker__list-item" data-pick="990" role="option" aria-label="4:30 PM">4:30 PM</li><li class="picker__list-item" data-pick="1020" role="option" aria-label="5:00 PM">5:00 PM</li><li class="picker__list-item" data-pick="1050" role="option" aria-label="5:30 PM">5:30 PM</li><li class="picker__list-item" data-pick="1080" role="option" aria-label="6:00 PM">6:00 PM</li><li class="picker__list-item" data-pick="1110" role="option" aria-label="6:30 PM">6:30 PM</li><li class="picker__list-item" data-pick="1140" role="option" aria-label="7:00 PM">7:00 PM</li><li class="picker__list-item" data-pick="1170" role="option" aria-label="7:30 PM">7:30 PM</li><li class="picker__list-item" data-pick="1200" role="option" aria-label="8:00 PM">8:00 PM</li><li class="picker__list-item" data-pick="1230" role="option" aria-label="8:30 PM">8:30 PM</li><li class="picker__list-item" data-pick="1260" role="option" aria-label="9:00 PM">9:00 PM</li><li class="picker__list-item" data-pick="1290" role="option" aria-label="9:30 PM">9:30 PM</li><li class="picker__list-item" data-pick="1320" role="option" aria-label="10:00 PM">10:00 PM</li><li class="picker__list-item" data-pick="1350" role="option" aria-label="10:30 PM">10:30 PM</li><li class="picker__list-item" data-pick="1380" role="option" aria-label="11:00 PM">11:00 PM</li><li class="picker__list-item" data-pick="1410" role="option" aria-label="11:30 PM">11:30 PM</li><li role="presentation"><button class="picker__button--clear" type="button" data-clear="1" aria-controls="P1331682768" disabled="disabled">Clear</button></li></ul></div></div></div></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row" style="padding-top: 20px;">
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="col-sm-3 text-right control-label col-form-label">Assign To </label>
+                        <div class="col-md-9">
+                            <%= f.select(:assign_to, @team_members.collect {|n| [ n.fullname, n.id ]},{ :include_blank => "Select User" },:class=>"form-control" ,:placeholder=>"To")%>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="background: #443e3e2b; padding: 11px;
+                 border-radius: 5px;
+                 padding-top: 19px;
+                 color: #000;" >
+                <div class="col-md-9" style="    text-align: left;">
+                    <h4 class="card-title" style="font-weight: 300; font-size: 15px"> Work Items</h4>
+                </div>
+                <div class="col-md-1">
+                    <h4 class="card-title" style="font-weight: 300; font-size: 15px"> Qty. </h4>
+                </div>
+                <div class="col-md-1">
+                    <h4 class="card-title" style="font-weight: 300; font-size: 15px"> Unit Cost </h4>
+                </div>
+                <div class="col-md-1">
+                    <h4 class="card-title" style="font-weight: 300; font-size: 15px"> Total </h4>
+                </div>
+            </div>
+            <div id="loadItems">
+                <%= f.nested_fields_for :line_items do |ff| %>
+                  <div class="row" style="margin-top: 10px">
+
+                      <div class="col-md-1">
+                          <div class="form-group row">
+
+                              <%= ff.remove_nested_fields_link "–" , :class => 'btn btn-danger'%>
+
+                          </div>
+                      </div>
+                      <%= render 'jobs/line_item', f: ff %>
+                  </div>
+                <% end %>
+            </div>
+        </div>
+
+
+    </div>
+
+
+
+</div>
+
+<hr>
+<div class="col-md-12 ">
+    <%= submit_tag "Update Job",:class=>"btn btn-info",:style => "float: right;"%>
+</div>
+
+
+
+
+

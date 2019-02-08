@@ -1,7 +1,8 @@
 class JobsController < ApplicationController
 
   before_action :authenticate_user!
-
+  before_action :get_job, only: [:edit, :update, :destroy, :show]
+  
 	def index
     session[:type] = "Job"
     @customers =  User.where(company_id: current_user.try(:company_id)).order(id: :asc).with_any_role(:customer).last(4)
@@ -25,7 +26,6 @@ class JobsController < ApplicationController
   
   
 	def show
-		@job = Job.find_by_id(params[:id])
     @pool= @job.pool
     0.times {@job.line_items.build} 
 	end
@@ -40,8 +40,8 @@ class JobsController < ApplicationController
     @job = Job.new(job_type: 'Job')
 	end
 
+  
 	def create
-    
 		@job = Job.create(job_params)
 		if @job.save
       days = (@job.end_date.to_date - @job.start_date.to_date ).to_i
@@ -57,14 +57,16 @@ class JobsController < ApplicationController
 	end
 
 	def edit
-		@job = Job.find_by_id(params[:id])
+    @pool= @job.pool
+    @team_members = User.where(company_id: current_user.try(:company_id)).order(id: :asc).with_any_role(:admin, :user)
+    0.times {@job.line_items.build} 
 	end
 
 	def update
 		@job = Job.find_by_id(params[:id])
-		if @job.update(job_params)
+		if @job and  @job.update(job_params)
 			flash[:notice] = "job Updated!"
-			redirect_to vendors_url
+			redirect_to jobs_url
 		else
 			flash[:notice] = "Vendor did not Update!"
 			render :edit
@@ -73,8 +75,7 @@ class JobsController < ApplicationController
 	end
 
 	def destroy
-		@job = Job.find_by_id(params[:id])
-		if @job.destroy
+		if @job and @job.destroy
 			flash[:notice] = "Job Destroy!"
 			redirect_to jobs_url
 		else
@@ -88,7 +89,11 @@ class JobsController < ApplicationController
 	def job_params
 		params.require(:job).permit(:user_id, :company_id, :customer_id,
       :pool_id, :job_number,  :job_type, :assign_to, :schudle,
-      :start_date, :end_date, :status,:description)
+      :start_date, :end_date, :status,:description,
+      line_items_attributes: [:name, :description, :quantity, :unit_cost, :total, :_destroy,:id])
 	end
 
+  def get_job
+    @job = Job.find_by_id(params[:id])
+  end
 end
