@@ -17,5 +17,23 @@ module ApplicationHelper
 		return sent
 	end
 
+  def vander 
+    vendors = User.where(company_id: current_user.try(:company_id)).order(id: :asc).with_any_role(:vendor, :supplier, :other)
+    return vendors
+  end
 
+  def customer
+    customers =  User.where(company_id: current_user.try(:company_id)).order(id: :asc).with_any_role(:customer)
+    return customers
+  end
+
+  def team_member
+    team_members = User.where(company_id: current_user.try(:company_id)).order(id: :asc).with_any_role(:admin, :user)
+    return team_members
+  end
+
+	def total_user
+		total_user = team_member().length + vander().length + customer().length
+		return total_user
+	end
 end
