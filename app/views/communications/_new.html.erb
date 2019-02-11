@@ -17,7 +17,7 @@
 		<%= form_for @email,url: communications_url, html:{ multipart: true ,remote: true} do |f|%>
 		<div class="form-group">
 
-			<%= f.select(:user_email, User.all.collect {|n| [ n.email, n.email ]},{},:class=>"form-control" ,:placeholder=>"To")%>
+			<%= f.select(:user_email,  User.where(company_id: current_user.try(:company_id)).where("id NOT IN (?)", current_user.id).order(id: :asc).collect {|n| [ "#{n.fullname} (#{n.email})", n.email ]},{},:class=>"form-control" ,:placeholder=>"To")%>
 
 
 		</div>
