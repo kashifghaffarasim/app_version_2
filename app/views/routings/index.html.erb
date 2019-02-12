@@ -74,13 +74,13 @@
             <b>Start: </b>
             <select id="start">
               <% @vendors.each do |i| %>
-              <option value="<%= i.address.address_name %>"><%= i.address.address_name %></option>
+              <option value="<%= i.address.address_name %>"><%= "#{i.address.address_name} - #{i.roles_name.last}"   %></option>
               <% end %>
             </select>
             <b>End: </b>
             <select id="end">
               <% @vendors.each do |i| %>
-              <option value="<%= i.address.address_name %>"><%= i.address.address_name %></option>
+              <option value="<%= i.address.address_name %>"><%= "#{i.address.address_name} - #{i.roles_name.last}" %></option>
               <% end %>
             </select>
           </div>

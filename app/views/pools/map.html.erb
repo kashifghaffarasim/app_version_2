@@ -122,8 +122,6 @@ async defer></script>
 				alert("Geocode unsuccessful");
 			}
 			google.maps.event.addListener(marker, 'dragend', function() {
-				console.dir("hahha")
-
 				console.dir(marker.getPosition().lat())
 				var latlng = {lat: marker.getPosition().lat(), lng:  marker.getPosition().lng()};
 				console.dir(latlng)

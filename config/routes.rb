@@ -41,55 +41,55 @@ Rails.application.routes.draw do
   resources :jobs do
     collection do 
      get  :customer_pool
-    end
-  end
-  
-  resources :vendors
-  resources :calendars
-  resources :settings, only: [:index]
-  resources :companies, only: [:index, :create, :edit, :update, :show]
-  resources :profiles 
-  resources :pools
-  resources :team_members
-  get '/dashboard' => 'dashboard#index'
-  root 'welcomes#index'
+   end
+ end
 
-  resources :pools do
-    collection do
-      get :map , via: [:get, :post]
-      post :map_address , via: [:post]
-    end
-  end
-  resources :plans
-  resources :leads do
-    collection do 
-      get :map
+ resources :vendors
+ resources :calendars
+ resources :settings, only: [:index]
+ resources :companies, only: [:index, :create, :edit, :update, :show]
+ resources :profiles 
 
-    end
+ resources :team_members
+ get '/dashboard' => 'dashboard#index'
+ root 'welcomes#index'
+
+ resources :pools do
+  collection do
+    get :map , via: [:get, :post]
+    post :map_address , via: [:post]
   end
-  resources :routings, only: [:index]
-  resources :back_ups do 
-    collection do 
-      get :generate_csv 
-      post :import_csv
-    end
+end
+resources :plans
+resources :leads do
+  collection do 
+    get :map
+
   end
-  resources :communications do
-    collection do
-      get :sents
-      get :receives
-    end
+end
+resources :routings, only: [:index]
+resources :back_ups do 
+  collection do 
+    get :generate_csv 
+    post :import_csv
   end
-  resources :sms do
-    collection do
-      get :sents
-      get :receives
-    end
+end
+resources :communications do
+  collection do
+    get :sents
+    get :receives
   end
-  
-  resources :line_items
-  
-  get 'attachment/:id', to: "communications#attachment", as: :attachment
+end
+resources :sms do
+  collection do
+    get :sents
+    get :receives
+  end
+end
+
+resources :line_items
+
+get 'attachment/:id', to: "communications#attachment", as: :attachment
 
   #patch '/settings/update_company/:id', to: 'settings#update_company', as: :update_company
   get '/companies/:id/edit_address', to: 'companies#edit_address', as: :edit_address
@@ -102,4 +102,15 @@ Rails.application.routes.draw do
   post '/pools/spa_data_create', to: 'pools#spa_data_create' , as: :spa_data_create
   get '/data/:id/spa_data_edit', to: 'pools#spa_data_edit' ,as: :edit_spa_data
   patch '/data/spa_data_update/:id', to: 'pools#spa_data_update', as: :update_spa_data
+  namespace :api, defaults: {format: :json} do
+    scope module: :v1 do
+      resources :users do
+        collection do
+          post :user_signin  
+          get  :signout
+        end
+      end
+    end
+  end
+
 end
