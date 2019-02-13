@@ -36,7 +36,6 @@ class CompaniesController < ApplicationController
   def update
     @company = Company.find_by_id(params[:id])
     if @company.update(company_params)
-      address_update()
       flash[:success] = "settings update!"
     else
       flash[:error] = "settings not update!"
@@ -53,10 +52,12 @@ class CompaniesController < ApplicationController
     @address = Address.find_by_id(params[:id])
     if @address.update(address_params)
       flash[:success] = "settings update!"
+      redirect_to settings_url
     else
       flash[:error] = "settings not update!"
+      redirect_to :index
     end
-    redirect_to settings_url
+    
   end
 
   private
