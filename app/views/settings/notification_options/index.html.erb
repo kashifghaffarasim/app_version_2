@@ -37,6 +37,7 @@
 									<th> Module </th>
 									<th> Subject </th>
 									<th> Message </th>
+									<th> Email </th>
 									<th> Actions </th>
 
 								</tr>
@@ -48,26 +49,30 @@
 									<td><%= index = index + 1 %></td>
 									
 									<td>
-								<%= i.message_type %></td>
-									<td><%= i.subject %></td>
-									<td>
-										<p><%= i.message_content.gsub(/\n/, '<br/>').html_safe %></p>
-									</td>
-									<td>
-										<%= link_to '',edit_settings_notification_option_url(i), :class => "fa fa-edit"%>
-										<%= link_to '',settings_notification_option_url(i), method: :delete,
-										data: { confirm: "Are you sure you want to delete?" }, 
-										:class => "fa fa-trash-alt" , :style=> "color: red"%>
-									</td>
-								</tr>
-								<% end %>
-								<% end %>
-							</tbody>
-						</table>
+										<%= i.message_type.titleize %></td>
+										<td><%= i.subject %></td>
+										<td>
+											<p><%= i.message_content.gsub(/\n/, '<br/>').html_safe if !i.message_content.blank?%></p>
+										</td>
+										<td>
+											<p><%= i.email_content.gsub(/\n/, '<br/>').html_safe if !i.email_content.blank?%></p>
+										</td>
+										<td>
+											<%= link_to '',edit_settings_notification_option_url(i), :class => "fa fa-edit"%>
+											<%= link_to '',settings_notification_option_url(i), method: :delete,
+											data: { confirm: "Are you sure you want to delete?" }, 
+											:class => "fa fa-trash-alt" , :style=> "color: red"%>
+										</td>
+									</tr>
+									<% end %>
+									<% end %>
+								</tbody>
+							</table>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</div>
 
+	

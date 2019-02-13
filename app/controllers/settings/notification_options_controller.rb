@@ -26,7 +26,9 @@ class Settings::NotificationOptionsController < ApplicationController
 	def show
 
 	end
-
+	def select_type
+		
+	end 
 	def edit 
 		@notification_option = NotificationOption.find_by_id(params[:id])
 	end
@@ -53,7 +55,7 @@ class Settings::NotificationOptionsController < ApplicationController
 	private
 
 	def params_notification_option
-		params.require(:notification_option).permit(:subject,:message_type,:message_content,:company_id)
+		params.require(:notification_option).permit(:subject,:message_type,:email_content,:email_subject,:message_content,:company_id)
 	end
 
 
