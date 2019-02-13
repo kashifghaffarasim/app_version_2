@@ -9,11 +9,11 @@ module ApplicationHelper
 		return sent
 	end
 	def unread_receive_sms
-		receive = Sm.where(receiver_id: current_user.id,status: false).length
+		receive = Sm.where(receiver_id: current_user.id,status: false)
 		return receive
 	end
 	def unread_sent_sms
-		sent = Sm.where(sender_id: current_user.id).length
+		sent = Sm.where(sender_id: current_user.id)
 		return sent
 	end
 

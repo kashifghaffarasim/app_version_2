@@ -81,8 +81,8 @@
 		}
 		$(document).ready(function() {
 			$(".pagination").find("a").attr("data-remote", true);
-			$("#unread-receive").text("<%= unread_receive_sms() %>");
-			$("#unread-sent").text("<%= unread_sent_sms() %>");
+			$("#unread-receive").text("<%= unread_receive_sms().length %>");
+			$("#unread-sent").text("<%= unread_sent_sms().length %>");
 
 		});
 		function destroy(source){
