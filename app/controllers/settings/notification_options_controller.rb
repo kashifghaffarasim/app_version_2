@@ -7,12 +7,10 @@ class Settings::NotificationOptionsController < ApplicationController
 		@notification_option = NotificationOption.new
 	end
 	def create
-		@already = []
-		current_user.company.notification_options.each {|option| @already << option if option.message_type == "customer" or "team_member"  }
+		@already = current_user.company.notification_options.map(&:message_type).include?(params[:notification_option][:message_type])
 		if @already.blank?
 			@notification_option = NotificationOption.new(params_notification_option)
 			@notification_option.company_id = current_user.company.id	
-
 			if @notification_option.save
 				flash[:success] = "Your Notification Option Setting Successfully Create!"
 				redirect_to settings_notification_options_url
