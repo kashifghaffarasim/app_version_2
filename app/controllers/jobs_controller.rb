@@ -84,8 +84,23 @@ class JobsController < ApplicationController
 		end
 	end
   
+  def assign_job
+    @visit = JobAssignVisit.find_by_id(params[:visit_id])
+  end
+  
+  
+  def job_assignment
+    
+    @visit =  JobAssignVisit.find_by_id(params[:id])
+    if @visit and @visit.update(visit_params)
+      
+    end
+    flash[:success] = "Welcome to PoolPath. Let begin with your company"
+    redirect_back(fallback_location: job_url(@visit.job))
+  end
   
 	private
+  
 	def job_params
 		params.require(:job).permit(:user_id, :company_id, :customer_id,
       :pool_id, :job_number,  :job_type, :assign_to, :schudle,
@@ -93,6 +108,10 @@ class JobsController < ApplicationController
       line_items_attributes: [:name, :description, :quantity, :unit_cost, :total, :_destroy,:id])
 	end
 
+  def visit_params
+    params.require(:visit).permit(:user_id, :start_time, :end_time)
+  end
+  
   def get_job
     @job = Job.find_by_id(params[:id])
   end

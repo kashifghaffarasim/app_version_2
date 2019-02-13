@@ -1,0 +1,29 @@
+
+<div class="col-md-6" style="padding-left: 25px">
+    <div class="form-group row">
+        <%= visit.start_date.strftime("%b/%d/%Y") %> Completed on: (<%=  visit.try(:status) %>)
+    </div>
+</div>
+
+
+<div class="col-md-3" >
+    <div class="form-group row" style=" padding-right: 20px">
+        <% if !visit.user_id.blank? %>
+          Assign to  <b style="margin-left: 5px"><%= visit.user.try(:fullname) %> </b>
+        <% else %>
+          Not Assign to any user
+        <% end %>
+    </div>
+</div>
+
+<div class="col-md-3">
+    
+    <div class="form-group row" style="float: right; padding-right: 20px">
+        <%= link_to assign_job_jobs_url(visit_id: visit.try(:id)),  
+          {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#visitAssign', title: 'Assing to team'} do %>
+          <i class="fa fa-check-square"></i>
+        <% end %>
+    </div>
+    
+</div>
+

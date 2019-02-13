@@ -19,8 +19,10 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card card-body printableArea">
+                <% flash.each do |key, value| %>
+                  <div class="alert alert-<%= key %>"><%= value %></div>
+                <% end %>
                 <h3><b>JOB</b> <span class="pull-right">#<%= @job.job_number %></span></h3>
-
                 <hr>
                 <div class="row">
                     <div class="col-md-12">
@@ -68,12 +70,10 @@
                                           </span> 
                                       </button>
                                   </div>
-                                  <div class="col-md-12" style="margin-top: -13px">
-                                      <hr>
-                                  </div>
+
 
                                   <%= f.hidden_field :job_id, :value => "#{@job.id}" %>
-                                  <div class="col-md-12">
+                                  <div class="col-md-12" >
                                       <div id="loadItems">
 
                                           <%= f.nested_fields_for :line_items do |ff| %>
@@ -107,52 +107,33 @@
                         <div class="col-md-12">
                             <%= form_for @job, url: line_item_url, method: :put do |f| %>
                               <div class="row">
+
                                   <div class="col-md-4" style=" padding: 14px;
                                        font-size: 15px;
                                        font-weight: bold;">
-                                      Plan to Visit 
+                                      Visit(s) Plan
                                   </div>
-                                  <div class="col-md-8 text-right" style="padding: 14px;">
-                                      <button id="addnewItem" class="btn btn-default btn-outline" 
-                                              type="button"> <span>
-                                              <i class="fa fa-plus"></i> 
-                                          </span> 
-                                      </button>
-                                  </div>
-                                  <div class="col-md-12" style="margin-top: -13px">
-                                      <hr>
-                                  </div>
+
+
+
 
                                   <%= f.hidden_field :job_id, :value => "#{@job.id}" %>
-                                  <div class="col-md-12">
-                                      <div id="loadItems">
+                                  <% if !@job.blank? %>
+                                    <div class="col-md-12" style=" border-bottom: 1px solid #ddd">
+                                        <div>
+                                            <% @job.job_assign_visits.each do |visit| %>
+                                              <div class="row" style="margin-top: 10px">
+                                                  <%= render 'jobs/plan_visits', visit: visit %>
+                                              </div>
+                                            <% end %>
+                                        </div>
 
-                                          <%= f.nested_fields_for :line_items do |ff| %>
-                                            <div class="row" style="margin-top: 10px">
-                                                <div class="col-md-1">
-                                                    <div class="form-group row">
-
-                                                        <%= ff.remove_nested_fields_link "–" , :class => 'btn btn-danger'%>
-                                                    </div>
-                                                </div>
-                                                <%= render 'jobs/line_item', f: ff %>
-                                            </div>
-
-                                          <% end %>
-                                      </div>
-                                  </div>
-
-                                  <div class="col-md-12 " id="myDIV" style="padding-bottom: 20px; display: none;     border-bottom: 1px solid #ddd;
-                                       margin-bottom: 22px;">
-                                      <%= submit_tag "Save",:class=>"btn btn-info",:style => "float: right;"%>
-                                  </div>
+                                    </div>
+                                  <% end %>
                               </div>
                             <% end %>
                         </div>
                     </div>
-
-
-
                 </div>
             </div>
         </div>
@@ -160,3 +141,9 @@
 </div>
 
 
+
+<div id="visitAssign" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document" style="max-width: 650px">
+        <div class="modal-content" style="border-radius: 6px" id='content'></div>
+    </div>
+</div>

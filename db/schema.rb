@@ -69,7 +69,7 @@ ActiveRecord::Schema.define(version: 2019_02_08_111854) do
     t.integer "user_id"
     t.datetime "start_date"
     t.datetime "end_date"
-    t.string "status", default: "In Progresss"
+    t.string "status", default: "Pending"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

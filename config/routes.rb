@@ -41,6 +41,8 @@ Rails.application.routes.draw do
   resources :jobs do
     collection do 
      get  :customer_pool
+     get  :assign_job
+     post :job_assignment
     end
   end
   

@@ -8,7 +8,7 @@ class CreateJobAssignVisits < ActiveRecord::Migration[5.2]
       t.integer :user_id
       t.datetime :start_date
       t.datetime :end_date
-      t.string  :status , :default => "In Progresss"
+      t.string  :status , :default => "Pending"
       t.timestamps
     end
   end
