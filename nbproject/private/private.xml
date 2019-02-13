@@ -3,11 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/kk/projects/railsprojects/version_pool2/app/views/jobs/_plan_visits.html.erb</file>
-            <file>file:/home/kk/projects/railsprojects/version_pool2/app/models/job_assign_visit.rb</file>
-            <file>file:/home/kk/projects/railsprojects/version_pool2/Gemfile</file>
+            <file>file:/home/kk/projects/railsprojects/version_pool2/app/views/jobs/index.html.erb</file>
+            <file>file:/home/kk/projects/railsprojects/version_pool2/app/views/jobs/_invoice.html.erb</file>
             <file>file:/home/kk/projects/railsprojects/version_pool2/app/views/jobs/show.html.erb</file>
-            <file>file:/home/kk/projects/railsprojects/version_pool2/app/views/jobs/_line_item.html.erb</file>
             <file>file:/home/kk/projects/railsprojects/version_pool2/app/views/estimates/show.html.erb</file>
         </group>
     </open-files>
