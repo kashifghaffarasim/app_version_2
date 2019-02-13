@@ -16,7 +16,9 @@
 	<div class="card-body">
 		<%= form_for @sms,url: sms_url, remote: true do |f|%>
 		<div class="form-group">
-			<%= f.select(:user_number, User.where(company_id: 11).order(id: :asc).with_any_role(:customer,:vendor,:admin,:user).collect {|n| [  "#{n.fullname} (#{n.mobile_number})",n.id ]},{},:class=>"form-control" ,:placeholder=>"To")%>
+
+			<%= f.select(:user_number,  User.where(company_id: current_user.try(:company_id)).where("id NOT IN (?)", current_user.id).order(id: :asc).collect {|n| [  "#{n.fullname} (#{n.mobile_number})",n.id ]},{},:class=>"form-control" ,:placeholder=>"To")%>
+			
 		</div>
 		<div class="form-group">
 		<%= f.text_area :body,:class=>"form-control",:placeholder=>"Text Here...",:rows=>"6",:style=>"  resize: none;"%>

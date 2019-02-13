@@ -175,7 +175,7 @@
             <div class="card-body" style="background:url(/assets/background/active-bg.png) no-repeat top center;">
                 <div class="p-t-20 text-center" style="    padding-top: 20px;">
                     <i class="mdi mdi-file-chart display-4 text-orange d-block"></i>
-                    <span class="display-4 d-block font-medium">368</span>
+                    <span class="display-4 d-block font-medium"><%= total_user() %></span>
                     <span>Active Visitors on Site</span>
                     <!-- Progress -->
                     <div class="progress m-t-40" style="height:4px;">
@@ -188,13 +188,13 @@
                     <div class="row m-t-30 m-b-20">
                         <!-- column -->
                         <div class="col-4 border-right text-left">
-                            <h3 class="m-b-0 font-medium">60%</h3>Desktop</div>
+                            <h3 class="m-b-0 font-medium"><%= vander().length %></h3>Vander</div>
                         <!-- column -->
                         <div class="col-4 border-right">
-                            <h3 class="m-b-0 font-medium">28%</h3>Mobile</div>
+                            <h3 class="m-b-0 font-medium"><%= customer().length %></h3>Customer</div>
                         <!-- column -->
                         <div class="col-4 text-right">
-                            <h3 class="m-b-0 font-medium">12%</h3>Tablet</div>
+                            <h3 class="m-b-0 font-medium"><%= team_member().length %></h3>Team Member</div>
                     </div>
                     <a href="javascript:void(0)" class="waves-effect waves-light m-t-20 btn btn-lg btn-info accent-4 m-b-20">View More Details</a>
                 </div>
@@ -229,95 +229,26 @@
                         <thead>
                             <tr class="border-0">
                                 <th class="border-0">Team Lead</th>
-                                <th class="border-0">Project</th>
-                                <th class="border-0">Team</th>
                                 <th class="border-0">Status</th>
                                 <th class="border-0">Weeks</th>
-                                <th class="border-0">Budget</th>
                             </tr>
                         </thead>
                         <tbody>
+                            <% team_member().each do |team_member|%>
                             <tr>
                                 <td>
                                     <div class="d-flex no-block align-items-center">
-                                        <div class="m-r-10"><img src="/assets/d1.jpg" alt="user" class="rounded-circle" width="45"></div>
+                                        <div class="m-r-10"><img src="<%= team_member.avatar%>" alt="user" class="rounded-circle" width="45"></div>
                                         <div class="">
-                                            <h5 class="m-b-0 font-16 font-medium">Hanna Gover</h5><span>hgover@gmail.com</span></div>
+                                            <h5 class="m-b-0 font-16 font-medium"><%= team_member.fullname %></h5><span><%=team_member.email%></span></div>
                                     </div>
                                 </td>
-                                <td>Elite Admin</td>
-                                <td>
-                                    <div class="popover-icon">
-                                        <a class="btn-circle btn btn-info" href="javascript:void(0)">SS</a>
-                                        <a class="btn-circle btn btn-cyan text-white popover-item" href="javascript:void(0)">DS</a>
-                                        <a class="btn-circle btn p-0 popover-item" href="javascript:void(0)"><img alt="" src="/assets/1.jpg" class="rounded-circle" width="39"></a>
-                                        <a class="btn-circle btn btn-outline-secondary" href="javascript:void(0)">+</a>
-                                    </div>
-                                </td>
-                                <td><i class="fa fa-circle text-orange" data-toggle="tooltip" data-placement="top" title="" data-original-title="In Progress"></i></td>
+                                 <td><i class="fa fa-circle text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Active"></i>
+                               </td>
                                 <td>35</td>
-                                <td class="blue-grey-text  text-darken-4 font-medium">$96K</td>
+                                
                             </tr>
-                            <tr>
-                                <td>
-                                    <div class="d-flex no-block align-items-center">
-                                        <div class="m-r-10"><img src="/assets/d2.jpg" alt="user" class="rounded-circle" width="45"></div>
-                                        <div class="">
-                                            <h5 class="m-b-0 font-16 font-medium">Daniel Kristeen</h5><span>Kristeen@gmail.com</span></div>
-                                    </div>
-                                </td>
-                                <td>Elite Admin</td>
-                                <td>
-                                    <div class="popover-icon">
-                                        <a class="btn-circle btn btn-info" href="javascript:void(0)">SS</a>
-                                        <a class="btn-circle btn btn-primary text-white popover-item" href="javascript:void(0)">DS</a>
-                                        <a class="btn-circle btn btn-outline-secondary" href="javascript:void(0)">+</a>
-                                    </div>
-                                </td>
-                                <td><i class="fa fa-circle text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Active"></i></td>
-                                <td>35</td>
-                                <td class="blue-grey-text  text-darken-4 font-medium">$96K</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="d-flex no-block align-items-center">
-                                        <div class="m-r-10"><img src="/assets/d3.jpg" alt="user" class="rounded-circle" width="45"></div>
-                                        <div class="">
-                                            <h5 class="m-b-0 font-16 font-medium">Julian Josephs</h5><span>Josephs@gmail.com</span></div>
-                                    </div>
-                                </td>
-                                <td>Elite Admin</td>
-                                <td>
-                                    <div class="popover-icon">
-                                        <a class="btn-circle btn btn-info" href="javascript:void(0)">SS</a>
-                                        <a class="btn-circle btn btn-cyan text-white popover-item" href="javascript:void(0)">DS</a>
-                                        <a class="btn-circle btn btn-orange text-white popover-item" href="javascript:void(0)">RP</a>
-                                        <a class="btn-circle btn btn-outline-secondary" href="javascript:void(0)">+</a>
-                                    </div>
-                                </td>
-                                <td><i class="fa fa-circle text-success" data-toggle="tooltip" data-placement="top" title="" data-original-title="Active"></i></td>
-                                <td>35</td>
-                                <td class="blue-grey-text  text-darken-4 font-medium">$96K</td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="d-flex no-block align-items-center">
-                                        <div class="m-r-10"><img src="/assets/users/2.jpg" alt="user" class="rounded-circle" width="45"></div>
-                                        <div class="">
-                                            <h5 class="m-b-0 font-16 font-medium">Jan Petrovic</h5><span>hgover@gmail.com</span></div>
-                                    </div>
-                                </td>
-                                <td>Elite Admin</td>
-                                <td>
-                                    <div class="popover-icon">
-                                        <a class="btn-circle btn btn-orange text-white" href="javascript:void(0)">RP</a>
-                                        <a class="btn-circle btn btn-outline-secondary" href="javascript:void(0)">+</a>
-                                    </div>
-                                </td>
-                                <td><i class="fa fa-circle text-orange" data-toggle="tooltip" data-placement="top" title="" data-original-title="In Progress"></i></td>
-                                <td>35</td>
-                                <td class="blue-grey-text  text-darken-4 font-medium">$96K</td>
-                            </tr>
+                            <% end %>
                         </tbody>
                     </table>
                 </div>
