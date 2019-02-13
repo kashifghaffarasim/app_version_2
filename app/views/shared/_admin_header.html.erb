@@ -157,50 +157,91 @@
                                             </li>
                                             <% else %>
                                             <li>
-                                                <p class="nav-link text-center link" style="     color: #3e5569;"> <b>You have 0 New Messages</b>  </a>
+                                                <p class="nav-link text-center link" style="     color: #3e5569;"> <b>You have 0 New Messages</b>  </p>
                                             </li>
                                             <% end %>
 
                                         </ul>
                                     </div>
                                 </li>
-
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="/assets/users/1.jpg" alt="user" class="rounded-circle" width="31"></a>
-                                    <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
-                                        <span class="with-arrow"><span class="bg-primary"></span></span>
-                                        <div class="d-flex no-block align-items-center p-15 bg-primary text-white m-b-10">
-                                            <div class="m-l-10" style="padding: 20px; text-align: center; padding-top: 25px">
-                                                <h4 class="m-b-0">  
-                                                    <%= current_user.first_name %>
-                                                </h4>
+                                    <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" id="3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="font-24 mdi mdi-email"></i>
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right mailbox animated bounceInDown" aria-labelledby="3">
+                                        <span class="with-arrow"><span class="bg-danger"></span></span>
+                                        <ul class="list-style-none">
+                                            <li>
+                                                <div class="drop-title text-white bg-danger">
+                                                    <h4 class="m-b-0 m-t-5"><%= unread_receive().length %></h4>
+                                                    <span class="font-light">Email</span>
+                                                </div>
+                                            </li>
+                                            <% if !unread_receive().blank?%>
+
+                                            <li>
+                                                <div class="message-center message-body">
+                                                    <!-- Message -->
+                                                    <% unread_receive().first(10).each do |i|%>
+                                                    <a href="<%= communications_url(id:i.id)%>" class="message-item">
+                                                        <span class="user-img"> <img src="<%= User.find_by_id(i.receiver_id).avatar%>" alt="user" class="rounded-circle"> </span>
+                                                        <div class="mail-contnet">
+                                                            <h5 class="message-title"><%= User.find_by_id(i.receiver_id).fullname%></h5> <span class="mail-desc"><%= i.subject[0..10] if !i.body.blank?%></span> <span class="time"><%= i.created_at.strftime('%H:%M') %></span> </div>
+                                                        </a>
+                                                        <% end %>
+                                                        <!-- Message -->
+
+                                                    </div>
+
+                                                </li>
+                                                <li>
+                                                    <a class="nav-link text-center link" href="<%= communications_url%>"  style="     color: #3e5569;"> <b>See all Email</b> <i class="fa fa-angle-right"></i> </a>
+                                                </li>
+                                                <% else %>
+                                                <li>
+                                                    <p class="nav-link text-center link" style="     color: #3e5569;"> <b>You have 0 New Email</b>  </a>
+                                                    </li>
+                                                    <% end %>
+
+                                                </ul>
                                             </div>
-                                        </div>
-                                        <% if user_signed_in? %>
+                                        </li>
+
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="/assets/users/1.jpg" alt="user" class="rounded-circle" width="31"></a>
+                                            <div class="dropdown-menu dropdown-menu-right user-dd animated flipInY">
+                                                <span class="with-arrow"><span class="bg-primary"></span></span>
+                                                <div class="d-flex no-block align-items-center p-15 bg-primary text-white m-b-10">
+                                                    <div class="m-l-10" style="padding: 20px; text-align: center; padding-top: 25px">
+                                                        <h4 class="m-b-0">  
+                                                            <%= current_user.first_name %>
+                                                        </h4>
+                                                    </div>
+                                                </div>
+                                                <% if user_signed_in? %>
 
 
-                                        <div class="dropdown-divider"></div>
-                                        <%= link_to profiles_url,:method=>:get ,:class => "dropdown-item" do %>
-                                        <i class="fa fa-user m-r-5 m-l-5"></i> Profile
-                                        <% end %>
+                                                <div class="dropdown-divider"></div>
+                                                <%= link_to profiles_url,:method=>:get ,:class => "dropdown-item" do %>
+                                                <i class="fa fa-user m-r-5 m-l-5"></i> Profile
+                                                <% end %>
 
-                                        <%= link_to signout_users_url,:method=>:get ,:class => "dropdown-item" do %>
-                                        <i class="fa fa-power-off m-r-5 m-l-5"></i> Logout
-                                        <% end %>
-                                        <% else %>
-                                        <li><%= link_to "Login",signin_users_url %></li>
-                                        <li><%= link_to "Signup",new_user_url %></li>
-                                        <% end %>  
+                                                <%= link_to signout_users_url,:method=>:get ,:class => "dropdown-item" do %>
+                                                <i class="fa fa-power-off m-r-5 m-l-5"></i> Logout
+                                                <% end %>
+                                                <% else %>
+                                                <li><%= link_to "Login",signin_users_url %></li>
+                                                <li><%= link_to "Signup",new_user_url %></li>
+                                                <% end %>  
 
-                                    </div>
-                                </li>
-                                <!-- ============================================================== -->
-                                <!-- User profile and search -->
-                                <!-- ============================================================== -->
-                            </ul>
-                        </div>
-                    </nav>
-                </header>
+                                            </div>
+                                        </li>
+                                        <!-- ============================================================== -->
+                                        <!-- User profile and search -->
+                                        <!-- ============================================================== -->
+                                    </ul>
+                                </div>
+                            </nav>
+                        </header>
 
 
-                <%= render "/shared/admin_sub_header"  %>
+                        <%= render "/shared/admin_sub_header"  %>

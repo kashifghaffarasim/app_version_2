@@ -13,14 +13,14 @@
 					<small class="p-15 grey-text text-lighten-1 db">Folders</small>
 				</li>
 				<li class="list-group-item">
-					<a href="<%= receives_communications_url %>" data-remote="true" id="link-inbox" class="active list-group-item-action"><i class="mdi mdi-inbox"></i> Inbox <span class="label label-success float-right" id="unread-receive"><%= unread_receive() %></span></a>
+					<a href="<%= receives_communications_url %>" data-remote="true" id="link-inbox" class="active list-group-item-action"><i class="mdi mdi-inbox"></i> Inbox <span class="label label-success float-right" id="unread-receive"><%= unread_receive().length %></span></a>
 				</li>
 				<li class="list-group-item">
 					<hr>
 				</li>
 				<li class="list-group-item">
 					<li class="list-group-item">
-						<a href="<%=sents_communications_url%>"data-remote="true" class="list-group-item-action" id="link-sent"> <i class="mdi mdi-email"></i><span class="label label-success float-right"id="unread-sent"><%= unread_sent() %></span> Sent Mail </a>
+						<a href="<%=sents_communications_url%>"data-remote="true" class="list-group-item-action" id="link-sent"> <i class="mdi mdi-email"></i><span class="label label-success float-right"id="unread-sent"><%= unread_sent().length %></span> Sent Mail </a>
 					</li>
 				</li>
 				<li class="list-group-item">
@@ -33,7 +33,11 @@
 	</div>
 
 	<div id="sent" class="right-part">
+		<% if params[:id].blank? %>
 		<%= render "receive"%>
+		<% else %>
+		<%= render "show"%>
+		<% end %>
 	</div>
 
 	<!-- ============================================================== -->
