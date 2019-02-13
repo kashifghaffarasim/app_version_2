@@ -84,8 +84,7 @@
 	<script type="text/javascript">
 		
 		$('#select-type').on('change', function() {
-			if (this.value != ""){
-			alert( this.value );
+			if (this.value !== ""){
 			$.ajax({
 				url: "<%= select_type_settings_notification_options_path %>",
 				type: "GET",
