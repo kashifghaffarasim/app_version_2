@@ -82,7 +82,16 @@ Rails.application.configure do
   # Use a different logger for distributed setups.
   # require 'syslog/logger'
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
-
+  config.action_mailer.smtp_settings = {
+    :user_name =>  'saqibghaffar324@gmail.com',
+    :password =>       'frkmpjilnnuoqxjm',
+    :domain =>        'gmail.com',
+    :address =>    'smtp.gmail.com',
+    :port =>     '587',
+    :authentication => :plain,
+    :enable_starttls_auto => true
+  }
+  
   config.middleware.use ExceptionNotification::Rack,
     :email => {
     :email_prefix => "[Pool Path Errors] ",
