@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   		get  :signout
   	end
   end
+root 'welcomes#index'
+  get '/dashboard' => 'dashboard#index'
   
   resources :welcomes, only: [:index] do
   	collection  do
