@@ -37,6 +37,7 @@ gem "paperclip", git: "git://github.com/thoughtbot/paperclip.git"
 gem 'nested_form_fields'
 gem 'rateyo-rails'
 
+gem 'exception_notification'
 
 # Use Redis adapter to run Action Cable in production
 # gem 'redis', '~> 4.0'

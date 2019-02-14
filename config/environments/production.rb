@@ -83,6 +83,13 @@ Rails.application.configure do
   # require 'syslog/logger'
   # config.logger = ActiveSupport::TaggedLogging.new(Syslog::Logger.new 'app-name')
 
+  config.middleware.use ExceptionNotification::Rack,
+    :email => {
+    :email_prefix => "[Pool Path Errors] ",
+    :sender_address => %{"Exception Notification" <kashif.ghaffar@appcrates.com>},
+    :exception_recipients => %w{kashif.ghaffar100@gmail.com, saqibghaffar.heuristix@gmail.com} 
+  }
+  
   if ENV["RAILS_LOG_TO_STDOUT"].present?
     logger           = ActiveSupport::Logger.new(STDOUT)
     logger.formatter = config.log_formatter
