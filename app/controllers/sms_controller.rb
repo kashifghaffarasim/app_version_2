@@ -39,21 +39,20 @@ class SmsController < ApplicationController
 			session[:sms_id] = @sms.id
 			flash[:success] = "Sms Sent Successfully to #{@user.mobile_number}" 
 
-			#@twilio_client = Twilio::REST::Client.new
-			#begin
-			#	twilio = @twilio_client.messages.create(
-			#		from: '+14159341234',
-			#		to: params[:user_number],
-			#		body: params[:body]
-			#		)  
-			#	puts"asas #{twilio}"
-			#	puts twilio.to
+			@twilio_client = Twilio::REST::Client.new
+			begin
+				twilio = @twilio_client.messages.create(
+					from: '+14159341234',
+					to: params[:user_number],
+					body: params[:body]
+					)  
+				
 
-			#rescue Twilio::REST::RestError => error
-			#	@error = error
-			#	puts
+			rescue Twilio::REST::RestError => error
+				@error = error
+				puts
 
-		#	end
+			end
 		@sms_receives = Sm.where(receiver_id: current_user.id).paginate(:page => params[:page])
 		@sms_sents = Sm.where(sender_id: current_user.id).paginate(:page => params[:page])
 		if @sms.receiver_id == current_user.id 
