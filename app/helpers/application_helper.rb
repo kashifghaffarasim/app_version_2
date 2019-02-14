@@ -2,7 +2,8 @@ module ApplicationHelper
 	
 	def unread_receive
 		receive = EmailNotification.where(receiver_id: current_user.id,status: false)
-		return receive
+		
+    return receive
 	end
 	def unread_sent
 		sent = EmailNotification.where(sender_id: current_user.id)
