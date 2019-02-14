@@ -4,6 +4,7 @@ class JobsController < ApplicationController
   before_action :get_job, only: [:edit, :update, :destroy, :show]
   
 	def index
+    session.delete(:convert)
     session[:type] = "Job"
     @customers =  User.where(company_id: current_user.try(:company_id)).order(id: :asc).with_any_role(:customer).last(4)
     @jobs = Job.where(job_type: "Job", company_id: current_user.try(:company_id))
@@ -57,6 +58,7 @@ class JobsController < ApplicationController
 	end
 
 	def edit
+   
     @pool= @job.pool
     @team_members = User.where(company_id: current_user.try(:company_id)).order(id: :asc).with_any_role(:admin, :user)
     0.times {@job.line_items.build} 
@@ -64,11 +66,20 @@ class JobsController < ApplicationController
 
 	def update
 		@job = Job.find_by_id(params[:id])
+    if  session[:convert] == "Job"
+      params[:job][:job_type] = 'Job'
+    end
 		if @job and  @job.update(job_params)
-			flash[:notice] = "job Updated!"
+      days = (@job.end_date.to_date - @job.start_date.to_date ).to_i
+      
+      if days > 0
+        Job.visit_plans(days, @job)
+      end
+      
+			flash[:notice] = "Job updated!"
 			redirect_to jobs_url
 		else
-			flash[:notice] = "Vendor did not Update!"
+			flash[:notice] = "Job did not update!"
 			render :edit
 		end
 
@@ -84,8 +95,23 @@ class JobsController < ApplicationController
 		end
 	end
   
+  def assign_job
+    @visit = JobAssignVisit.find_by_id(params[:visit_id])
+  end
+  
+  
+  def job_assignment
+    @visit =  JobAssignVisit.find_by_id(params[:id])
+    if @visit and @visit.update(visit_params)
+      
+    end
+    flash[:success] = "Plan visit updated."
+    redirect_back(fallback_location: job_url(@visit.job))
+  end
+  
   
 	private
+  
 	def job_params
 		params.require(:job).permit(:user_id, :company_id, :customer_id,
       :pool_id, :job_number,  :job_type, :assign_to, :schudle,
@@ -93,6 +119,10 @@ class JobsController < ApplicationController
       line_items_attributes: [:name, :description, :quantity, :unit_cost, :total, :_destroy,:id])
 	end
 
+  def visit_params
+    params.require(:visit).permit(:user_id, :start_time, :end_time, :status)
+  end
+  
   def get_job
     @job = Job.find_by_id(params[:id])
   end

@@ -77,15 +77,18 @@
                                                 <td><%= job.grand_total  %></td>
 
                                                 <td>
-                                                    <%= link_to '',edit_estimate_url(job), :class => "fa fa-edit"%>
-                                                    <%= link_to '',estimate_url(job), :class => "fa fa-file-alt", :style => "color: green; padding-left: 5px; padding-right: 5px; font-size: 16px" %>
-                                                    <%= link_to '',estimate_url(job), :class => "fa fa-eye", :style => "color: green; padding-left: 5px; padding-right: 5px; font-size: 16px" %>
+                                                    <%= link_to '',edit_estimate_url(job), :class => "fa fa-edit", title: 'Edit Estimate'%>
+                                                    <%= link_to '',convert_invoice_estimates_url(id: job.try(:id)), 
+                                                      :class => "fa fa-file-alt", title: "Covert to Invoivce",
+                                                      :style => "color: green; padding-left: 5px; padding-right: 5px; font-size: 16px" %>
+                                                    <%= link_to '',estimate_url(job), :class => "fa fa-eye", title: 'Show Estimate',
+                                                      :style => "color: green; padding-left: 5px; padding-right: 5px; font-size: 16px" %>
                                                     <%= link_to '',estimate_url(job), method: :delete,
                                                       data: { confirm: "Are you sure you want to delete?" }, 
-                                                      :class => "fa fa-trash-alt" , :style=> "color: red"%>
+                                                      :class => "fa fa-trash-alt" , :style=> "color: red", title: 'Delete Estimate'%>
                                                     <%= link_to '',customer_url(job), method: :post,
                                                       data: { confirm: "Are you sure you want to delete?" }, 
-                                                      :class => "fa fa-envelope" , :style=> "color: green; margin-left: 5px"%>
+                                                      :class => "fa fa-envelope" , :style=> "color: green; margin-left: 5px", title: 'Send email to Client'%>
                                                 </td>
                                             </tr>
 
@@ -140,9 +143,9 @@
                                 — OR —
                             </div>
                             <div class="col-md-5">
-                                <button type="button" class="btn btn-block btn-outline-info">
+                                <a href="<%= new_customer_url %>" class="btn btn-block btn-outline-info">
                                     <b> Create New Customer </b>    
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </div>

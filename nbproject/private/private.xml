@@ -3,16 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/kk/projects/railsprojects/version_pool2/app/views/estimates/_line_item.html.erb</file>
-            <file>file:/home/kk/projects/railsprojects/version_pool2/app/views/estimates/index.html.erb</file>
-            <file>file:/home/kk/projects/railsprojects/version_pool2/app/controllers/companies_controller.rb</file>
-            <file>file:/home/kk/projects/railsprojects/version_pool2/app/models/user.rb</file>
-            <file>file:/home/kk/projects/railsprojects/version_pool2/app/controllers/estimates_controller.rb</file>
-            <file>file:/home/kk/projects/railsprojects/version_pool2/app/helpers/dashboard_helper.rb</file>
-            <file>file:/home/kk/projects/railsprojects/version_pool2/app/helpers/estimates_helper.rb</file>
-            <file>file:/home/kk/projects/railsprojects/version_pool2/app/views/estimates/_form.html.erb</file>
-            <file>file:/home/kk/projects/railsprojects/version_pool2/app/models/job.rb</file>
-            <file>file:/home/kk/projects/railsprojects/version_pool2/app/helpers/application_helper.rb</file>
+            <file>file:/home/kk/projects/railsprojects/version_pool2/app/views/jobs/index.html.erb</file>
+            <file>file:/home/kk/projects/railsprojects/version_pool2/app/views/jobs/_invoice.html.erb</file>
+            <file>file:/home/kk/projects/railsprojects/version_pool2/app/views/jobs/show.html.erb</file>
+            <file>file:/home/kk/projects/railsprojects/version_pool2/app/views/estimates/show.html.erb</file>
         </group>
     </open-files>
 </project-private>

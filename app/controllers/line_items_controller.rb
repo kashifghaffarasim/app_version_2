@@ -13,9 +13,12 @@ class LineItemsController < ApplicationController
   end
   
   def update
-  
+    
     if @job and @job.update(line_items_params)
-       
+      sum = @job.line_items.sum(:total)
+      if @job.update(sub_total: sum)
+         
+      end
     end
     redirect_to job_url(@job)
   end

@@ -152,9 +152,15 @@
 </div>
 
 <hr>
-<div class="col-md-12 ">
-    <%= submit_tag "Update Job",:class=>"btn btn-info",:style => "float: right;"%>
-</div>
+<% if session[:convert] == "Job" %>
+  <div class="col-md-12 ">
+      <%= submit_tag "Create Job",:class=>"btn btn-info",:style => "float: right;"%>
+  </div>
+<% else %>
+  <div class="col-md-12 ">
+      <%= submit_tag "Update Job",:class=>"btn btn-info",:style => "float: right;"%>
+  </div>
+<% end %>
 
 
 

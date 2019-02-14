@@ -36,7 +36,7 @@ Rails.application.routes.draw do
   end
   resources :estimates do
     collection do
-      post :convert_invoice
+      get :convert_invoice
       post :send_email
     end
   end
@@ -45,18 +45,17 @@ Rails.application.routes.draw do
   resources :jobs do
     collection do 
      get  :customer_pool
-   end
- end
-
- resources :vendors
- resources :calendars
- resources :settings, only: [:index]
- resources :companies, only: [:index, :create, :edit, :update, :show]
- resources :profiles 
-
- resources :team_members
- get '/dashboard' => 'dashboard#index'
- root 'welcomes#index'
+     get  :assign_job
+     post :job_assignment
+    end
+  end
+  
+  resources :vendors
+  resources :calendars
+  resources :settings, only: [:index]
+  resources :companies, only: [:index, :create, :edit, :update, :show]
+  resources :profiles 
+  resources :team_members
 
  resources :pools do
   collection do
@@ -64,13 +63,16 @@ Rails.application.routes.draw do
     post :map_address , via: [:post]
   end
 end
+
 resources :plans
+
 resources :leads do
   collection do 
     get :map
 
   end
 end
+
 resources :routings, only: [:index]
 resources :back_ups do 
   collection do 
@@ -78,18 +80,21 @@ resources :back_ups do
     post :import_csv
   end
 end
+
 resources :communications do
   collection do
     get :sents
     get :receives
   end
 end
+
 resources :sms do
   collection do
     get :sents
     get :receives
   end
 end
+
 
 resources :line_items
 

@@ -1,0 +1,46 @@
+
+<div class="col-md-6" style="padding-left: 25px">
+    <div class="form-group row">
+        <%= visit.start_date.strftime("%b/%d/%Y") %> Completed on: (<%=  visit.try(:status) %>)
+    </div>
+</div>
+
+
+<div class="col-md-3" >
+    <div class="form-group row" style=" padding-right: 20px">
+        <% if !visit.user_id.blank? %>
+          Assign to  <b style="margin-left: 5px"><%= visit.user.try(:fullname) %> </b>
+        <% else %>
+          Not Assign to any user
+        <% end %>
+    </div>
+</div>
+
+
+<div class="col-md-3">
+
+    <div class="form-group row" style="float: right; padding-right: 20px">
+        <% if visit.status == 'Pending' %>
+          <%= link_to job_assignment_jobs_url(id: visit.try(:id), visit: {status: 'In Progress'}), method: :post do%>  
+            <i class="fa fa-tasks"  style="font-size: 20px; color: brown; margin-right: 10px;"></i>
+          <% end %> 
+        <% elsif visit.status == 'In Progress' %>
+          <%= link_to job_assignment_jobs_url(id: visit.try(:id), visit: {status: 'Complete'}), method: :post do%>  
+
+            <i class="fa fa-clock"  style="font-size: 20px; color: #dea10d; margin-right: 10px;"></i>
+          <% end %> 
+        <% else %>
+          <a>
+              <i class="fa fa-check-square"  style="font-size: 20px; color: #15a522; margin-right: 10px;"></i>
+          </a>
+        <% end %>
+
+        <%= link_to assign_job_jobs_url(visit_id: visit.try(:id)),  
+          {:remote => true, 'data-toggle' =>  "modal", 'data-target' => '#visitAssign', title: 'Assing to team'} do %>
+          <i class="fa fa-pen-square" style="font-size: 20px"></i>
+        <% end %>
+
+    </div>
+
+</div>
+

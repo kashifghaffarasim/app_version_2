@@ -6,6 +6,11 @@ module EstimatesHelper
   end
   
   def getTaxAmount(estimate)
-   (estimate.sub_total * estimate.tax)/100
+    if estimate.tax && estimate.tax
+      (estimate.sub_total * estimate.tax)/100
+    else
+      0
+    end
   end
+  
 end
