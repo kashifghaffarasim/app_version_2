@@ -2,8 +2,13 @@ class CommunicationsController < ApplicationController
 	skip_before_action :verify_authenticity_token
 
 	def index 
-		@email_receives =  EmailNotification.where(receiver_id: current_user.id).paginate(:page => params[:page])
-		@email_views = EmailNotification.where(status: false)
+		if params[:id].blank?
+			@email_receives =  EmailNotification.where(receiver_id: current_user.id).paginate(:page => params[:page])
+			@email_views = EmailNotification.where(status: false)
+		else
+			@email= EmailNotification.find_by_id(params[:id])
+			@email.update(status:  true)
+		end
 	end 
 	def sents
 		@email_sents = EmailNotification.where(sender_id: current_user.id).paginate(:page => params[:page])

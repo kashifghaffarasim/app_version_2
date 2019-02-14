@@ -83,8 +83,8 @@
 		}
 		$(document).ready(function() {
 			$(".pagination").find("a").attr("data-remote", true);
-			$("#unread-receive").text("<%= unread_receive() %>");
-			$("#unread-sent").text("<%= unread_sent() %>");
+			$("#unread-receive").text("<%= unread_receive().length %>");
+			$("#unread-sent").text("<%= unread_sent().length %>");
 
 		});
 		function destroy(source){

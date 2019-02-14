@@ -5,7 +5,12 @@ class SmsController < ApplicationController
 
 
 	def index
-		@sms_receives =  Sm.where(receiver_id: current_user.id).paginate(:page => params[:page])
+		if params[:id].blank?
+			@sms_receives =  Sm.where(receiver_id: current_user.id).paginate(:page => params[:page])
+		else
+			@sms = Sm.find_by_id(params[:id])
+			@sms.update(status:  true)
+		end
 	end 
 	def sents
 		@sms_sents = Sm.where(sender_id: current_user.id).paginate(:page => params[:page])

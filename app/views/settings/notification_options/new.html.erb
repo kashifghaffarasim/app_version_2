@@ -44,52 +44,29 @@
 
 							<div id="settings_area">
 								<% flash.each do |key, value| %>
-									<div class="alert alert-<%= key %>"><%= value %></div>
-									<% end %>
+								<div class="alert alert-<%= key %>"><%= value %></div>
+								<% end %>
 								<%=form_tag settings_notification_options_url do %>
-								
 								<div class="card-body">
-									<h4 class="card-title">Email Overview</h4>
-									<h6 class="card-subtitle">
-										Customize the e-mail subject line and body for Invoices, Quotes, Payment and Deposit Receipts, and Statements that you send through CopperService. <br><br> You can use the {{VARIABLES}} as placeholders for values that change. <br> Check out <a target="_blank" href="https://learn.getcopperservice.com/hc/en-us/articles/200705904">our documentation</a> for a list of all available variable tags. 
-									</h6>
-								</div>
-								<hr>
-								<div class="card-body">
-									<h4 class="card-title">Invoices</h4>
+									<h4 class="card-title"></h4>
 									<div class="form-group row">
 										<label class="col-sm-3 text-right control-label col-form-label" for="work_configuration_invoice_default_email_subject">User Type</label>
 										<div class="col-sm-9">
-											<select class="form-control" name="notification_option[message_type]" value="vendor" required="true">
+											<select class="form-control" id="select-type" name="notification_option[message_type]" value="vendor" required="true">
 												<option value>Choose Type</option>
 												<option value="customer">Customer</option>
-												<option value="team_member">Team</option>
-												
+												<option value="team member">Team</option>
+												<option value="invoice">Invoices</option>
+												<option value="quote">Estimate</option>
+												<option value="balance adjustment">Payment and Deposit Receipts</option>
+												<option value="statement">Statement</option>
+												<option value="note">Signed Documents</option>
 											</select>
 										</div>
 									</div>
-									<div class="form-group row">
-										<label class="col-sm-3 text-right control-label col-form-label" for="work_configuration_invoice_default_email_subject">Subject Line</label>
-										<div class="col-sm-9">
-											<input type="text" value="Invoice from {{COMPANY_NAME}} - {{INVOICE_SUBJECT}}" name="notification_option[subject]" class="form-control">
-										</div>
-									</div>
-									<div class="form-group row">
-										<label class="col-sm-3 text-right control-label col-form-label" for="work_configuration_invoice_default_email_message">Message</label>
-										<div class="col-sm-9">
-											<textarea rows="10" name="notification_option[message_content]" class="form-control">
-Greetings {{CLIENT_NAME}},
-
-Just a reminder – we have a service call appointment {DATE} at {TIME}.
-If you need to CHANGE or CANCEL your appointment, please call {SERVICE NUMBER}. 
-
-Thanks for your attention.
-{{COMPANY_NAME}}
-											</textarea>
-										</div>
-									</div>
+									<div id="select"></div>
 								</div>
-						
+
 								<div class="card-body">
 									<div class="form-group m-b-0 text-right">
 										<button type="submit" value="Update Settings" name="commit" class="btn btn-info waves-effect waves-light" >
@@ -104,7 +81,24 @@ Thanks for your attention.
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript">
+		
+		$('#select-type').on('change', function() {
+			if (this.value !== ""){
+			$.ajax({
+				url: "<%= select_type_settings_notification_options_path %>",
+				type: "GET",
+				data: {type: this.value},
+				success: function(){
+					$("#save").click(function() {
+						console.dir("hahahah---[[[---")
+						document.getElementById("my-event").style.display = "none";
+					})
+				}})
+			};
+		});
 
+	</script>
 
 
 
