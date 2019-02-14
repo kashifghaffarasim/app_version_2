@@ -5,7 +5,14 @@
             <div class="col-md-6" style=" padding: 14px;
                  font-size: 15px;
                  font-weight: bold;">
-                 Invoice Billing - will invoice when job is completed
+                Invoice Billing - will invoice when job is completed
+            </div>
+
+            <div class="col-md-6" style=" padding: 14px;
+                 font-size: 15px;
+                 font-weight: bold;">
+                <a class="btn btn-primary" style="background: #dac616e8; float: right;"> List Invoices</a>
+                <a class="btn btn-primary" style="background: brown; float: right;"> New Invoice</a>
             </div>
 
             <% if !@job.blank? %>
@@ -13,7 +20,7 @@
                   <div>
                       <% @job.job_assign_visits.each do |visit| %>
                         <div class="row" style="margin-top: 10px">
-                            
+
                         </div>
                       <% end %>
                   </div>

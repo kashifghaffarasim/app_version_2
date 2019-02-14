@@ -32,7 +32,7 @@ Rails.application.routes.draw do
   end
   resources :estimates do
     collection do
-      post :convert_invoice
+      get :convert_invoice
       post :send_email
     end
   end

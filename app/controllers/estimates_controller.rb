@@ -5,6 +5,7 @@ class EstimatesController < ApplicationController
   before_action :get_estimate, only: [:show , :edit, :update, :destroy]
     
   def index
+    session.delete(:convert)
     session[:type] = "Estimate"
     @customers =  User.where(company_id: current_user.try(:company_id)).order(id: :asc).with_any_role(:customer).last(4)
     @estimates = Job.where(company_id: current_user.try(:company_id), job_type: 'Estimate')
@@ -22,7 +23,6 @@ class EstimatesController < ApplicationController
   end
   
   def create
-    
     @job = Job.new(estimate_params)
     if @job.save
       session.delete(:pool_id)
@@ -32,7 +32,6 @@ class EstimatesController < ApplicationController
       flash[:danger] = "Estimate not Created. Please try again later."
       render :new
     end
-    
   end
   
   def show
@@ -64,8 +63,10 @@ class EstimatesController < ApplicationController
   end
   
   
-  def convert_to_job
-    
+  def convert_invoice
+    session[:convert] = "Job"
+    @job = Job.find_by_id(params[:id])
+    redirect_to edit_job_url(@job)
   end
   
   private

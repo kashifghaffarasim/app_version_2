@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_08_111854) do
+ActiveRecord::Schema.define(version: 2019_02_13_093757) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -60,6 +60,26 @@ ActiveRecord::Schema.define(version: 2019_02_08_111854) do
     t.string "attachment_content_type"
     t.bigint "attachment_file_size"
     t.datetime "attachment_updated_at"
+  end
+
+  create_table "invoices", force: :cascade do |t|
+    t.integer "job_id"
+    t.string "subject"
+    t.string "payment"
+    t.datetime "issued_date"
+    t.datetime "due_date"
+    t.string "tax"
+    t.string "discount"
+    t.string "desposit"
+    t.string "sub_total"
+    t.string "grand_total"
+    t.text "message"
+    t.string "status", default: "Unpaid"
+    t.integer "user_id"
+    t.datetime "bill_start_date"
+    t.datetime "bill_end_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "job_assign_visits", force: :cascade do |t|
