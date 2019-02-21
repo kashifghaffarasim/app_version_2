@@ -27,11 +27,18 @@
     ini_events($('#calendar-events .calendar-events'))
     // initialize the calendar
     // -----------------------------------------------------------------
-    var json = <%=raw @job.to_json %>
-    var j = JSON.parse(JSON.stringify(json).split('"start_time":').join('"start":'));
+    var json = <%=raw @jobs.to_json %>;
 
-    var a = JSON.parse(JSON.stringify(j).split('"end_time":').join('"end":'));
-    var h = JSON.parse(JSON.stringify(a).split('"name":').join('"title":'));
+    console.dir("asjdlahsdhkasjdh"+json)
+    var j = JSON.parse(JSON.stringify(json).split('"start_date":').join('"start":'));
+    console.dir("asjdlahsdhkasjdh"+j)
+
+    var a = JSON.parse(JSON.stringify(j).split('"end_date":').join('"end":'));
+    console.dir("asjdlahsdhkasjdh"+a)
+
+    var h = JSON.parse(JSON.stringify(a).split('"description":').join('"title":'));
+    var event_1 = [<% @jobs.each do |job|%>{ id: <%= job.id%> ,title  : '<%= job.description %>',start  : '<%= job.start_date.to_date.strftime("%Y-%m-%d") %>',end  : '<%= job.end_date.to_date.strftime("%Y-%m-%d") %>'},<% end %>]
+    console.dir(event_1)
     $('#calendar').fullCalendar({
       header: {
         left: 'prev,next today',
@@ -55,7 +62,8 @@
       weekNumberCalculation: 'ISO',
       editable: true,
       eventLimit: true,
-      events: h,  
+     // events: h,  
+     events: event_1,
 
     //return true if the event 'eventObject' needs to be removed, return false if it doesn't
     eventRender: function (event, element) {
@@ -73,18 +81,18 @@
             })
             $(".delete-event").click(function() {
               console.dir("1........")
-             $.ajax({
-              url: "/calendars/"+event.id,
-              type: "DELETE",
+              $.ajax({
+                url: "/calendars/"+event.id,
+                type: "DELETE",
             // dataType: "json",
-              data: {"_method":"delete"},
-              success: function(){
-                console.dir("hahahah------")
-                $("#my-event").dialog({ modal: false, title: event.title, width:350});
-                document.getElementById("my-event").style.display = "none";
-              }
+            data: {"_method":"delete"},
+            success: function(){
+              console.dir("hahahah------")
+              $("#my-event").dialog({ modal: false, title: event.title, width:350});
+              document.getElementById("my-event").style.display = "none";
+            }
+          })
             })
-           })
 
             $(".btn-secondary").click(function() {
 
@@ -93,33 +101,33 @@
           }});
 
 
-        //$("input").html(moment(event.start).format('MMM Do h:mm A'));
-       // $("#my-event").dialog({ modal: true, title: event.title, width:350});
-       // $(".modal-body").append('');
-       //$("input:text").val(event.title);
-       //$(".delete-event").click(function() {
-        //console.dir(event)
-        //$('#calendar').fullCalendar('removeEvents',event._id);
-        //$("#my-event").dialog({ modal: false, title: event.title, width:350});
-        //document.getElementById("my-event").style.display = "none";
-      //});
-       //$(".btn-secondary").click(function() {
+        $("input").html(moment(event.start).format('MMM Do h:mm A'));
+        $("#my-event").dialog({ modal: true, title: event.title, width:350});
+        $(".modal-body").append('');
+        $("input:text").val(event.title);
+        $(".delete-event").click(function() {
+          console.dir(event)
+          $('#calendar').fullCalendar('removeEvents',event._id);
 
-        //document.getElementById("my-event").style.display = "none";
-      //});
-       //$(".btn-success").click(function() {
-        //var inputs = document.getElementById("id");
+          $("#my-event").dialog({ modal: false, title: event.title, width:350});
+          document.getElementById("my-event").style.display = "none";
+        });
+        $(".btn-secondary").click(function() {
 
-        //event.title = inputs.value;
-        //event.start = event.start;
-//        console.dir(inputs.value)
+          document.getElementById("my-event").style.display = "none";
+        });
+        $(".btn-success").click(function() {
+          var inputs = document.getElementById("id");
+          event.title = inputs.value;
+          event.start = event.start;
+          console.dir(inputs.value)
 
-//      $('#calendar').fullCalendar('updateEvent', event);
-  //      document.getElementById("my-event").style.display = "none";
+          $('#calendar').fullCalendar('updateEvent', event);
+          document.getElementById("my-event").style.display = "none";
 
-    //  });
+        });
 
-  });
+      });
     },
      drop: function (date, allDay) { // this function is called when something is dropped
 
@@ -241,7 +249,7 @@
                           <input type="checkbox" class="custom-control-input" id="drop-remove">
                           <label class="custom-control-label" for="drop-remove">Remove after drop</label>
                         </div>
-                        <button href="" data-toggle="modal" data-target="#add-new-event" class="btn m-t-20 btn-info btn-block waves-effect waves-light">
+                        <button href="" data-toggle="modal" data-target="#exampleModal" class="btn m-t-20 btn-info btn-block waves-effect waves-light">
                           <i class="ti-plus"></i> Add New Event
                         </button>
                       </div>
@@ -264,22 +272,35 @@
     <!-- END MODAL -->
   </div>
 </div>
+
+<%= render 'modal' %>
+
+
+
+<script type="text/javascript">
+  function checkInput(number) {
+    var value = document.getElementById("textValue").value;
+    $.ajax({
+      type: "GET",
+      url: "/customers/list_customers",
+      data: {
+        company_id: <%= current_user.try(:company_id)%>,
+        name: value
+      },
+      cache: false,
+      success: function (data) {
+      }
+    });
+  }
+
+</script>
+
+
+
+
+
+
 <div id="new">
 </div>
 <div id="edit">
 </div>
-<script type="text/javascript">
-  $(".m-t-20").click(function() {
-    console.dir("hahahah------")
-    $.ajax({
-      url: "/calendars/new",
-      type: "GET",
-      success: function(){
-        $("#save").click(function() {
-          console.dir("hahahah---[[[---")
-          document.getElementById("my-event").style.display = "none";
-        })
-      }})
-  })
-
-</script>

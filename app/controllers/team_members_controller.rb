@@ -1,7 +1,7 @@
 class TeamMembersController < ApplicationController
  
   before_action :authenticate_user!
-	before_action :get_vendor, only: [:show, :edit, :update, :destroy]
+	before_action :get_company, only: [:create]
 
 	def index
 		@team_members = User.where(company_id: current_user.try(:company_id)).order(id: :asc).with_any_role(:admin, :user)
@@ -16,6 +16,7 @@ class TeamMembersController < ApplicationController
 	end
   
 	def create
+		params[:user][:company_id] = @company_id
 		params[:user][:password] = '12345678'
 		@team_member  = User.new(user_params)
 		@already = User.find_by_email(params[:user][:email])
@@ -70,8 +71,8 @@ class TeamMembersController < ApplicationController
 		params.require(:address).permit(:address_name, :city_name , :state_name , :country_name , :zipcode)
 	end
 
-	def get_vendor
-		@vendor = User.find_by_id(params[:id])
+	def get_company
+		@company_id = User.find_by_id(params[:id]).company_id
 	end
 
 	def member_address

@@ -1,0 +1,70 @@
+<div class="modal fade none-border" id="customer-pool">
+	<div class="modal-dialog" style="max-width: 58%;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title"><strong>Add</strong> a category</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			</div>
+			<div  style="background: #fff; padding: 0px">
+				<div class="card">
+					<div class="card-body">
+						<div  class="row" style="margin-top: 10px">
+							<div class="col-md-12 col-12 ">
+								<h4><%= session[:type] %></h4>
+								<p>Which property would you like to use for this <%= session[:type] %>?</p>
+							</div>
+
+							<div class="col-md-12 col-12 text-center">
+								Pools beloging to <%= @user.try(:fullname)  %> -  OR  -
+								<%= link_to 'Create new Pool', new_pool_url ,:class=>"btn btn-info btn-rounded"%>
+							</div>
+						</div>
+					</div>
+
+					<div class="card-body">
+						<% if !@pools.blank?%>
+						<table id="demo-foo-addrow" class="table m-t-30 no-wrap table-hover contact-list" data-page-size="10">
+							<thead>
+								<tr>
+									<th> Pool Name </th>
+									<th> Pool Type </th>
+									<th> City</th>
+									<th> State</th>
+									<th> Country</th>
+									<th> Status </th>
+									<th> Select Pool</th>
+								</tr>
+
+							</thead>
+							<tbody>
+								<% @pools.each do |pool| %>
+								<tr>
+									<td><%= pool.try(:pool_name)%></td>
+									<td><%= pool.try(:pool_type)%> </td>
+									<td><%= pool.address.try(:city_name)%> </td>
+									<td><%= pool.address.try(:state_name)%> </td>
+									<td><%= pool.address.try(:country_name)%> </td>
+									<td><%= pool.try(:pool_activity)%> </td>
+									<td>
+										<% if session[:type] == 'Estimate' %>
+										<%= link_to 'Select Customer',new_estimate_url(pool_id: pool.try(:id)), :class => "btn btn-success"%>
+										<% else %>
+										<%= link_to 'Select Customer',new_calendar_url(pool_id: pool.try(:id)), :class => "btn btn-success",remote: :true%>
+										<% end %>
+									</td>
+								</tr>
+
+								<% end %>
+							</tbody>
+						</table>
+						<% else %>
+						<div>
+							<h6> No Pool exist.</h6>
+						</div>
+						<% end %>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
