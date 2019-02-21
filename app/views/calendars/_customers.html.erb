@@ -1,0 +1,47 @@
+<%if customer.blank?%>
+  <b>  No Customer Found </b>
+<% else %>
+  <h5 style="margin: 10px 0;"> Some Recent Customer(s)</h5>
+  <div class="row">
+      <div class="col-md-12">
+
+          <div class="table-responsive">
+              <table class="table table-hover">
+                  <tbody>
+                      <% customer.each do |customer| %>
+                        <tr>
+                            <th style=" padding: 11px 8px;"> 
+                                <img class="d-flex m-r-15" src="<%= customer.avatar.url %>" 
+                                     width="60">
+                            </th>
+                            <th style=" padding: 11px 8px;"> 
+                                <a href="<%= customer_pool_calendars_url(user_id: customer.id)%>"
+                                   style="margin-top: 5px; color: blue; cursor: pointer" data-remote = "true">
+                                    <b><%= customer.fullname %> (<%= customer.company.try(:name)%>)</b>
+                                </a>
+
+                                <p> 
+                                    <span>
+                                        POOL   <%= customer.pools.count  %> 
+                                    </span>
+                                    <span style=" margin-left: 25px">
+                                        <%= customer.try(:phone_number) %>
+                                    </span>
+                                    <span style=" margin-left: 15px">
+                                        Active 
+                                    </span>
+                                    <span style=" margin-left: 15px">
+                                        <%= customer.created_at%> 
+                                    </span>
+                                </p>
+
+                            </th>
+
+                        </tr>
+                      <% end %>
+                  </tbody>
+              </table>
+          </div>
+      </div>
+  </div>
+<% end %>
