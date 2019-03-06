@@ -1,0 +1,145 @@
+<div class="page-wrapper">
+    <!-- ============================================================== -->
+    <!-- Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-5 align-self-center">
+                <h4 class="page-title">Form Horizontal</h4>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Library</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-7 align-self-center">
+                <div class="d-flex no-block justify-content-end align-items-center">
+                    <div class="m-r-10">
+                        <div class="lastmonth"></div>
+                    </div>
+                    <div class=""><small>LAST MONTH</small>
+                        <h4 class="text-info m-b-0 font-medium">$58,256</h4></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+        <!-- ============================================================== -->
+        <!-- Start Page Content -->
+        <!-- ============================================================== -->
+        <!-- Row -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    
+                    <form class="form-horizontal">
+                        <div class="card-body">
+                            <h4 class="card-title">
+                                <%= @classified.street %>,
+                                <%= @classified.city %>
+                                <%= @classified.state %>
+                                <%= @classified.zipcode %>    
+                            </h4>
+                            <div class="form-group row">
+                                <label for="fname" class="col-sm-3 text-right control-label col-form-label">Image</label>
+                                <div class="col-sm-9">
+                                    <%= image_tag @classified.pictures.image.url if !@classified.pictures.blank? %>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="lname" class="col-sm-3 text-right control-label col-form-label">Phone number:</label>
+                                <div class="col-sm-9">
+                                    <p class= "form-control"><%= @classified.phone_number %></p>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="email1" class="col-sm-3 text-right control-label col-form-label">Contact name:</label>
+                                <div class="col-sm-9">
+                                    <p class="form-control"><%= @classified.contact_name %></p>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="cono1" class="col-sm-3 text-right control-label col-form-label">Posting title:</label>
+                                <div class="col-sm-9">
+                                    <p class="form-control"><%= @classified.posting_title %></p>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label for="email1" class="col-sm-3 text-right control-label col-form-label">Specific location:</label>
+                                <div class="col-sm-9">
+                                    <p class="form-control"><%= @classified.specific_location %></p>
+
+                                </div>
+                            </div>
+                            
+                            <div class="form-group row">
+                                <label for="cono1" class="col-sm-3 text-right control-label col-form-label">Postal code</label>
+                                <div class="col-sm-9">
+                                    <p class="form-control"><%= @classified.postal_code %></p>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="card-body">
+                            <div class="form-group row">
+                                <div id="googleMap" style="width:100%;height:330px;"></div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group row">
+                                <label for="fname" class="col-sm-3 text-right control-label col-form-label">Posting body:</label>
+                                <div class="col-sm-9">
+                                    <p class="form-control"><%= @classified.posting_body %></p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-group m-b-0 text-right">
+                                <%= link_to "Post on Craigslist","http://www.craigslist.org",:class=>"btn btn-info waves-effect waves-light",target: "_blank"%>
+                                <%= link_to 'Back', classifieds_path,:class=>"btn btn-info waves-effect waves-light" %>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script
+    src="http://maps.googleapis.com/maps/api/js">
+</script>
+
+<script>
+  var myCenter = new google.maps.LatLng(<%= @gecode.first.data["geometry"]["location"]["lat"] rescue "0"%>,<%= @gecode.first.data["geometry"]["location"]["lng"] rescue "0"%>);
+
+  function initialize()
+  {
+      var mapProp = {
+          center: myCenter,
+          zoom: 5,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+      };
+
+      var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+
+      var marker = new google.maps.Marker({
+          position: myCenter,
+      });
+
+      marker.setMap(map);
+  }
+
+  google.maps.event.addDomListener(window, 'load', initialize);
+</script>

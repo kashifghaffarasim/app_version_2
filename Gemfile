@@ -33,10 +33,10 @@ gem 'will_paginate-bootstrap4'
 gem 'devise'
 gem "rolify"
 gem "paperclip", git: "git://github.com/thoughtbot/paperclip.git"
-
+gem 'geocoder'
 gem 'nested_form_fields'
 gem 'rateyo-rails'
-
+gem 'open-weather'
 gem 'exception_notification'
 
 # Use Redis adapter to run Action Cable in production
@@ -61,12 +61,14 @@ group :development, :test do
 end
 
 group :development do
+  gem 'geocoder'
   # Access an interactive console on exception pages or by calling 'console' anywhere in the code.
   gem 'web-console', '>= 3.3.0'
   gem 'listen', '>= 3.0.5', '< 3.2'
 end
 
 group :test do
+  gem 'geocoder'
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 2.15', '< 4.0'
   gem 'selenium-webdriver'
