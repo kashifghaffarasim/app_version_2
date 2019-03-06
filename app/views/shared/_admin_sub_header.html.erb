@@ -24,8 +24,9 @@
                                 <li class="sidebar-item"><a href="<%= settings_url%> " class="sidebar-link"><i class="mdi mdi-priority-low"></i><span class="hide-menu"> General Settings</span></a></li>
                                 <li class="sidebar-item"><a href="<%= team_members_url %>" class="sidebar-link"><i class="mdi mdi-rounded-corner"></i><span class="hide-menu"> Team Members</span></a></li>
                                 <li class="sidebar-item"><a href="<%= company_url(id: current_user.try(:company_id))%>" class="sidebar-link"><i class="mdi mdi-select-all"></i><span class="hide-menu"> Company Branding</span></a></li>
+                                <!--
                                 <li class="sidebar-item"><a href="#" class="sidebar-link"><i class="mdi mdi-shape-plus"></i><span class="hide-menu"> Product & Services</span></a></li>
-                                <li class="sidebar-item"><a href="#" class="sidebar-link"><i class="mdi mdi-switch"></i><span class="hide-menu"> Custom Fields</span></a></li>
+                                <li class="sidebar-item"><a href="#" class="sidebar-link"><i class="mdi mdi-switch"></i><span class="hide-menu"> Custom Fields</span></a></li>-->
                                 <li class="sidebar-item"><a href="<%= settings_notification_options_url %>" class="sidebar-link"><i class="mdi mdi-toggle-switch-off"></i><span class="hide-menu"> Notifications </span></a></li>
                             </ul>
                         </li>
@@ -37,16 +38,18 @@
                             </a>
                             <ul aria-expanded="false" class="collapse second-level">
                                 <li class="sidebar-item"><a href="<%= settings_pool_settings_url %>" class="sidebar-link"><i class="mdi mdi-vector-difference-ba"></i><span class="hide-menu"> Pool </span></a></li>
+                                <!--
                                 <li class="sidebar-item"><a href="#" class="sidebar-link"><i class="mdi mdi-file-document-box"></i><span class="hide-menu"> Plan Builder </span></a></li>
                                 <li class="sidebar-item"><a href="#" class="sidebar-link"><i class="mdi mdi-code-greater-than"></i><span class="hide-menu"> Quotes</span></a></li>
                                 <li class="sidebar-item"><a href="#" class="sidebar-link"><i class="mdi mdi-code-equal"></i><span class="hide-menu"> Work Order </span></a></li>
                                 <li class="sidebar-item"><a href="#" class="sidebar-link"><i class="mdi mdi-flip-to-front"></i><span class="hide-menu"> Invoice </span></a></li>
-                                <li class="sidebar-item"><a href="#" class="sidebar-link"><i class="mdi mdi-content-duplicate"></i><span class="hide-menu"> Folder Access</span></a></li>
-                                <li class="sidebar-item"><a href="#" class="sidebar-link"><i class="mdi mdi-cards-outline"></i><span class="hide-menu"> Pool Service</span></a></li>
-                                <li class="sidebar-item"><a href="#" class="sidebar-link"><i class="mdi mdi-cards-outline"></i><span class="hide-menu"> Spa  Service</span></a></li>
+                                <li class="sidebar-item"><a href="#" class="sidebar-link"><i class="mdi mdi-content-duplicate"></i><span class="hide-menu"> Folder Access</span></a></li>-->
+                                <li class="sidebar-item"><a href="<%=pool_service_services_url%>" class="sidebar-link"><i class="mdi mdi-cards-outline"></i><span class="hide-menu"> Pool Service</span></a></li>
+                                <li class="sidebar-item"><a href="<%= spa_service_services_url %>" class="sidebar-link"><i class="mdi mdi-cards-outline"></i><span class="hide-menu"> Spa  Service</span></a></li>
+                                <!--
                                 <li class="sidebar-item"><a href="#" class="sidebar-link"><i class="mdi mdi-cards-outline"></i><span class="hide-menu"> Chemical Items</span></a></li>
                                 <li class="sidebar-item"><a href="#" class="sidebar-link"><i class="mdi mdi-cards-outline"></i><span class="hide-menu"> Email Options</span></a></li>
-                                <li class="sidebar-item"><a href="#" class="sidebar-link"><i class="mdi mdi-cards-outline"></i><span class="hide-menu"> TimeSheet</span></a></li>
+                                <li class="sidebar-item"><a href="#" class="sidebar-link"><i class="mdi mdi-cards-outline"></i><span class="hide-menu"> TimeSheet</span></a></li>-->
                                  <li class="sidebar-item"><a href="<%= back_ups_url %>" class="sidebar-link"><i class="mdi mdi-cards-outline"></i><span class="hide-menu">Manage Data</span></a></li>
                             </ul>
                         </li>
@@ -69,6 +72,7 @@
                                 <i class="mdi mdi-account-settings"></i>
                                 <span class="hide-menu"> Team Members </span></a>
                         </li>
+                        <!--
                         <li class="sidebar-item"><a href="#" class="sidebar-link"><i class="mdi mdi-adjust"></i><span class="hide-menu"> Cryptocurrency </span></a></li>
                         <li class="sidebar-item"><a href="#" class="sidebar-link"><i class="mdi mdi-adjust"></i><span class="hide-menu"> Overview </span></a></li>
                         <li class="sidebar-item"><a href="#" class="sidebar-link"><i class="mdi mdi-adjust"></i><span class="hide-menu"> E-Commerce </span></a></li>
@@ -76,7 +80,7 @@
                         <li class="sidebar-item"><a href="#" class="sidebar-link"><i class="mdi mdi-adjust"></i><span class="hide-menu"> General </span></a></li>
                         <li class="sidebar-item"><a href="#" class="sidebar-link"><i class="mdi mdi-adjust"></i><span class="hide-menu"> Trendy </span></a></li>
                         <li class="sidebar-item"><a href="#" class="sidebar-link"><i class="mdi mdi-adjust"></i><span class="hide-menu"> Campaign </span></a></li>
-                        <li class="sidebar-item"><a href="#" class="sidebar-link"><i class="mdi mdi-adjust"></i><span class="hide-menu"> Modern </span></a></li>
+                        <li class="sidebar-item"><a href="#" class="sidebar-link"><i class="mdi mdi-adjust"></i><span class="hide-menu"> Modern </span></a></li>-->
                     </ul>
                 </li>
 
@@ -86,7 +90,7 @@
                         <span class="hide-menu">Scheduler</span></a>
                     </a>
                 </li>
-
+<!--
 
                 <li class="sidebar-item">
                     <a  class = "sidebar-link">
@@ -104,6 +108,7 @@
 
 
                 </li> 
+                !-->
                 <li class="sidebar-item">
                     <a href="<%= vendors_url %>"  class = "sidebar-link" >
                         <i class="mdi mdi-view-dashboard">
@@ -132,7 +137,11 @@
                         <li class="sidebar-item"><a class = "sidebar-link" >Billing</a></li>
                         <li class="sidebar-item"><a class ="sidebar-link" >Payroll</a></li>
                         <li class="sidebar-item"><a class = "sidebar-link">QuickBooks</a></li>
-                        <li class="sidebar-item"></li>
+                        <li class="sidebar-item"><a href="<%= classifieds_url %>" class = "sidebar-link">ADS</a>
+                        </li>
+                        <li class="sidebar-item"><a href="<%= leads_url %>" class = "sidebar-link">Leads</a>
+                        </li>
+                        
                     </ul>
                 </li>
 

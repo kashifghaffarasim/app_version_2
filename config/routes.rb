@@ -51,62 +51,71 @@ Rails.application.routes.draw do
      post :job_assignment
    end
  end
-  resources :calendars do 
-    collection do 
-      get :customer_pool
-    end  
-  end 
+ resources :calendars do 
+  collection do 
+    get :customer_pool
+  end  
+end 
 
 
-  resources :vendors
+resources :vendors
 
-  resources :settings, only: [:index]
-  resources :companies, only: [:index, :create, :edit, :update, :show]
-  resources :profiles 
-  resources :team_members
+resources :settings, only: [:index]
+resources :companies, only: [:index, :create, :edit, :update, :show]
+resources :profiles 
+resources :team_members
 
-  resources :pools do
-    collection do
-      get :map , via: [:get, :post]
-      post :map_address , via: [:post]
-    end
+resources :pools do
+  collection do
+    get :measure_pool
+    patch :pool_estimate
+    get :map , via: [:get, :post]
+    post :map_address , via: [:post]
   end
+end
 
-  resources :plans
+resources :plans
 
-  resources :leads do
-    collection do 
-      get :map
+resources :leads do
+  collection do 
+    get :map
 
-    end
   end
+end
 
-  resources :routings, only: [:index]
-  resources :back_ups do 
-    collection do 
-      get :generate_csv 
-      post :import_csv
-    end
+resources :routings, only: [:index]
+resources :back_ups do 
+  collection do 
+    get :generate_csv 
+    post :import_csv
   end
+end
 
-  resources :communications do
-    collection do
-      get :sents
-      get :receives
-    end
+resources :communications do
+  collection do
+    get :sents
+    get :receives
   end
+end
 
-  resources :sms do
-    collection do
-      get :sents
-      get :receives
-    end
+resources :sms do
+  collection do
+    get :sents
+    get :receives
   end
+end
 
 
-  resources :line_items
+resources :line_items
 
-  get 'attachment/:id', to: "communications#attachment", as: :attachment
+resources :services do 
+  collection do 
+    get :spa_service
+    get :pool_service
+  end
+end
+resources :classifieds
+get 'attachment/:id', to: "communications#attachment", as: :attachment
 
   #patch '/settings/update_company/:id', to: 'settings#update_company', as: :update_company
   get '/companies/:id/edit_address', to: 'companies#edit_address', as: :edit_address

@@ -10,3 +10,4 @@ Paperclip.options[:content_type_mappings] = {
 	:arabics_attachment => "application/json",
 	:attachment => "application/json"																																																																																																																																																																																																													 "application/json"
 }
+Paperclip::DataUriAdapter.register

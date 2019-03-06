@@ -61,6 +61,9 @@ Rails.application.configure do
 
   # Suppress logger output for asset requests.
   config.assets.quiet = true
+  
+    WEATHER_APPID ="45c5cb2f83d12744849fd8797b8f19ac"
+
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
