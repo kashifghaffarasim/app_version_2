@@ -1,0 +1,18 @@
+
+<% if !@custom_fields.blank?%>
+<% @custom_fields.each_with_index  do |custom_field, index| %>
+<tr >
+	<td><%= index = index + 1 %></td>
+	<td><%= custom_field.applies_to %></td>
+	<td><%= custom_field.name %></td>
+	<td><%= custom_field.value_type %></td>
+	<td><%= custom_field.default %> </td>
+	<td>
+		<%= link_to '',edit_custom_field_url(custom_field), :class => "fa fa-edit", :remote =>true %>
+		<%= link_to '',custom_field_url(custom_field), method: :delete,
+		data: { confirm: "Are you sure you want to delete?" }, 
+		:class => "fa fa-trash-alt" , :style=> "color: red", :remote =>true%>
+	</td>
+</tr>
+<% end %>
+<% end %>

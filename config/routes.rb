@@ -115,6 +115,7 @@ resources :services do
   end
 end
 resources :classifieds
+resources :custom_fields
 get 'attachment/:id', to: "communications#attachment", as: :attachment
 
   #patch '/settings/update_company/:id', to: 'settings#update_company', as: :update_company

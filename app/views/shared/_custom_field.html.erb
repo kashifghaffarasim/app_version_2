@@ -1,0 +1,57 @@
+
+<%if !@custom_field.blank?%>
+
+
+<div class="col-sm-12 col-lg-6">
+  <div class="form-group row">
+    <label for="uname1" class="col-sm-3 text-right control-label col-form-label">Zip Code</label>
+    <div class="col-sm-9">
+      <input  class="form-control" type="text"  placeholder="Zip Code" 
+      name="address[zipcode]" required="true">
+    </div>
+  </div>
+</div>
+
+<%@custom_field.each_with_index do |custom_field,index|%>
+<div class="col-sm-12 col-lg-6">
+  <div class="form-group row">
+    <label for="uname1" class="col-sm-3 text-right control-label col-form-label"><%= custom_field.name%></label>
+    <%= hidden_field_tag "custom_field[id][#{index}]",:value => custom_field.id %>
+    <div class="col-sm-9">
+      <%if custom_field[:value_type] == "select"%>
+      <%= select_tag("custom_field[select][#{index}]", options_for_select(custom_field_select(custom_field),:selected=> @custom_field_data["select"]["#{index}"]))%>  
+      <%elsif custom_field[:value_type] == "text"%>
+      <%= text_field_tag  "custom_field[default][#{index}]",nil,:value=>JSON.parse(custom_field["default"])[0] ,:class => "form-control"%>
+      <%elsif custom_field[:value_type] == "area"%>
+      <%= text_field_tag  "custom_field[length][#{index}]",nil,:value=>@custom_field_data["length"]["#{index}"],:style=>"width:10%;" , :class => "form-control"%>X
+      <%= text_field_tag  "custom_field[length][#{index+1}]",nil,:value=>@custom_field_data["length"]["#{index+1}"] ,:style=>"width:10%;", :class => "form-control"%>
+      <%= JSON.parse(custom_field["default"])[3]%>
+
+
+      <%elsif custom_field[:value_type] =="integer"%>
+
+      <%= text_field_tag  "custom_field[numeric][#{index}]",nil,:value=>@custom_field_data["numeric"]["#{index}"] ,:style=>"width:10%;"%>
+      <%= JSON.parse(custom_field["default"])[2]%>
+
+
+      <%elsif custom_field[:value_type] == "boolean" %>
+      <%if JSON.parse(custom_field["default"])[0] == "true"%>
+      <%=hidden_field_tag "custom_field[boolean][#{index}]",nil, :id=>"custom_field_value_type_check_value",:value=>"true"%>
+      <input type="checkbox"  id="custom_field_value_type_check" checked="checked" value="true">
+
+      <%else%>
+      <%=hidden_field_tag "custom_field[boolean][#{index}]",nil, :id=>"custom_field_value_type_check_value",:value=>"false"%>
+      <input type="checkbox"  id="custom_field_value_type_check" value="false">
+      <%end%> 
+
+      <%end%>
+
+    </div>   
+  </div>
+</div>
+<%end%>
+<%end%>
+
+<script>
+  checkCustomBox()
+</script>

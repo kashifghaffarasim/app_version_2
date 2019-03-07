@@ -1,0 +1,73 @@
+
+
+<div class="modal fade none-border" id="myModalLabel">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">New Custom Field</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+			</div>
+			<%= form_for @custom_field ,url: custom_field_url(@custom_field) ,:remote => true,:class=>"compressed_form work_item" do |f| %>
+
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-6">
+						<label class="control-label" for="custom_field_model_type">Applies toRecipient:</label>
+						<%= select_tag("custom_field[applies_to]", options_for_select([["Pool","pool"],["Customers","customers"],["Jobs","jobs"],["Invoices","invoices"],["Team Members","team_members"],["Vendors","vendors"]]),:class=> "form-control")%>
+					</div>
+
+					<div class="col-md-6">
+
+						<label for="custom_field_name" class="control-label" >Name</label>
+						<%= text_field_tag "custom_field[name]",nil,:class=>"form-control", :id=>"work_item_name"%>
+					</div>
+					<div class="col-md-6">
+
+						<label class="control-label" for="custom_field_value_type">Value Type</label>
+						<%= select_tag("custom_field[value_type]", options_for_select([["True/False","boolean"],["Numeric","integer"],["Area (length X width)","area"],["Text","text"]]),:onchange=>"customFieldSet()",:id=>"custom_field_value_type",:class=> "form-control")%>
+					</div>
+
+					<div class="col-md-6" id ="boolean_options" >
+						<label for="custom_field_info_options_default_bool_value">Default value</label>
+						<select name="custom_field[default][]" class="form-control" id="custom_field_info_options_default_bool_value"><option value="true">True</option><option value="false">False</option></select>
+					</div>
+
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="submit" class="submit" value="Submit Payment">Update</button>
+
+				<button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+			</div>
+			<%end%>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	$("body").on("change", "#custom_field_value_type", function () {
+
+		var value = $(this).val();
+
+		if (value == "boolean") {
+			$('div#boolean_options').html('<label for="custom_field_name" class="control-label" >Default value</label><select name="custom_field[default][]" id="custom_field_info_options_default_bool_value" class="form-control"><option value="true">True</option><option value="false">False</option></select>');
+		}
+
+		if (value == "integer") {
+			$('div#boolean_options').html('<label for="custom_field_name" class="control-label" >Default value</label><input type="text" value="0" size="4" name="custom_field[default][]" id="custom_field_info_options_default_int_value" class="form-control"><label for="custom_field_name" class="control-label" >Unit</label><input type="text" value="M" name="custom_field[default][]" id="custom_field_info_options_int_unit" class="form-control">');
+		}
+
+		if (value == "area") {
+			$('div#boolean_options').html('<label for="custom_field_name" class="control-label" >Default value</label><input type="text" value="0" size="3" name="custom_field[default][]" id="custom_field_info_options_default_area_value_1" class="form-control"> <label for="custom_field_name" class="control-label" >x</label><input type="text" value="0" size="3" name="custom_field[default][]" id="custom_field_info_options_default_area_value_2" class="form-control"><label for="custom_field_name" class="control-label" >Unit</label><input type="text" value="M" class="form-control" name="custom_field[default][]" id="custom_field_info_options_int_unit">');
+		}
+
+		if (value == "text") {
+			$('div#boolean_options').html('<label for="custom_field_info_options_default_text_value" class="form-group">Default value</label><br><input type="text" value="" name="custom_field[default][]" id="custom_field_info_options_default_text_value" class="form-control" >')
+		}
+
+      // if (value=="select"){$('div#boolean_options').html('Can be set to one of these options:<br/><div id="TextBoxesGroup"><div id="TextBoxDiv1"><label>1 </label><input type="text" id="textbox1" name="custom_field[value_type][]" style="float: left;"></div></div><input type="button" value=" + Add another option" id="addButton" class="model_save_button" style="float:left;">')}
+  })
+
+</script>
+
+

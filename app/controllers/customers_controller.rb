@@ -9,6 +9,8 @@ class CustomersController < ApplicationController
   
   def new
     @customer = User.new
+    @custom_field = CustomField.where(:user_id=>current_user.id ,:applies_to=>"customers")
+
   end
 
   def show 
@@ -16,7 +18,6 @@ class CustomersController < ApplicationController
   end
 
   def create
-
     params[:user][:password] = '12345678'
     @customer  = User.new(user_params)
     @already = User.find_by_email(params[:user][:email])

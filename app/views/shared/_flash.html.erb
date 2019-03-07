@@ -1,0 +1,27 @@
+ 
+ <div class="new_add" id="dau">
+ 	<% flash.each do |key, value| %>
+ 		<div class="alert alert-<%= key %>"><%= value %><button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button></div>
+ 	<% end %>
+ </div>
+ <% if @custom_field.errors.any? %>
+  <div id="error_explanation">
+    <h2><%= pluralize(@custom_field.errors.count, "error") %> prohibited this Custom Field from being saved:</h2>
+ 
+    <ul>
+    <% @custom_field.errors.full_messages.each do |msg| %>
+      <li><%= msg %></li>
+    <% end %>
+    </ul>
+  </div>
+<% end %>
+
+ 
+
+ <script type="text/javascript">
+ setTimeout(function () {
+  $('.alert').fadeOut('fast');
+  $("#dau").remove();
+  <%= flash.clear%>
+   }, 3000);
+ </script>
