@@ -1,0 +1,60 @@
+ <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmTCyAoxWibrZ9tlXX2i3XYWOkfBW6f98&libraries=places&callback=initialize"
+ async defer></script>
+
+ <div class="page-breadcrumb">
+ 	<div class="row">
+ 		<div class="col-5 align-self-center">
+ 			<h4 class="page-title"> Custom Fields</h4>
+ 			<div class="d-flex align-items-center">
+ 				<nav aria-label="breadcrumb">
+ 					<ol class="breadcrumb">
+ 						<li class="breadcrumb-item"><a href="<%= root_url %>">Dashboard</a></li>
+ 						<li class="breadcrumb-item"><a href="#">Custom Fields</a></li>
+ 					</ol>
+ 				</nav>
+ 			</div>
+ 		</div>
+ 	</div>
+
+ 	<div>
+ 		<div class="row">
+ 			<div class="col-12">
+
+ 				<div class="card">
+ 					<div class="card-body">
+ 						<div id="flash"></div>
+ 						<div class="col-md-12 text-right">
+ 							<%= link_to 'New Custom Field', new_custom_field_url,:class=>"btn btn-info btn-rounded" , :remote => true%>
+ 						</div>
+ 					</div>
+ 					<div class="card-body">
+ 						<% unless flash[:notice].blank? %>
+ 						<div class="flash_team_member">
+ 							<div id="flash_notice_team_member" class="flash_team_member flash_notice_team_member clearfix hide_for_print">
+ 								<%= flash[:notice] %><i class="fa fa-check" style="float:right;"></i>
+ 							</div>
+ 						</div>
+ 						<%end%> 
+ 						<table id="demo-foo-addrow" class="table m-t-30 no-wrap table-hover contact-list" data-page-size="10">
+ 							<thead>
+ 								<tr>
+ 									<th>#</th>
+ 									<th> Table Name </th>
+ 									<th> Name </th>
+ 									<th> Type </th>
+ 									<th> Value </th>
+ 									<th> Actions </th>
+
+ 								</tr>
+ 							</thead>
+ 							<tbody id="index">
+ 								<%= render 'index'%>
+ 							</tbody>
+ 						</table>
+ 					</div>
+ 				</div>
+ 			</div>
+ 		</div>
+ 	</div>
+ </div>
+<div id="new"></div>
