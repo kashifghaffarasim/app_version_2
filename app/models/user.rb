@@ -2,7 +2,7 @@ class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-  :recoverable, :rememberable, :validatable
+    :recoverable, :rememberable, :validatable
   rolify
   
   has_attached_file :avatar, styles: { medium: "300x300>", thumb: "100x100>" }, default_url: "/assets/users/5.jpg"
@@ -14,10 +14,14 @@ class User < ApplicationRecord
   has_many :user_notifications
   
   def fullname
-    if !self.last_name.blank?
-      name = self.try(:first_name).capitalize + " " +  self.try(:last_name).capitalize
+    if  self.try(:first_name)
+      if !self.last_name.blank?
+        name = self.try(:first_name).capitalize + " " +  self.try(:last_name).capitalize
+      else
+        name = self.try(:first_name).capitalize
+      end
     else
-      name = self.try(:first_name).capitalize
+      name = ""
     end
     return name
   end

@@ -150,7 +150,7 @@
                                   <label for="uname1" class="col-sm-3 text-right control-label col-form-label">Address</label>
                                   <div class="col-sm-9">
                                       <input  class="form-control" 
-                                              type="text" name="address[address_name]"  placeholder="Address" required="" value="<%= @vendor.address.try(:address_name)%>">
+                                              type="text" name="address[address_name]"  placeholder="Address" required="" value="<%= @team_member.address.try(:address_name)%>">
                                   </div>
                               </div>
                           </div>
@@ -160,7 +160,7 @@
                                   <label for="nname" class="col-sm-3 text-right control-label col-form-label">City</label>
                                   <div class="col-sm-9">
                                       <input  class="form-control" 
-                                              type="text" name="address[city_name]"  placeholder="City" required="" value="<%= @vendor.address.try(:city_name)%>">
+                                              type="text" name="address[city_name]"  placeholder="City" required="" value="<%= @team_member.address.try(:city_name)%>">
                                   </div>
                               </div>
                           </div>
@@ -172,16 +172,18 @@
                                   <label for="uname1" class="col-sm-3 text-right control-label col-form-label">State</label>
                                   <div class="col-sm-9">
                                       <input  class="form-control"
-                                              type="text" name="address[state_name]" placeholder="State" required="" value="<%= @vendor.address.try(:state_name)%>">
+                                              type="text" name="address[state_name]" placeholder="State" required="" value="<%= @team_member.address.try(:state_name)%>">
                                   </div>
                               </div>
                           </div>
 
                           <div class="col-sm-12 col-lg-6">
-                              <div class="form-group row">
-                                  <label for="nname" class="col-sm-3 text-right control-label col-form-label">Country</label>
+                             
+                                <div class="form-group row">
+                                  <label for="uname1" class="col-sm-3 text-right control-label col-form-label">Zip Code</label>
                                   <div class="col-sm-9">
-                                      <input  class="form-control" type="text"  placeholder="Country"  name="address[country_name]" required="" value="<%= @vendor.address.try(:country_name)%>">
+                                      <input  class="form-control" type="text"  placeholder="Zip Code" 
+                                              name="address[zipcode]" required="true" value="<%= @team_member.address.try(:zipcode)%>">
                                   </div>
                               </div>
                           </div>
@@ -189,16 +191,13 @@
 
                       <div class="row">
                           <div class="col-sm-12 col-lg-6">
-                              <div class="form-group row">
-                                  <label for="uname1" class="col-sm-3 text-right control-label col-form-label">Zip Code</label>
+                             <div class="form-group row">
+                                  <label for="nname" class="col-sm-3 text-right control-label col-form-label">Country</label>
                                   <div class="col-sm-9">
-                                      <input  class="form-control" type="text"  placeholder="Zip Code" 
-                                              name="address[zipcode]" required="true" value="<%= @vendor.address.try(:zipcode)%>">
+                                      <input  class="form-control" type="text"  placeholder="Country"  name="address[country_name]" required="" value="<%= @team_member.address.try(:country_name)%>">
                                   </div>
                               </div>
                           </div>
-
-                        
                       </div>
 
                   </div>

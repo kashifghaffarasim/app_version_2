@@ -139,7 +139,7 @@
                                         <label for="fname" class="col-sm-3 text-right control-label col-form-label">City</label>
                                         <div class="col-sm-9">
                                             <p class= "form-control">
-                                                <%= @vendor.address.try(:city_name) %>
+                                                <%= @team_member.address.try(:city_name) %>
                                             </p>
                                         </div>
                                     </div>
@@ -160,6 +160,20 @@
                                 </div>
                                 <div class="col-sm-12 col-lg-6">
                                     <div class="form-group row">
+                                        <label for="fname" class="col-sm-3 text-right control-label col-form-label">Zip Code</label>
+                                        <div class="col-sm-9">
+                                            <p class= "form-control">
+                                                <%= @team_member.address.try(:zipcode)%>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12 col-lg-6">
+
+                                    <div class="form-group row">
                                         <label for="fname" class="col-sm-3 text-right control-label col-form-label">Country</label>
                                         <div class="col-sm-9">
                                             <p class= "form-control">
@@ -170,19 +184,6 @@
                                     </div>
                                 </div>
 
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-12 col-lg-6">
-                                    <div class="form-group row">
-                                        <label for="fname" class="col-sm-3 text-right control-label col-form-label">Zip Code</label>
-                                        <div class="col-sm-9">
-                                            <p class= "form-control">
-                                                <%= @team_member.address.try(:zipcode)%>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                
                             </div>
 
                         </div>

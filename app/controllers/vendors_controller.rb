@@ -5,7 +5,7 @@ class VendorsController < ApplicationController
   
 	def index
 		@vendors = User.where(company_id: current_user.try(:company_id)).order(id: :asc).with_any_role(:vendor, :supplier, :other)
-	end
+  end
   
 	def new
 		@vendor  = User.new
