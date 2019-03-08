@@ -11,7 +11,7 @@ class CommunicationsController < ApplicationController
 		end
 	end 
 	def sents
-		@email_sents = EmailNotification.where(sender_id: current_user.id).paginate(:page => params[:page])
+		@email_sents = EmailNotification.where(sender_id: current_user.id).paginate(:page => params[:page]).where.not(draft: true)
 	end
 
 	def receives
@@ -27,6 +27,10 @@ class CommunicationsController < ApplicationController
 	def show
 		@email= EmailNotification.find_by_id(params[:id])
 		@email.update(status:  true)
+	end
+
+	def drafts
+		@draft_emails = EmailNotification.where(sender_id: current_user.id,draft: true).paginate(:page => params[:page])
 
 	end
 
@@ -36,10 +40,15 @@ class CommunicationsController < ApplicationController
 		@email.sender_id = current_user.id 
 		@email.receiver_id = user.id
 		if @email.save
-			EmailNotificationMailer.email_notification(@email).deliver
-			flash[:success] = "Email Sent Successfully to #{params[:email_notification][:user_email]}" 
+			if @email.draft
+				flash[:success] = "Email Sent Successfully save to draft" 
+			else 
+				EmailNotificationMailer.email_notification(@email).deliver
+				flash[:success] = "Email Sent Successfully to #{params[:email_notification][:user_email]}" 
+			end
 			@email_receives = EmailNotification.where(receiver_id: current_user.id).paginate(:page => params[:page])
-			@email_sents = EmailNotification.where(sender_id: current_user.id).paginate(:page => params[:page])
+			@email_sents = EmailNotification.where(sender_id: current_user.id).paginate(:page => params[:page]).where.not(draft: true)
+
 			if @email.receiver_id == current_user.id 
 				render "receives.js.erb"
 			else	
@@ -52,6 +61,25 @@ class CommunicationsController < ApplicationController
 	end
 
 	def edit 
+		@email =  EmailNotification.find_by_id(params[:id].split(','))
+	end
+
+	def update
+		@email =  EmailNotification.find_by_id(params[:id].split(','))
+		#@email.draft = false
+		if @email.update(email_params)
+			if @email.draft
+				flash[:success] = "Email Sent Successfully save to draft" 
+			else 
+				EmailNotificationMailer.email_notification(@email).deliver
+				flash[:success] = "Email Sent Successfully to #{params[:email_notification][:user_email]}" 
+			end
+			@draft_emails = EmailNotification.where(sender_id: current_user.id,draft: true).paginate(:page => params[:page])
+			render "drafts.js.erb"
+		else
+			flash[:danger] = "Email Not Sent to #{params[:email_notification][:user_email]} Try Again"
+			render "drafts.js.erb"
+		end
 
 	end
 
@@ -60,7 +88,7 @@ class CommunicationsController < ApplicationController
 		if @email.delete_all 
 			flash[:success] = "Email Successfully Destroy" 
 			@email_receives = EmailNotification.where(receiver_id: current_user.id).paginate(:page => params[:page])
-			@email_sents = EmailNotification.where(sender_id: current_user.id).paginate(:page => params[:page])
+			@email_sents = EmailNotification.where(sender_id: current_user.id).paginate(:page => params[:page]).where.not(draft: true)
 			if params[:status] != "sent"
 				render "receives.js.erb"
 			else
@@ -79,6 +107,6 @@ class CommunicationsController < ApplicationController
 	private 
 
 	def email_params
-		params.require(:email_notification).permit(:user_email,:subject,:body,:sender_id,:receiver_id,:attachment)
+		params.require(:email_notification).permit(:user_email,:subject,:body,:sender_id,:receiver_id,:attachment,:draft)
 	end
 end

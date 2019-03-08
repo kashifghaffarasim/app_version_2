@@ -1,0 +1,135 @@
+
+  <div class="card">
+      <div class="card-body">
+          <h4 class="card-title">Service Plan Lists</h4>
+          <div class="table-responsive">
+              <table id="demo-foo-addrow" class="table m-t-30 no-wrap table-hover contact-list" data-page-size="10">
+                  <thead>
+                      <tr>
+                          <th>S.No</th>
+                          <th>Service Name</th>
+                          <th>Description</th>
+                          <th>Unit Cost</th>
+                          <th>Action</th>
+                          <th>Delete</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                     
+                        <tr>
+                            <td>1</td>
+                            <td>as</td>
+                            <td>Description</td>
+                            <td>12.0</td>
+                            <td><%= link_to "Edit",edit_plan_builder_url(id: 1)%></td>
+                            <td><%= link_to "Delete",""%></td>
+                        </tr>
+                  </tbody>
+                  <tfoot>
+                  </tfoot>
+              </table>
+          </div>
+      </div>
+  </div>
+
+
+
+<div class="card">
+    <div class="card-body">
+        <%= link_to "Plan Label Edit",service_plan_label_plan_builders_url,:class=>"btn btn-info btn-rounded",:style=>"float:right;margin-bottom: 1%;"%>
+
+        <div class="table-responsive">
+            
+             
+              <table id="demo-foo-addrow" class="table m-t-30 no-wrap table-hover contact-list" data-page-size="10">
+
+                  <tbody>
+                      <tr>
+                          <td><label><%=  "Filter Cleaned" %></label>
+                          </td>
+
+                          <td >
+                              <%= check_box_tag :filter_cleaned,style: "float: right;width: 20%;"%>
+                          </td>
+                      </tr>
+
+                      <tr>
+                          <td>
+                              <label><%=  "Backwash (sand filter)"  %></label>
+                          </td>
+                          <td>
+                              <%= check_box_tag :backwash,style: "float: right;width: 20%;"%>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>
+                              <label><%=  "Brushing walls" %></label>
+                          </td>
+                          <td>
+                              <%= check_box_tag :brushed_walls_steps,style: "float: right;width: 20%;"%>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>
+                              <label><%= "Skimming Surface" %></label>
+                          </td>
+                          <td>
+                              <%= check_box_tag :skimming_surface,style: "float: right;width: 20%;"%>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>
+                              <label><%= "Waterline tiles cleaned"  %></label>
+
+                          </td>
+                          <td>
+                              <%= check_box_tag :waterline_tiles_cleaned,style: "float: right;width: 20%;"%>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>
+                              <label><%= "Cleaned Skimmer Baskets" %></label>
+                          </td>
+                          <td>
+                              <%= check_box_tag :cleaned_skimmer_baskets,style: "float: right;width: 20%;"%>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>
+                              <label><%= "Netted Surface Debris" %></label>
+                          </td>
+                          <td>
+                              <%= check_box_tag :netted_surface_debris,style: "float: right;width: 20%;"%>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>
+                              <label><%= "Floor vacuumed"%></label>
+                          </td>
+                          <td>
+                              <%= check_box_tag :floor_vacuumed,style: "float: right;width: 20%;"%>
+                          </td>
+                      </tr>
+                      <tr>
+                          <td>
+                              <label><%= "Pump strainer baskets"%></label>
+                          </td>
+                          <td>
+                              <%= check_box_tag :pump_strainer_baskets,style: "float: right;width: 20%;"%>
+                          </td>
+                      </tr>
+                  </tbody>
+                  <tfoot>
+                      <tr>
+                          <td colspan="2">
+                              <%= submit_tag "submit",:class=>"btn btn-info btn-rounded",:style=>"float:right;"%>
+                          </td>
+                      </tr>
+                  </tfoot>
+              </table>
+            
+        </div>
+    </div>
+</div>
+<!-- Column -->
+

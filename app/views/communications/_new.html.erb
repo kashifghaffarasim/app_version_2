@@ -14,7 +14,8 @@
 	<!-- Action part -->
 	<!-- Button group part -->
 	<div class="card-body">
-		<%= form_for @email,url: communications_url, html:{ multipart: true ,remote: true} do |f|%>
+		<%= form_for @email,url:(@email.new_record? ? communications_url : communication_url(@email)), html:{ multipart: true ,remote: true}, :id => "form" do |f|%>
+		<div id="draft"> <input style="    display: none !important;"name="email_notification[draft]" value="false"></input></div>
 		<div class="form-group">
 
 			<%= f.select(:user_email,  User.where(company_id: current_user.try(:company_id)).where("id NOT IN (?)", current_user.id).order(id: :asc).collect {|n| [ "#{n.fullname} (#{n.email})", n.email ]},{},:class=>"form-control" ,:placeholder=>"To")%>
@@ -53,4 +54,9 @@
 		
 
 	});
+	$("#cancel_compose").on("click", function() {
+		$("#draft").html('<input style="    display: none !important;"name="email_notification[draft]" value="true"></input>')
+		$("form").submit();
+	});
+
 </script>

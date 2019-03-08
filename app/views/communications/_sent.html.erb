@@ -83,6 +83,8 @@
           $(".pagination").find("a").attr("data-remote", true);
           $("#unread-receive").text("<%= unread_receive().length %>");
           $("#unread-sent").text("<%= unread_sent().length %>");
+    $("draft-emails").text("<%= draft_emails().length%>");
+
       });
       
       function destroy(source) {

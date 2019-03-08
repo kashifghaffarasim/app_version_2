@@ -6,7 +6,7 @@ module ApplicationHelper
     return receive
 	end
 	def unread_sent
-		sent = EmailNotification.where(sender_id: current_user.id)
+		sent = EmailNotification.where(sender_id: current_user.id).where.not(draft: true)
 		return sent
 	end
 	def unread_receive_sms

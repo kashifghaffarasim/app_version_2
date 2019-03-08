@@ -2,6 +2,7 @@ class BackUpsController < ApplicationController
 
 	def index 
 
+
 	end 
 
 
@@ -17,7 +18,7 @@ class BackUpsController < ApplicationController
 		send_data csv_string,
 		:type => 'text/csv; charset=iso-8859-1; header=present',
 		:disposition => "attachment; filename=customer.csv"
-	
+		
 	end 
 	def import_csv 
 		require 'csv'
@@ -27,7 +28,8 @@ class BackUpsController < ApplicationController
 			csv.each do |customer|
 				if User.find_by_email(customer["email"]).blank?
 					@customer = User.new({:first_name => customer["first_name"],:last_name => customer["last_name"],:email => customer["email"] ,:username => customer["username"],:mobile_number => customer["mobile_number"],:phone_number=> customer["phone_number"]})
-					@customer.status = "customer"
+					#@customer.status = "customer"
+					@customer.company_id = current_user.try(:company_id)
 					if @customer.save(:validate => false)
 						@customer.add_role :customer
 						customer_address(customer)
@@ -50,9 +52,10 @@ class BackUpsController < ApplicationController
 
 	private 
 
-	def address 
+	def address(customer) 
 		if @customer.address.blank?
-			@address = Address.new({:address_name => customer["address_name"],:city_name => customer["city_name"],:state_name => customer["state_name"],:country_name => customer["country_name"],:zipcode => customer["zipcode"],:company_name => customer["company_name"]})
+			@address = Address.new({:address_name => customer["address_name"],:city_name => customer["city_name"],:state_name => customer["state_name"],:country_name => customer["country_name"],:zipcode => customer["zipcode"]})
+
 			@address.user_id = @customer.try(:id)
 			if @address.save
 				puts"nananna" ,@address.inspect

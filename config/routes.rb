@@ -33,25 +33,27 @@ Rails.application.routes.draw do
   
   resources :customers  do
     collection do
-      get :list_customers
-    end
-  end
-  resources :estimates do
-    collection do
-      get :convert_invoice
-      post :send_email
-    end
-  end
-  resources :invoices
-  
-  resources :jobs do
-    collection do 
-     get  :customer_pool
-     get  :assign_job
-     post :job_assignment
+     get :generate_csv 
+     post :import_csv
+     get :list_customers
    end
  end
- resources :calendars do 
+ resources :estimates do
+  collection do
+    get :convert_invoice
+    post :send_email
+  end
+end
+resources :invoices
+
+resources :jobs do
+  collection do 
+   get  :customer_pool
+   get  :assign_job
+   post :job_assignment
+ end
+end
+resources :calendars do 
   collection do 
     get :customer_pool
   end  
@@ -95,6 +97,7 @@ resources :communications do
   collection do
     get :sents
     get :receives
+    get :drafts
   end
 end
 
@@ -116,6 +119,11 @@ resources :services do
 end
 resources :classifieds
 resources :custom_fields
+resources :plan_builders do 
+  collection do
+    get :service_plan_label
+  end
+end
 get 'attachment/:id', to: "communications#attachment", as: :attachment
 
   #patch '/settings/update_company/:id', to: 'settings#update_company', as: :update_company

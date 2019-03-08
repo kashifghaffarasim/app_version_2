@@ -53,6 +53,7 @@
 
 		$("#unread-receive").text("<%= unread_receive().length %>");
 		$("#unread-sent").text("<%= unread_sent().length %>");
+		$("draft-emails").text("<%= draft_emails().length%>");
 	});
 	function destroy(source){
 		var checkboxes = document.querySelectorAll('input[type="checkbox"]');

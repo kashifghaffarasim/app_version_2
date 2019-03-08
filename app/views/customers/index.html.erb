@@ -1,7 +1,7 @@
  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBmTCyAoxWibrZ9tlXX2i3XYWOkfBW6f98&libraries=places&callback=initialize"
-async defer></script>
+  async defer ></script>
 
-<div class="page-breadcrumb">
+ <div class="page-breadcrumb">
     <div class="row">
         <div class="col-5 align-self-center">
             <h4 class="page-title"> Customers</h4>
@@ -24,70 +24,107 @@ async defer></script>
                     <div class="card-body">
                         <div class="col-md-12 text-right">
                             <%= link_to 'New Customer', new_customer_url,:class=>"btn btn-info btn-rounded"%>
-                              <% if !@customers.blank? %>
+                            <button  class="btn btn-info btn-rounded" id="import-1">Import</button>
+                           <%=link_to "Export",generate_csv_customers_url,:class=>"btn btn-info btn-rounded"%>
+                            <% if !@customers.blank? %>
+
                             <a id="show_map" class="btn btn-info btn-rounded" style="color: #fff">Show Map</a>
                             <% end %>
                         </div>
                     </div>
                     <div class="card-body">
                         <% unless flash[:notice].blank? %>
-                          <div class="flash_team_member">
-                              <div id="flash_notice_team_member" class="flash_team_member flash_notice_team_member clearfix hide_for_print">
-                                  <%= flash[:notice] %><i class="fa fa-check" style="float:right;"></i>
-                              </div>
+                        <div class="flash_team_member">
+                          <div id="flash_notice_team_member" class="flash_team_member flash_notice_team_member clearfix hide_for_print">
+                              <%= flash[:notice] %><i class="fa fa-check" style="float:right;"></i>
                           </div>
-                        <%end%> 
-                        <table id="demo-foo-addrow" class="table m-t-30 no-wrap table-hover contact-list" data-page-size="10">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th> Proifle Image </th>
-                                    <th> Full Name </th>
-                                    <th> Email </th>
-                                    <th> Address </th>
-                                    <th> City</th>
-                                    <th> State</th>
-                                    <th> Country</th>
-                                    <th> Role</th>
-                                    <th> Actions </th>
+                      </div>
+                      <%end%> 
+                      <table id="demo-foo-addrow" class="table m-t-30 no-wrap table-hover contact-list" data-page-size="10">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th> Proifle Image </th>
+                                <th> Full Name </th>
+                                <th> Email </th>
+                                <th> Address </th>
+                                <th> City</th>
+                                <th> State</th>
+                                <th> Country</th>
+                                <th> Role</th>
+                                <th> Actions </th>
 
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <% if !@customers.blank?%>
-                                  <% @customers.each_with_index  do |customer, index| %>
-                                    <tr >
-                                        <td><%= index = index + 1 %></td>
-                                        <td>
-                                            <% if customer.avatar and customer.avatar.url %>
-                                              <img src="<%= customer.avatar.url%>" class="img img-responsive" width="60">
-                                            <% end %>
-                                        </td>
-                                        <td><%= customer.fullname rescue "" %></td>
-                                        <td><%= customer.email%></td>
-                                        <td><%= customer.address.try(:address_name)%> </td>
-                                        <td><%= customer.address.try(:city_name)%> </td>
-                                        <td><%= customer.address.try(:state_name)%> </td>
-                                        <td><%= customer.address.try(:country_name)%> </td>
-                                        <td><%= customer.roles.first.try(:name).capitalize%> </td>
-                                        <td>
-                                            <%= link_to '',edit_customer_url(customer), :class => "fa fa-edit"%>
-                                            <%= link_to '',customer_url(customer), :class => "fa fa-eye", :style => "color: green; padding-left: 5px; padding-right: 5px; font-size: 16px" %>
-                                            <%= link_to '',customer_url(customer), method: :delete,
-                                              data: { confirm: "Are you sure you want to delete?" }, 
-                                              :class => "fa fa-trash-alt" , :style=> "color: red"%>
-                                        </td>
-                                    </tr>
-                                  <% end %>
-                                <% end %>
-                            </tbody>
-                        </table>
-                    </div>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% if !@customers.blank?%>
+                            <% @customers.each_with_index  do |customer, index| %>
+                            <tr >
+                                <td><%= index = index + 1 %></td>
+                                <td>
+                                    <% if customer.avatar and customer.avatar.url %>
+                                    <img src="<%= customer.avatar.url%>" class="img img-responsive" width="60">
+                                    <% end %>
+                                </td>
+                                <td><%= customer.fullname rescue "" %></td>
+                                <td><%= customer.email%></td>
+                                <td><%= customer.address.try(:address_name)%> </td>
+                                <td><%= customer.address.try(:city_name)%> </td>
+                                <td><%= customer.address.try(:state_name)%> </td>
+                                <td><%= customer.address.try(:country_name)%> </td>
+                                <td><%= customer.roles.first.try(:name).capitalize%> </td>
+                                <td>
+                                    <%= link_to '',edit_customer_url(customer), :class => "fa fa-edit"%>
+                                    <%= link_to '',customer_url(customer), :class => "fa fa-eye", :style => "color: green; padding-left: 5px; padding-right: 5px; font-size: 16px" %>
+                                    <%= link_to '',customer_url(customer), method: :delete,
+                                    data: { confirm: "Are you sure you want to delete?" }, 
+                                    :class => "fa fa-trash-alt" , :style=> "color: red"%>
+                                </td>
+                            </tr>
+                            <% end %>
+                            <% end %>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
 </div>
+</div>
+<div class="modal none-border" id="customer">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><strong>Add</strong> a category</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            </div>
+            <%= form_tag import_csv_customers_url , multipart: true  do  %>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <label class="control-label">Import File:</label>
+                        <%= file_field_tag :file, :type => 'text/csv' ,:require =>true%>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <%= submit_tag "Import CSV", :class=>"btn btn-success waves-effect waves-light",:id=>"save" %>
+                <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
+            </div>
+            <% end %>
+        </div>
+    </div>
+</div>
+<script >
+     $("#import-1").click(function () {
+        console.dir("sdsds==-=-=-=-=-")
+        $('#customer').modal('show');
+    })
+
+    $("#save").click(function () {
+        $('#customer').modal('hide');
+    })
+</script>
 <% if !@customers.blank? %>
 <div class="modal fade none-border" id="add-new-job">
   <div class="modal-dialog">
@@ -108,14 +145,20 @@ async defer></script>
 </div>
 </div>
 </div>
-<script type="text/javascript">
+
+
+<script>
     $("#show_map").click(function() {
-     $('#add-new-job').modal('show');
- })
+       $('#add-new-job').modal('show');
+   })
+   
+
 </script>
 
 
 <script>
+        console.dir("sdsds==-=-=-=-=-")
+
     var citylist = [
     <% @customers.each do |i| %>
     <% puts"nanana {i}" %>
@@ -139,7 +182,7 @@ async defer></script>
             var address = citylist[i][0]
             codeAddress(address);
         }
-    };
+    }
     function codeAddress(address) {
         geocoder.geocode({ 'address': address }, function(results, status) {
             if (status === google.maps.GeocoderStatus.OK) {

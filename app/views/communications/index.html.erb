@@ -26,10 +26,13 @@
 				<li class="list-group-item">
 					<hr>
 				</li>
+				<li class="list-group-item">
+					<a href="<%= drafts_communications_url%>" data-remote="true" class="list-group-item-action"> <i class="mdi mdi-send"></i> Draft <span class="label label-danger float-right" id="draft-emails"><%= draft_emails().length%></span></a>
+				</li>
 			</ul>
 		</div>
-		
-		
+
+
 	</div>
 
 	<div id="sent" class="right-part">
@@ -43,7 +46,7 @@
 	<!-- ============================================================== -->
 	<!-- Right Part  Mail Compose -->
 	<!-- ============================================================== -->
-	
+
 </div>
 
 <script>
@@ -69,5 +72,5 @@
 		$('.right-part.mail-list').fadeIn("fast");
 	});
 
-	
+
 </script>
