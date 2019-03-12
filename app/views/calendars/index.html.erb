@@ -1,191 +1,4 @@
 
-<script>
-  $(function() {
-    // initialize the external events
-    // -----------------------------------------------------------------
-    function ini_events(ele) {
-      ele.each(function () {
-
-        // create an Event Object (http://arshaw.com/fullcalendar/docs/event_data/Event_Object/)
-        // it doesn't need to have a start or end
-        var eventObject = {
-          title: $.trim($(this).text()) // use the element's text as the event title
-        }
-
-        // store the Event Object in the DOM element so we can get to it later
-        $(this).data('eventObject', eventObject)
-
-        // make the event draggable using jQuery UI
-        $(this).draggable({
-          zIndex        : 1070,
-          revert        : true, // will cause the event to go back to its
-          revertDuration: 0  //  original position after the drag
-        })
-
-      })
-    }
-    ini_events($('#calendar-events .calendar-events'))
-    // initialize the calendar
-    // -----------------------------------------------------------------
-    var json = <%=raw @jobs.to_json %>;
-
-    console.dir("asjdlahsdhkasjdh"+json)
-    var j = JSON.parse(JSON.stringify(json).split('"start_date":').join('"start":'));
-    console.dir("asjdlahsdhkasjdh"+j)
-
-    var a = JSON.parse(JSON.stringify(j).split('"end_date":').join('"end":'));
-    console.dir("asjdlahsdhkasjdh"+a)
-
-    var h = JSON.parse(JSON.stringify(a).split('"description":').join('"title":'));
-    var event_1 = [<% @jobs.each do |job|%>{ id: <%= job.id%> ,title  : '<%= job.description %>',start  : '<%= job.start_date.to_date.strftime("%Y-%m-%d") %>',end  : '<%= job.end_date.to_date.strftime("%Y-%m-%d") %>'},<% end %>]
-    console.dir(event_1)
-    $('#calendar').fullCalendar({
-      header: {
-        left: 'prev,next today',
-        center: 'title',
-        right: 'month,agendaWeek,agendaDay,listWeek'
-      },
-      editable: true,
-      droppable: true, // this allows things to be dropped onto the calendar
-      drop: function() {
-        // is the "remove after drop" checkbox checked?
-        if ($('#drop-remove').is(':checked')) {
-          // if so, remove the element from the "Draggable Events" list
-          $(this).remove();
-        }
-      },
-      defaultDate: new Date(),
-      navLinks: true, // can click day/week names to navigate views
-
-      weekNumbers: true,
-      weekNumbersWithinDays: true,
-      weekNumberCalculation: 'ISO',
-      editable: true,
-      eventLimit: true,
-     // events: h,  
-     events: event_1,
-
-    //return true if the event 'eventObject' needs to be removed, return false if it doesn't
-    eventRender: function (event, element) {
-      element.attr('href', 'javascript:void(0);');
-      element.click(function() {
-        console.dir("ahaha")
-        console.dir(event)
-        $.ajax({
-          url: "/calendars/"+event.id+"/edit",
-          type: "GET",
-          success: function(){
-            $("#save").click(function() {
-              console.dir("hahahah------")
-              document.getElementById("my-event").style.display = "none";
-            })
-            $(".delete-event").click(function() {
-              console.dir("1........")
-              $.ajax({
-                url: "/calendars/"+event.id,
-                type: "DELETE",
-            // dataType: "json",
-            data: {"_method":"delete"},
-            success: function(){
-              console.dir("hahahah------")
-              $("#my-event").dialog({ modal: false, title: event.title, width:350});
-              document.getElementById("my-event").style.display = "none";
-            }
-          })
-            })
-
-            $(".btn-secondary").click(function() {
-
-              document.getElementById("my-event").style.display = "none";
-            })
-          }});
-
-
-        $("input").html(moment(event.start).format('MMM Do h:mm A'));
-        $("#my-event").dialog({ modal: true, title: event.title, width:350});
-        $(".modal-body").append('');
-        $("input:text").val(event.title);
-        $(".delete-event").click(function() {
-          console.dir(event)
-          $('#calendar').fullCalendar('removeEvents',event._id);
-
-          $("#my-event").dialog({ modal: false, title: event.title, width:350});
-          document.getElementById("my-event").style.display = "none";
-        });
-        $(".btn-secondary").click(function() {
-
-          document.getElementById("my-event").style.display = "none";
-        });
-        $(".btn-success").click(function() {
-          var inputs = document.getElementById("id");
-          event.title = inputs.value;
-          event.start = event.start;
-          console.dir(inputs.value)
-
-          $('#calendar').fullCalendar('updateEvent', event);
-          document.getElementById("my-event").style.display = "none";
-
-        });
-
-      });
-    },
-     drop: function (date, allDay) { // this function is called when something is dropped
-
-        // retrieve the dropped element's stored Event Object
-        var originalEventObject = $(this).data('eventObject')
-
-        // we need to copy it, so that multiple events don't have a reference to the same object
-        var copiedEventObject = $.extend({}, originalEventObject)
-
-        // assign it the date that was reported
-        copiedEventObject.start           = date
-        copiedEventObject.allDay          = allDay
-        copiedEventObject.backgroundColor = $(this).css('background-color')
-        copiedEventObject.borderColor     = $(this).css('border-color')
-
-        // render the event on the calendar
-        // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
-        $('#calendar').fullCalendar('renderEvent', copiedEventObject, true)
-
-        // is the "remove after drop" checkbox checked?
-        if ($('#drop-remove').is(':checked')) {
-          // if so, remove the element from the "Draggable Events" list
-          $(this).remove()
-        }
-
-      }
-    })
-
-/* ADDING EVENTS */
-    var currColor = ("#color-chooser").value //Red by default
-    $('#add-new-event').click(function (e) {
-      e.preventDefault()
-      console.dir("dddddd")
-      //Get value and make sure it is not null
-      var val = $('#new-event').val()
-      if (val.length == 0) {
-        return
-      }
-
-      //Create events
-      var event = $('<div/>');
-      event.css({
-        'color': '#fff',
-        'background-color': '#0041f5',
-        'border-color': '#003ee8'
-      }).addClass('calendar-events m-b-20')
-      event.html(val)
-
-      $('#calendar-events').prepend(event)
-
-      //Add draggable funtionality
-      ini_events(event)
-      //Remove event from text input
-      $('#new-event').val('')
-    })
-  })
-
-</script>
 
 <style type="text/css">
 .calendar-events.m-b-20.ui-draggable.ui-draggable-handle{
@@ -232,36 +45,8 @@
       <div class="row">
         <div class="col-md-12">
           <div class="card">
-            <div class="">
-              <div class="row">
-                <div class="col-lg-3 border-right p-r-0">
-                  <div class="card-body border-bottom">
-                    <h4 class="card-title m-t-10">Drag & Drop Event</h4>
-                  </div>
-                  <div class="card-body">
-                    <div class="row">
-                      <div class="col-md-12">
-                        <div id="calendar-events" class="">
-
-                        </div>
-                        <!-- checkbox -->
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" class="custom-control-input" id="drop-remove">
-                          <label class="custom-control-label" for="drop-remove">Remove after drop</label>
-                        </div>
-                        <button href="" data-toggle="modal" data-target="#exampleModal" class="btn m-t-20 btn-info btn-block waves-effect waves-light">
-                          <i class="ti-plus"></i> Add New Event
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-9">
-                  <div class="card-body b-l calender-sidebar">
-                    <div id="calendar"></div>
-                  </div>
-                </div>
-              </div>
+            <div class="index">
+              <%= render 'index'%>
             </div>
           </div>
         </div>
@@ -277,23 +62,7 @@
 
 
 
-<script type="text/javascript">
-  function checkInput(number) {
-    var value = document.getElementById("textValue").value;
-    $.ajax({
-      type: "GET",
-      url: "/customers/list_customers",
-      data: {
-        company_id: <%= current_user.try(:company_id)%>,
-        name: value
-      },
-      cache: false,
-      success: function (data) {
-      }
-    });
-  }
 
-</script>
 
 
 
@@ -302,5 +71,4 @@
 
 <div id="new">
 </div>
-<div id="edit">
-</div>
+

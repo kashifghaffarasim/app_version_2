@@ -30,17 +30,17 @@
 
           <div class="col-md-12">
             <label class="control-label">Description</label>
-            <textarea rows="2" name="job[description]" id="myTextarea" cols="50" class="form-control"></textarea>
+            <%= f.text_area :description ,:rows=>"2",:cols=>"50" ,:class=>"form-control" %>
           </div>
 
           <div class="col-md-6">
             <label class="control-label">Start Date</label>
-            <input type="date" name="job[start_date]" class="form-control"  required="">
+              <%= f.text_field :start_date , :type=> "date", :class=>"form-control" , :required=> true%>
           </div>
 
           <div class="col-md-6">
             <label class="control-label">End Date</label>
-            <input type="date" name="job[end_date]" class="form-control"  required="">
+              <%= f.text_field :end_date , :type=> "date", :class=>"form-control" , :required=> true%>
           </div>
           <div class="col-md-12">
             <div class="row">
@@ -79,7 +79,7 @@
         </div>
       </div>
       <div class="modal-footer">
-        <%= f.submit "Update", :class=>"btn btn-success waves-effect waves-light",:id=>"save" %>
+        <%= f.submit "Update", :class=>"btn btn-success waves-effect waves-light" %>
         <button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal">Close</button>
          <button type="button" class="btn btn-danger delete-event waves-effect waves-light" data-dismiss="modal">Delete</button>
       </div>
