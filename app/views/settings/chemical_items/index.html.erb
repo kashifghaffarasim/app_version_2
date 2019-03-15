@@ -1,0 +1,70 @@
+  
+<div id="app_wrapper" >
+    <div class="page-wrapper" id="content">
+
+        <div class="page-breadcrumb">
+            <div class="row">
+                <div class="col-5 align-self-center">
+                    <h4 class="page-title">Chemical Items</h4>
+                    <div class="d-flex align-items-center">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Chemical Items</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+                <div class="col-7 align-self-center">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body" style="
+                             background: #3776fb;
+                             padding-top: 30px;
+                             color: #fff;">
+                            <h4 class="card-title">Chemical Items</h4>
+                        </div>
+
+                        <%= form_for "chemical", url: settings_chemical_items_url do |f| %>
+
+
+                          <table id="demo-foo-addrow" class="table m-t-30 no-wrap table-hover contact-list" data-page-size="10">
+                              <tbody>
+                                  <% @chemicals.each  do |chemical| %>
+                                    <tr>
+                                        <td>
+                                            <label><%= chemical.name%></label>
+                                        </td>
+                                        <td>
+                                            <%= check_box_tag "chemical_ids[]", chemical.id, chemical.is_used %>                                       
+                                        </td>
+                                    </tr>
+                                  <% end %>
+
+                              </tbody>
+                              <tfoot>
+                                  <tr>
+                                      <td colspan="2">
+                                          <input type="submit" name="commit" value="submit" class="btn btn-info btn-rounded" style="float:right;" data-disable-with="submit">
+                                      </td>
+                                  </tr>
+                              </tfoot>
+                          </table>
+                        <% end %>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</div>

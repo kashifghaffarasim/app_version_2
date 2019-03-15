@@ -1,1 +1,94 @@
-kashif is here
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-5 align-self-center">
+            <h4 class="page-title">Invoices</h4>
+            <div class="d-flex align-items-center">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Invoices</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12" style=" background: #fff; padding: 0px">
+
+            <!-- Nav tabs -->
+            <%= render 'jobs/tabs', tab: 3 %>
+
+            <!-- Tab panes -->
+            <div class="tab-content m-t-20">
+
+                <div class="row">
+                    <div class="col-12">
+
+                        <div class="card">
+
+                            <div class="card-body">
+                                <div  class="row" style="margin-top: 10px">
+                                    <div class="col-md-4 col-12 text-left">
+                                        <h4> Invoices </h4>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="card-body">
+                                <% unless flash[:notice].blank? %>
+                                  <div class="flash_team_member">
+                                      <div id="flash_notice_team_member" class="flash_team_member flash_notice_team_member clearfix hide_for_print">
+                                          <%= flash[:notice] %><i class="fa fa-check" style="float:right;"></i>
+                                      </div>
+                                  </div>
+                                <%end%> 
+
+                                <table id="demo-foo-addrow" class="table m-t-30 no-wrap table-hover contact-list" data-page-size="10">
+
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Customer </th>
+                                            <th>Issue Date</th>
+                                            <th>Total Amount</th>
+                                            <th>Status</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <% if !@invoices.blank?%>
+                                          <% @invoices.each do |invoice| %>
+                                            <tr>
+                                                <td><%= invoice.try(:id) %></td>
+                                                <td><%=  customer_name_invoice(invoice) %></td>
+                                                <td><%= invoice.issued_date.strftime("%b/%m/%Y")  %></td>
+                                                <td> $<%= invoice.try(:grand_total)%></td>
+                                                <td> <%= invoice.try(:status)%></td>
+                                                <td>
+
+                                                </td>
+                                            </tr>
+                                          <% end %>
+                                        <% end %>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<br>
+<br>

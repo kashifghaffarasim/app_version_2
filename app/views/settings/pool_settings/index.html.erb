@@ -1,102 +1,88 @@
 
-
 <div id="app_wrapper" >
-	<div class="page-wrapper" id="content">
-		<!-- ============================================================== -->
-		<!-- Bread crumb and right sidebar toggle -->
-		<!-- ============================================================== -->
-		<div class="page-breadcrumb">
-			<div class="row">
-				<div class="col-5 align-self-center">
-					<h4 class="page-title">Form Horizontal</h4>
-					<div class="d-flex align-items-center">
-						<nav aria-label="breadcrumb">
-							<ol class="breadcrumb">
-								<li class="breadcrumb-item"><a href="#">Home</a></li>
-								<li class="breadcrumb-item active" aria-current="page">Library</li>
-							</ol>
-						</nav>
-					</div>
-				</div>
-				<div class="col-7 align-self-center">
-					<div class="d-flex no-block justify-content-end align-items-center">
-						<div class="m-r-10">
-							<div class="lastmonth"></div>
-						</div>
-						<div class=""><small>LAST MONTH</small>
-							<h4 class="text-info m-b-0 font-medium">$58,256</h4></div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- ============================================================== -->
-			<!-- End Bread crumb and right sidebar toggle -->
-			<!-- ============================================================== -->
-			<!-- ============================================================== -->
-			<!-- Container fluid  -->
-			<!-- ============================================================== -->
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-12">
-						<div class="card">
-							<div id="content">
-								<div id="settings_area">
-									<% flash.each do |key, value| %>
-									<div class="alert alert-<%= key %>"><%= value %></div>
-									<% end %>
-									<div class="market-source" id=view>
-										  
-<div class="card-body" style="padding-bottom: 50px ">
-  <div class="form-wrapper"> 
-    <h4 class="card-title">Edit Market Sources </h4>
-    <%= form_tag settings_pool_settings_url,:class=>"edit_work_configuration compressed_form" do %>
-    <div class="form-group row" id="popover_form_content">
-      <label id="popover_left" for="expense_cost" class="col-sm-3 text-right control-label col-form-label">Market Source</label>
-      <div class="col-sm-7"  id="popover_left">
-        <%= text_field_tag "pool_setting[name]", nil, :class => "form-control", autofocus: "autofocus" ,:required=>true,:placeholder=>"market source"%>
-      </div>
+    <div class="page-wrapper" id="content">
+
+        <div class="page-breadcrumb">
+            <div class="row">
+                <div class="col-5 align-self-center">
+                    <h4 class="page-title">Market Source</h4>
+                    <div class="d-flex align-items-center">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Market Source</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+                <div class="col-7 align-self-center">
+
+                </div>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div id="content">
+                            <div id="settings_area">
+                                <% flash.each do |key, value| %>
+                                  <div class="alert alert-<%= key %>"><%= value %></div>
+                                <% end %>
+                                <div class="market-source" id=view>
+
+                                    <div class="card-body" style="padding-bottom: 50px ">
+                                        <div class="form-wrapper"> 
+                                            <h4 class="card-title">Market Sources </h4>
+                                            <%= form_tag settings_pool_settings_url,:class=>"edit_work_configuration compressed_form" do %>
+                                              <div class="form-group row" id="popover_form_content">
+                                                  <label id="popover_left" for="expense_cost" class="col-sm-3 text-right control-label col-form-label">Market Source</label>
+                                                  <div class="col-sm-7"  id="popover_left">
+                                                      <%= text_field_tag "pool_setting[name]", nil, :class => "form-control", autofocus: "autofocus" ,:required=>true,:placeholder=>"market source"%>
+                                                  </div>
+                                              </div>
+
+                                              <div  align="right" style="margin-top: -4.6%;
+                                                    width: 89%;">
+                                                    <%= button_tag "save",:class=>"btn btn-info waves-effect waves-light"%>	
+                                              </div>
+                                            <%end%>
+
+                                        </div>
+                                    </div>
+
+                                    <%if !@pool_settings.blank? %>
+                                      <hr>
+                                      <div class="card-body" >
+                                          <div class="form-wrapper"> 
+                                              <h4 class="card-title">List Market Sources</h4>
+                                              <% @pool_settings.each_with_index do |source,index|%>
+
+                                                <div class="form-group row" id="popover_left">
+                                                    <label for="com1" class="col-sm-3 text-right control-label col-form-label">Market Source</label>
+                                                    <div class="col-sm-7" id="popover_left">
+                                                        <p class="form-control"><%= index + 1 %>. &nbsp;&nbsp;<%= source.name%>
+                                                        </p>
+                                                    </div>
+                                                    <div  align="right" id="popover_left">
+                                                        <%= link_to "Edit",edit_settings_pool_setting_url(source), class: "btn btn-info waves-effect waves-light", style: "line-height: 1.5; margin-right: 10px;" %>
+                                                          <%= link_to "Delete",settings_pool_setting_url(source), method: :delete, class: "btn btn-info waves-effect waves-light", :data => {:confirm => 'Are you sure?'}%>
+                                                        </div>
+                                                    </div>
+                                                  <%end%>
+                                              </div>
+                                          </div>
+                                        <%end%>
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-
-    <div  align="right" style="margin-top: -4.6%;
-    width: 89%;">
-    <%= button_tag "save",:class=>"btn btn-info waves-effect waves-light"%>	
-  </div>
-  <%end%>
-
-</div>
-</div>
-
-<%if !@pool_settings.blank? %>
-<hr>
-<div class="card-body" >
-  <div class="form-wrapper"> 
-    <h4 class="card-title">Edit Market Sources</h4>
-    <% @pool_settings.each_with_index do |source,index|%>
-
-    <div class="form-group row" id="popover_left">
-      <label for="com1" class="col-sm-3 text-right control-label col-form-label">Market Source</label>
-      <div class="col-sm-7" id="popover_left">
-        <p class="form-control"><%= index + 1 %>. &nbsp;&nbsp;<%= source.name%>
-        </p>
-      </div>
-      <div  align="right" id="popover_left">
-        <%= link_to "Edit",edit_settings_pool_setting_url(source), class: "btn btn-info waves-effect waves-light", style: "line-height: 1.5; margin-right: 10px;" %>
-        <%= link_to "Delete",settings_pool_setting_url(source), method: :delete, class: "btn btn-info waves-effect waves-light", :data => {:confirm => 'Are you sure?'}%>
-      </div>
-    </div>
-    <%end%>
-  </div>
-</div>
-<%end%>
-
-
-
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>

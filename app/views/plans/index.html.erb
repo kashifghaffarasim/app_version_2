@@ -1,205 +1,205 @@
 <style type="text/css">
-  .disabled {
-  pointer-events: none;
-  cursor: default;
-  opacity: 0.6;
-}
+    .disabled {
+        pointer-events: none;
+        cursor: default;
+        opacity: 0.6;
+    }
 </style>
 <div class="page-wrapper">   
-  <!-- ============================================================== -->
-  <!-- Bread crumb and right sidebar toggle -->
-  <!-- ============================================================== -->
-  <div class="page-breadcrumb">
-    <div class="row">
-      <div class="col-5 align-self-center">
-        <h4 class="page-title">Pricing Page</h4>
-        <div class="d-flex align-items-center">
-          <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active" aria-current="page">Library</li>
-            </ol>
-          </nav>
+    <!-- ============================================================== -->
+    <!-- Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-5 align-self-center">
+                <h4 class="page-title">Pricing Plans</h4>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Pricing Plan</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-7 align-self-center">
+
+            </div>
         </div>
-      </div>
-      <div class="col-7 align-self-center">
-        <div class="d-flex no-block justify-content-end align-items-center">
-          <div class="m-r-10">
-            <div class="lastmonth"></div>
-          </div>
-          <div class=""><small>LAST MONTH</small>
-            <h4 class="text-info m-b-0 font-medium">$58,256</h4></div>
-          </div>
-        </div>
-      </div>
     </div>
     <div class="container-fluid">
-      <div class="row">
-        <div class="col-12" >
-          <div class="card">
-            <div class="card-body">
-              <h2 class="title" style="text-align: center;">15 day FREE trial with all plans!</h2>
-              <p class="intro" style="text-align: center;">CopperService's pricing is simple and you can change your plan at any time. </p> 
-          
-              <div id="flash">
-                <%= render "flash"%>
-              </div>
-            
-              <div class="card-group" id="price-plan">
-                <div class="card m-t-30 border-top border-left ">
-                  <div class="p-15 text-center ">
-                    <h4 class="card-title m-t-10">SOLO</h4>
-                    <h2 class="display-5 position-relative m-t-20 m-b-10">
-                      <span class="price-sign">$</span>19.95
-                    </h2>
-                    <p>Per Month</p>
-                  </div>
-                  <div class="border-top">
-                    <ul class="list-style-none text-center">
-                      <li class="border-bottom p-20">
-                        <i class="ti-user m-r-5"></i>1 user
-                      </li>
-                      <li class="border-bottom p-20">
-                        <i class="ti-mobile m-r-5"></i>Client Unlimited
-                      </li>
-                      <li class="border-bottom p-20">
-                        <i class="ti-server m-r-5"></i>Email Notification yes
-                      </li>
-                      <li class="border-bottom p-20">
-                        <i class="ti-reload m-r-5"></i>10 Gb
-                      </li>
-                      <li class="border-bottom p-20">
-                        <%if current_user.plan_id.blank?%>
-                        <a href="<%=new_plan_url(plan_name: "solo") %>" class="btn btn-success btn-cta-primary heading1" data-remote="true" >Choose Plan<br/>
-                          <span class="extra">30 day free trial</span>
-                        </a>
-                        <%elsif @plan.plan_name == "solo"%>
-                        <a href="<%=new_plan_url(plan_name: "solo") %>" class="disabled btn btn-success btn-cta-primary heading1 " data-remote="true">Selected Plan<br/>
-                          <span class="extra">30 day free trial</span>
-                        </a>
-                        <%else%>  
-                        <a href="<%=new_plan_url(plan_name: "solo") %>" data-remote="true"class="btn btn-success btn-cta-primary heading1">Down Grade Plan<br/>
-                          <span class="extra">30 day free trial</span>
-                        </a>
-                        <%end%>
-                      </li>
-                    </ul>
 
-                  </div>
-                </div>
-                <div class="card m-t-30 border-top border-left ">
 
-                  <div class="card border-top m-t-30" >
-                    <h5 class="price-label text-white text-center bg-info " style="    left:73%;">POPULAR</h5>
-                    <div class="p-15 text-center ">
-                      <h4 class="card-title m-t-10 text-center">TEAM</h4>
-                      <h2 class="display-5 position-relative m-t-20 m-b-10">
-                        <span class="price-sign">$</span>29.95
-                      </h2>
-                      <p>Per Month</p>
+        <div class="row">
+
+            <div class="col-12" >
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="title" style="text-align: center;">15 day FREE trial with all plans!</h2>
+                        <p class="intro" style="text-align: center; padding-bottom: 10px">CopperService's pricing is simple and you can change your plan at any time. </p> 
+
+                        <div id="flash">
+                            <%= render "flash"%>
+                        </div>
+
+                        <div class="card-group" id="price-plan" >
+
+                            <div class="card m-t-30 border-top border-left margin-all" style="margin: 20px">
+                                <div class="p-15 text-center ">
+                                    <h4 class="card-title m-t-10 title-cards">SOLO</h4>
+                                    <h2 class="display-5 position-relative m-t-20 m-b-10">
+                                        <span class="price-sign">$</span>19.95
+                                    </h2>
+                                    <p>Per Month</p>
+                                </div>
+                                <div class="border-top">
+                                    <ul class="list-style-none text-center">
+                                        <li class="border-bottom p-20 inside-line">
+                                            1 user
+                                        </li>
+                                        <li class="border-bottom p-20 inside-line">
+                                            Client Unlimited
+                                        </li>
+                                        <li class="border-bottom p-20 inside-line">
+                                            Email Notification yes
+                                        </li>
+                                        <li class="border-bottom p-20 inside-line">
+                                            10 Gb
+                                        </li>
+
+                                        <li class="border-bottom p-20">
+                                            <%if current_user.plan_id.blank?%>
+                                              <a href="<%=new_plan_url(plan_name: "solo") %>" class="btn btn-success btn-cta-primary heading1" data-remote="true" >Choose Plan<br/>
+                                                  <span class="extra">30 day free trial</span>
+                                              </a>
+                                            <%elsif @plan.plan_name == "solo"%>
+                                              <a href="<%=new_plan_url(plan_name: "solo") %>" class="disabled btn btn-success btn-cta-primary heading1 " data-remote="true">Selected Plan<br/>
+                                                  <span class="extra">30 day free trial</span>
+                                              </a>
+                                            <%else%>  
+                                              <a href="<%=new_plan_url(plan_name: "solo") %>" data-remote="true"class="btn btn-success btn-cta-primary heading1">Down Grade Plan<br/>
+                                                  <span class="extra">30 day free trial</span>
+                                              </a>
+                                            <%end%>
+                                        </li>
+                                    </ul>
+
+                                </div>
+                            </div>
+
+                            <div class="card m-t-30 border-top border-left margin-all">
+
+                                <div class="card border-top m-t-30" >
+                                    <h5 class="price-label text-white text-center bg-info top-bar">POPULAR</h5>
+                                    <div class="p-15 text-center ">
+                                        <h4 class="card-title m-t-10 text-center title-cards">TEAM</h4>
+                                        <h2 class="display-5 position-relative m-t-20 m-b-10">
+                                            <span class="price-sign">$</span>29.95
+                                        </h2>
+                                        <p>Per Month</p>
+                                    </div>
+                                    <div class="border-top">
+                                        <ul class="list-style-none text-center">
+                                            <li class="border-bottom p-20 inside-line">
+                                                5 users
+                                            </li>
+                                            <li class="border-bottom p-20 inside-line">
+                                                Client Unlimited
+                                            </li>
+                                            <li class="border-bottom p-20 inside-line">
+                                                Email Notification yes
+                                            </li>
+                                            <li class="border-bottom p-20 inside-line">
+                                                25 Gb
+                                            </li>
+
+                                            <li class="border-bottom p-20">
+
+                                                <input name="plan[plan_name]" type="hidden" value="team">
+
+                                                <%if current_user.plan_id.blank?%>
+                                                  <a href="<%=new_plan_url(plan_name: "team") %>" data-remote="true"class="btn btn-success btn-cta-primary heading2" >Choose Plan<br/>
+                                                      <span class="extra">30 day free trial</span>
+                                                  </a>
+                                                <%elsif @plan.plan_name=="team"%>
+                                                  <a href="<%=new_plan_url(plan_name: "team") %>"  data-remote="true" class="disabled btn btn-success btn-cta-primary heading2" disabled>Selected Plan<br/>
+                                                      <span class="extra">30 day free trial</span>
+                                                  </a>
+                                                <%elsif @plan.plan_name=="solo"%>
+                                                  <a href="<%=new_plan_url(plan_name: "team") %>"  data-remote="true" class="btn btn-success btn-cta-primary heading2">Upgrade Plan<br/>
+                                                      <span class="extra">30 day free trial</span>
+                                                  </a>
+                                                <%elsif @plan.plan_name=="business"%>  
+                                                  <a href="<%=new_plan_url(plan_name: "team") %>"  data-remote="true" class="btn btn-success btn-cta-primary heading2">Down Grade Plan<br/>
+                                                      <span class="extra">30 day free trial</span>
+                                                  </a>
+                                                <%end%>
+
+
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="card bg-light border-top border-left margin-all">
+                                <div class="p-15 text-center">
+                                    <h4 class="card-title m-t-40 text-center title-cards">BUSINESS</h4>
+                                    <h2 class="display-5 position-relative m-t-20 m-b-10">
+                                        <span class="price-sign">$</span>49.95
+                                    </h2>
+                                    <p>Per Month</p>
+                                </div>
+                                <div class="border-top">
+                                    <ul class="list-style-none text-center">
+                                        <li class="border-bottom p-20 inside-line">
+                                            20 Each additional user $2
+                                        </li>
+                                        <li class="border-bottom p-20 inside-line">
+                                            Client Unlimited
+                                        </li>
+                                        <li class="border-bottom p-20 inside-line">
+                                            Email Notification yes
+                                        </li>
+                                        <li class="border-bottom p-20 inside-line">
+                                            100 Gb
+                                        </li>
+                                        <li class="border-bottom p-20">
+
+                                            <%if current_user.plan_id.blank?%>
+                                              <a href="<%=new_plan_url(plan_name: "business") %>"  data-remote="true"  class="btn btn-info btn-cta-primary heading3" >Choose Plan<br/>
+                                                  <span class="extra">30 day free trial</span>
+                                              </a>
+                                            <%elsif @plan.plan_name =="business"%>
+                                              <a href="<%=new_plan_url(plan_name: "business") %>"  data-remote="true"  class="disabled btn btn-info btn-cta-primary heading3" >Selected Plan<br/>
+                                                  <span class="extra">30 day free trial</span>
+                                              </a>>
+                                            <%elsif @plan.plan_name =="team"%>
+                                              <a href="<%=new_plan_url(plan_name: "business") %>"  data-remote="true"  class="btn btn-info btn-cta-primary heading3" >Upgrade Plan<br/>
+                                                  <span class="extra">30 day free trial</span>
+                                              </a>
+                                            <%elsif @plan.plan_name =="solo"%>  
+                                              <a href="<%=new_plan_url(plan_name: "business") %>"  data-remote="true"  class="btn btn-info btn-cta-primary heading3" >Upgrade Plan<br/>
+                                                  <span class="extra">30 day free trial</span>
+                                              </a>
+                                            <%end%>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="border-top">
-                      <ul class="list-style-none text-center">
-                        <li class="border-bottom p-20">
-                          <i class="ti-user m-r-5"></i>5 users
-                        </li>
-                        <li class="border-bottom p-20">
-                          <i class="ti-mobile m-r-5"></i>Client Unlimited
-                        </li>
-                        <li class="border-bottom p-20">
-                          <i class="ti-server m-r-5"></i>Email Notification yes
-                        </li>
-                        <li class="border-bottom p-20">
-                          <i class="ti-reload m-r-5"></i>25 Gb
-                        </li>
-
-                        <li class="border-bottom p-20">
-
-                          <input name="plan[plan_name]" type="hidden" value="team">
-
-                          <%if current_user.plan_id.blank?%>
-                          <a href="<%=new_plan_url(plan_name: "team") %>" data-remote="true"class="btn btn-success btn-cta-primary heading2" >Choose Plan<br/>
-                            <span class="extra">30 day free trial</span>
-                          </a>
-                          <%elsif @plan.plan_name=="team"%>
-                          <a href="<%=new_plan_url(plan_name: "team") %>"  data-remote="true" class="disabled btn btn-success btn-cta-primary heading2" disabled>Selected Plan<br/>
-                            <span class="extra">30 day free trial</span>
-                          </a>
-                          <%elsif @plan.plan_name=="solo"%>
-                          <a href="<%=new_plan_url(plan_name: "team") %>"  data-remote="true" class="btn btn-success btn-cta-primary heading2">Upgrade Plan<br/>
-                            <span class="extra">30 day free trial</span>
-                          </a>
-                          <%elsif @plan.plan_name=="business"%>  
-                          <a href="<%=new_plan_url(plan_name: "team") %>"  data-remote="true" class="btn btn-success btn-cta-primary heading2">Down Grade Plan<br/>
-                          <span class="extra">30 day free trial</span>
-                          </a>
-                          <%end%>
-
-
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
                 </div>
-                <div class="card bg-light border-top border-left ">
-
-                  <div class="p-15 text-center">
-                    <h4 class="card-title m-t-40 text-center">BUSINESS</h4>
-                    <h2 class="display-5 position-relative m-t-20 m-b-10">
-                      <span class="price-sign">$</span>49.95
-                    </h2>
-                    <p>Per Month</p>
-                  </div>
-                  <div class="border-top">
-                    <ul class="list-style-none text-center">
-                      <li class="border-bottom p-20">
-                        <i class="ti-user m-r-5"></i>20 Each additional user $2
-                      </li>
-                      <li class="border-bottom p-20">
-                        <i class="ti-mobile m-r-5"></i>Client Unlimited
-                      </li>
-                      <li class="border-bottom p-20">
-                        <i class="ti-server m-r-5"></i>Email Notification yes
-                      </li>
-                      <li class="border-bottom p-20">
-                        <i class="ti-reload m-r-5"></i>100 Gb
-                      </li>
-                      <li class="border-bottom p-20">
-
-                        <%if current_user.plan_id.blank?%>
-                         <a href="<%=new_plan_url(plan_name: "business") %>"  data-remote="true"  class="btn btn-info btn-cta-primary heading3" >Choose Plan<br/>
-                        <span class="extra">30 day free trial</span>
-                        </a>
-                        <%elsif @plan.plan_name =="business"%>
-                         <a href="<%=new_plan_url(plan_name: "business") %>"  data-remote="true"  class="disabled btn btn-info btn-cta-primary heading3" >Selected Plan<br/>
-                        <span class="extra">30 day free trial</span>
-                        </a>>
-                        <%elsif @plan.plan_name =="team"%>
-                         <a href="<%=new_plan_url(plan_name: "business") %>"  data-remote="true"  class="btn btn-info btn-cta-primary heading3" >Upgrade Plan<br/>
-                        <span class="extra">30 day free trial</span>
-                        </a>
-                        <%elsif @plan.plan_name =="solo"%>  
-                        <a href="<%=new_plan_url(plan_name: "business") %>"  data-remote="true"  class="btn btn-info btn-cta-primary heading3" >Upgrade Plan<br/>
-                        <span class="extra">30 day free trial</span>
-                        </a>
-                        <%end%>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
+</div>
 
 
 
-  <div id="payment_pay">
+<div id="payment_pay">
 
-  </div>
+</div>
 
 
 

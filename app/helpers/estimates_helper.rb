@@ -13,4 +13,16 @@ module EstimatesHelper
     end
   end
   
+  def customer_name_invoice(inovice)
+    name = ""
+    if inovice
+      job = inovice.job
+      if job
+         user = User.find_by_id(job.try(:customer_id))
+         name = user.try(:fullname)
+      end
+    end
+    return name 
+  end
+  
 end

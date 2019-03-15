@@ -8,18 +8,18 @@
                         <nav aria-label="breadcrumb">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="<%= root_url%>">Dashboard</a></li>
-                                
+
                                 <li class="breadcrumb-item active" aria-current="page"> General Settings</li>
                             </ol>
                         </nav>
                     </div>
                 </div>
-             
+
             </div>
         </div>
-   
+
         <div class="container-fluid">
-         
+
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -82,8 +82,10 @@
                                 </div>
                                 <hr>
                                 <div class="card-body">
-                                    <div class="form-group m-b-0 text-right">
-                                        <%= link_to "Delete Account",:class=>"cancel_account_button btn btn-info waves-effect waves-ligh",data: {confirm: "Are You Sure Account Delete And All Record Also Delete?"}%>
+                                    <div class="form-group m-b-0 text-left">
+                                        <a class="btn btn-danger" style="color: #fff">
+                                            Delete Account
+                                        </a>   
                                     </div>
                                 </div>
                             </div>

@@ -35,23 +35,39 @@
                             <a class="sidebar-link has-arrow waves-effect waves-dark" 
                                href="javascript:void(0)" aria-expanded="false">
                                 <i class="mdi mdi-receipt"></i>
-                                <span class="hide-menu">Work Setting</span>
+                                <span class="hide-menu">Pool Settings</span>
                             </a>
                             <ul aria-expanded="false" class="collapse second-level">
-                                <li class="sidebar-item"><a href="<%= settings_pool_settings_url %>" class="sidebar-link"><i class="mdi mdi-vector-difference-ba"></i><span class="hide-menu"> Pool </span></a></li>
-                                <!--
-                                <li class="sidebar-item"><a href="#" class="sidebar-link"><i class="mdi mdi-file-document-box"></i><span class="hide-menu"> Plan Builder </span></a></li>
-                                <li class="sidebar-item"><a href="#" class="sidebar-link"><i class="mdi mdi-code-greater-than"></i><span class="hide-menu"> Quotes</span></a></li>
-                                <li class="sidebar-item"><a href="#" class="sidebar-link"><i class="mdi mdi-code-equal"></i><span class="hide-menu"> Work Order </span></a></li>
-                                <li class="sidebar-item"><a href="#" class="sidebar-link"><i class="mdi mdi-flip-to-front"></i><span class="hide-menu"> Invoice </span></a></li>
-                                <li class="sidebar-item"><a href="#" class="sidebar-link"><i class="mdi mdi-content-duplicate"></i><span class="hide-menu"> Folder Access</span></a></li>-->
+                                <li class="sidebar-item"><a href="<%= settings_pool_settings_url %>" class="sidebar-link">
+                                        <i class="mdi mdi-vector-difference-ba"></i>
+                                        <span class="hide-menu"> Market Source </span></a>
+                                </li>
+
+                                <li class="sidebar-item">
+                                    <a href="<%=  settings_plan_builders_url %>" class="sidebar-link">
+                                        <i class="mdi mdi-cards-outline"></i>
+                                        <span class="hide-menu">Pool Service Plans</span>
+                                    </a>
+                                </li>
                                 <li class="sidebar-item"><a href="<%=pool_service_services_url%>" class="sidebar-link"><i class="mdi mdi-cards-outline"></i><span class="hide-menu"> Pool Service</span></a></li>
                                 <li class="sidebar-item"><a href="<%= spa_service_services_url %>" class="sidebar-link"><i class="mdi mdi-cards-outline"></i><span class="hide-menu"> Spa  Service</span></a></li>
-                                <!--
-                                <li class="sidebar-item"><a href="#" class="sidebar-link"><i class="mdi mdi-cards-outline"></i><span class="hide-menu"> Chemical Items</span></a></li>
-                                <li class="sidebar-item"><a href="#" class="sidebar-link"><i class="mdi mdi-cards-outline"></i><span class="hide-menu"> Email Options</span></a></li>
-                                <li class="sidebar-item"><a href="#" class="sidebar-link"><i class="mdi mdi-cards-outline"></i><span class="hide-menu"> TimeSheet</span></a></li>-->
-                                 <li class="sidebar-item"><a href="<%= back_ups_url %>" class="sidebar-link"><i class="mdi mdi-cards-outline"></i><span class="hide-menu">Manage Data</span></a></li>
+                                <li class="sidebar-item"><a href="<%= settings_chemical_items_url %>" class="sidebar-link">
+                                        <i class="mdi mdi-cards-outline"></i>
+                                        <span class="hide-menu">Chemicals</span>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </li>
+
+                        <li class="sidebar-item"> 
+                            <a class="sidebar-link has-arrow waves-effect waves-dark" 
+                               href="javascript:void(0)" aria-expanded="false">
+                                <i class="mdi mdi-receipt"></i>
+                                <span class="hide-menu">Other Settings</span>
+                            </a>
+                            <ul aria-expanded="false" class="collapse second-level">
+                                <li class="sidebar-item"><a href="<%= back_ups_url %>" class="sidebar-link"><i class="mdi mdi-cards-outline"></i><span class="hide-menu">Manage Data</span></a></li>
                             </ul>
                         </li>
                     </ul>
@@ -91,25 +107,7 @@
                         <span class="hide-menu">Scheduler</span></a>
                     </a>
                 </li>
-<!--
 
-                <li class="sidebar-item">
-                    <a  class = "sidebar-link">
-                        <i class="mdi mdi-view-dashboard"></i>
-                        <span class="hide-menu">Expenses</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-item">
-                    <a class = "sidebar-link">
-                        <i class="mdi mdi-view-dashboard">
-                        </i>
-                        <span class="hide-menu">Times Sheets</span>   
-                    </a>
-
-
-                </li> 
-                !-->
                 <li class="sidebar-item">
                     <a href="<%= vendors_url %>"  class = "sidebar-link" >
                         <i class="mdi mdi-view-dashboard">
@@ -137,17 +135,14 @@
                         </li>
                         <li class="sidebar-item"><a class = "sidebar-link" >Billing</a></li>
                         <li class="sidebar-item"><a class ="sidebar-link" >Payroll</a></li>
-                        <li class="sidebar-item"><a class = "sidebar-link">QuickBooks</a></li>
+                        <li class="sidebar-item"><a href="<%= auth_intuits_url%>" class = "sidebar-link">QuickBooks</a></li>
                         <li class="sidebar-item"><a href="<%= classifieds_url %>" class = "sidebar-link">ADS</a>
                         </li>
                         <li class="sidebar-item"><a href="<%= leads_url %>" class = "sidebar-link">Leads</a>
                         </li>
-                        
+
                     </ul>
                 </li>
-
-
-
 
             </ul>
 

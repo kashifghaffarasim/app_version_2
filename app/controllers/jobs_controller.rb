@@ -1,7 +1,7 @@
 class JobsController < ApplicationController
 
   before_action :authenticate_user!
-  before_action :get_job, only: [:edit, :update, :destroy, :show]
+  before_action :get_job, only: [:edit, :update, :destroy, :show, :job_status]
   
 	def index
     session.delete(:convert)
@@ -109,6 +109,27 @@ class JobsController < ApplicationController
     redirect_back(fallback_location: job_url(@visit.job))
   end
   
+  def job_status
+    status = params[:status]
+    if @job and @job.update(status: params[:status])
+      if @job.status == 'completed'
+        
+        if @job.invoice.blank?
+          create_invoice()
+          redirect_to new_invoice_url
+        else
+          redirect_back(fallback_location: job_url(@job))
+        end
+        
+      else
+        redirect_back(fallback_location: job_url(@job))
+      end
+    else
+      redirect_back(fallback_location: job_url(@job))
+    end
+    
+  end
+  
   
 	private
   
@@ -126,4 +147,12 @@ class JobsController < ApplicationController
   def get_job
     @job = Job.find_by_id(params[:id])
   end
+  
+  def create_invoice
+    @invoice = Invoice.create(job_id: @job.try(:id), tax: @job.tax, discount: @job.discount ,
+      desposit: @job.deposit, sub_total: @job.sub_total, grand_total: @job.grand_total,
+      user_id: current_user.id, status: 'In Progress', company_id: @job.company_id)
+    session[:invoice_id] = @invoice.try(:id)
+  end
+  
 end

@@ -1,96 +1,73 @@
 <div id="app_wrapper">
-	<div class="page-wrapper">
-		<!-- ============================================================== -->
-		<!-- Bread crumb and right sidebar toggle -->
-		<!-- ============================================================== -->
-		<div class="page-breadcrumb">
-			<div class="row">
-				<div class="col-5 align-self-center">
-					<h4 class="page-title">Notification Option</h4>
-					<div class="d-flex align-items-center">
-						<nav aria-label="breadcrumb">
-							<ol class="breadcrumb">
-								<li class="breadcrumb-item"><a href="#">Home</a></li>
-								<li class="breadcrumb-item active" aria-current="page">Notification Option</li>
-							</ol>
-						</nav>
-					</div>
-				</div>
-				<div class="col-7 align-self-center">
-					<div class="d-flex no-block justify-content-end align-items-center">
-						<div class="m-r-10">
-							<div class="lastmonth"></div>
-						</div>
-						<div class=""><small>LAST MONTH</small>
-							<h4 class="text-info m-b-0 font-medium">$58,256</h4></div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- ============================================================== -->
-			<!-- End Bread crumb and right sidebar toggle -->
-			<!-- ============================================================== -->
-			<!-- ============================================================== -->
-			<!-- Container fluid  -->
-			<!-- ============================================================== -->
-			<div class="container-fluid">
-				<!-- ============================================================== -->
-				<!-- Start Page Content -->
-				<!-- ============================================================== -->
-				<!-- Row -->
-				<div class="row">
-					<div class="col-12">
-						<div class="card">
+    <div class="page-wrapper">
+        <div class="page-breadcrumb">
+            <div class="row">
+                <div class="col-5 align-self-center">
+                    <h4 class="page-title">Notifications</h4>
+                    <div class="d-flex align-items-center">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item"><a href="#">Notifictaions</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">New Notification</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+                <div class="col-7 align-self-center">
 
-							<div id="settings_area">
-								<% flash.each do |key, value| %>
-								<div class="alert alert-<%= key %>"><%= value %></div>
-								<% end %>
-								<%=form_for @notification_option,url: settings_notification_option_url do |f|%>
-								
-								<div class="card-body">
-									<h4 class="card-title">Email Overview</h4>
-									<h6 class="card-subtitle">
-										Customize the e-mail subject line and body for Invoices, Quotes, Payment and Deposit Receipts, and Statements that you send through CopperService. <br><br> You can use the {{VARIABLES}} as placeholders for values that change. <br> Check out <a target="_blank" href="https://learn.getcopperservice.com/hc/en-us/articles/200705904">our documentation</a> for a list of all available variable tags. 
-									</h6>
-								</div>
-								<hr>
-								<div class="card-body">
-									<h4 class="card-title">Invoices</h4>
-									<div class="form-group row">
-										<label class="col-sm-3 text-right control-label col-form-label" for="work_configuration_invoice_default_email_subject">User Type</label>
-										<div class="col-sm-9">
-											<%= f.select :message_type, options_for_select([["Customer","customer"],["Team","team_member"]]), {}, :class => 'form-control' %>
-										</div>
-									</div>
-									<div class="form-group row">
-										<label class="col-sm-3 text-right control-label col-form-label" for="work_configuration_invoice_default_email_subject">Subject Line</label>
-										<div class="col-sm-9">
-											<%= f.text_field :subject,:class =>"form-control"%>
-										</div>
-									</div>
-									<div class="form-group row">
-										<label class="col-sm-3 text-right control-label col-form-label" for="work_configuration_invoice_default_email_message">Message</label>
-										<div class="col-sm-9">
-											<%= f.text_area :message_content, :rows => 10,:class=>"form-control" %>
-										</div>
-									</div>
-								</div>
+                </div>
+            </div>
+        </div>
 
-								<div class="card-body">
-									<div class="form-group m-b-0 text-right">
-										<button type="submit" value="Update Settings" name="commit" class="btn btn-info waves-effect waves-light" >
-										Update Setting</button>
-									</div>
-								</div>
-								<% end %>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+
+                        <div id="settings_area">
+                            <% flash.each do |key, value| %>
+                              <div class="alert alert-<%= key %>"><%= value %></div>
+                            <% end %>
+                            <%=form_for @notification_option,url: settings_notification_option_url do |f|%>
+
+                              <div class="card-body">
+                                  <h4 class="card-title">Edit Notification</h4>
+                                  <div class="form-group row">
+                                      <label class="col-sm-3 text-right control-label col-form-label" for="work_configuration_invoice_default_email_subject">User Type</label>
+                                      <div class="col-sm-9">
+                                          <%= f.select :message_type, options_for_select([["Customer","customer"],["Team","team_member"]]), {}, :class => 'form-control' %>
+                                      </div>
+                                  </div>
+                                  <div class="form-group row">
+                                      <label class="col-sm-3 text-right control-label col-form-label" for="work_configuration_invoice_default_email_subject">Subject Line</label>
+                                      <div class="col-sm-9">
+                                          <%= f.text_field :subject,:class =>"form-control"%>
+                                      </div>
+                                  </div>
+                                  <div class="form-group row">
+                                      <label class="col-sm-3 text-right control-label col-form-label" for="work_configuration_invoice_default_email_message">Message</label>
+                                      <div class="col-sm-9">
+                                          <%= f.text_area :message_content, :rows => 10,:class=>"form-control" %>
+                                      </div>
+                                  </div>
+                              </div>
+
+                              <div class="card-body">
+                                  <div class="form-group m-b-0 text-right">
+                                      <button type="submit" value="Update Settings" name="commit" class="btn btn-info waves-effect waves-light" >
+                                          Update Setting</button>
+                                  </div>
+                              </div>
+                            <% end %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 

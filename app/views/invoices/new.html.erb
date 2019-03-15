@@ -1,7 +1,188 @@
-<%#
-# To change this license header, choose License Headers in Project Properties.
-# To change this template file, choose Tools | Templates
-# and open the template in the editor.
-%>
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-5 align-self-center">
+            <h4 class="page-title"> Invoice </h4>
+            <div class="d-flex align-items-center">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
+                        <li class="breadcrumb-item active" aria-current="page"> New Invoice </li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+</div>
 
-<%= "new.html" %>
+<div class="container-fluid">
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-body printableArea">
+
+                <div class="row"> 
+
+                    <div class="col-md-6"> 
+                        <h3>
+                            <b style="color: #3776fb">INVOICE #<%= @invoice.try(:id) %></b> (<%=  @invoice.status %>)
+                            <span class="pull-right"></span>
+                        </h3>
+                    </div>
+
+                    <div class="col-md-6" style="    text-align: right;">
+                        <p> </p>
+                    </div>
+
+                </div>
+                <hr>
+
+                <%= form_for @invoice, url: invoice_url(@invoice)  do |f|  %>
+                  <div class="row">
+
+                      <div class="col-md-12">
+                          <div class="row"> 
+                              <div class="col-md-6">
+                                  <div class="pull-left">
+                                      <address style="margin-left: 10px">
+                                          <h3>
+                                              <b class="text-danger">
+                                                  <%=  customer_name_invoice(@invoice) %>
+                                              </b>
+                                          </h3>
+                                          <p class="text-muted m-l-7">
+                                              <%if @invoice && @invoice.job %>
+                                                <%= get_street_name(@invoice.job) %>
+                                                <br>  <%= get_city_name(@invoice.job) %>,
+                                                <br>  <%= get_country_name(@invoice.job) %>
+                                              <% end %>
+                                          </p>
+                                      </address>
+                                  </div>
+                              </div>
+
+                          </div>
+                      </div>
+                      <div class="col-md-12">
+                          <div class="row">
+                              <div class="col-md-6">
+                                  <div class="pull-left">
+                                      <div class="card-body">
+                                          <div class="form-group row">
+                                              <label for="fname" 
+                                                     class="col-sm-3 text-right control-label col-form-label">Subject</label>
+                                              <div class="col-sm-9">
+                                                  <%= f.text_field :subject , :class => "form-control " , :placeholder=>"Subject", :value => "For Services Rendered", :required => ""%>
+                                              </div>
+                                          </div>
+
+                                          <div class="form-group row">
+                                              <label for="cono1" class="col-sm-3">Billing Address <br> 
+                                                  Service Address
+                                              </label>
+                                              <div class="col-sm-9">
+                                                  <br>
+                                                  Same As Billing Address
+                                              </div>
+                                          </div>
+
+                                      </div>
+                                  </div>
+                              </div>
+
+                              <div class="col-md-6">
+                                  <div class="pull-right ">
+                                      <div class="card-body">
+                                          <div class="form-group row">
+                                              <label for="fname" 
+                                                     class="col-sm-3 text-right control-label col-form-label">Payment</label>
+                                              <div class="col-sm-9">
+                                                  <%= f.select(:payment, ["Upon Reciept", "Net 15", "Net 30", "Net 45", "Custom"].collect {|n| [ n ]},{},:class=>"form-control form-white" ,:placeholder=>"To")%>
+                                              </div>
+                                          </div>
+                                          <div class="form-group row">
+                                              <label for="fname" 
+                                                     class="col-sm-3 text-right control-label col-form-label">Issue Date</label>
+                                              <div class="col-sm-9">
+                                                  <input type="date" name='invoice[issued_date]' class="form-control"  required=''>
+                                              </div>
+                                          </div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="col-md-12">
+                          <div class="row"> 
+                              <div class="col-md-6"> </div>
+                              <div class="col-md-6"> 
+                                  <div class="pull-right text-right">
+                                      <address>
+                                          <p class="m-t-30"><b>Discount :</b> 
+                                              <%=  @invoice.discount%>
+                                          </p>
+                                          <p class="m-t-30"><b>Deposite :</b> 
+                                              <%= @invoice.desposit   %>
+                                          </p>
+                                          <p class="m-t-30" style="margin-right: 88px">
+                                              <b>Tax :</b> 
+                                              <span> <%=  @invoice.tax%></span>
+                                          </p>
+                                      </address>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+
+
+
+                      <div class="col-md-12"> 
+                          <div class="table-responsive m-t-40" style="clear: both;">
+                              <table class="table table-hover">
+                                  <thead>
+                                      <tr>
+                                          <th class="text-center">#</th>
+                                          <th>Name</th>
+                                          <th class="text-right">Quantity</th>
+                                          <th class="text-right">Unit Cost</th>
+                                          <th class="text-right">Total</th>
+                                      </tr>
+                                  </thead>
+                                  <tbody>
+                                      <%if @invoice && @invoice.job%>
+                                        <% @invoice.job.line_items.each_with_index do |line, index|%>
+                                          <tr>
+                                              <td class="text-center"><%= index + 1 %></td>
+                                              <td><%= line.try(:name)%></td>
+                                              <td class="text-right"  style="padding-right: 33px"> <%= line.try(:quantity)%> </td>
+                                              <td class="text-right" style="padding-right: 33px"> $<%= line.try(:unit_cost)%> </td>
+                                              <td class="text-right"> $<%= line.try(:total)%>  </td>
+                                          </tr>
+                                        <% end %>
+                                      <% end %>
+                                  </tbody>
+                              </table>
+                          </div>
+                      </div>
+
+                      <div class="col-md-12">
+                          <div class="pull-right m-t-30 text-right">
+                              <p>Sub - Total amount: $<%= @invoice.try(:sub_total)%></p>
+                              <hr>
+                              <h3><b>Total :</b> $<%= @invoice.try(:total)%></h3>
+                          </div>
+                          <div class="clearfix"></div>
+                          <hr>
+                          <div class="text-right">
+                              <button class="btn btn-danger" type="submit"> Save Invoice </button>
+                              <button id="print" class="btn btn-default btn-outline" type="button" style="display: none"> <span><i class="fa fa-print"></i> Print as PDF</span> </button>
+                          </div>
+                      </div>
+
+                  </div>
+                <% end %>
+            </div>
+        </div>
+    </div>
+</div>
+
+

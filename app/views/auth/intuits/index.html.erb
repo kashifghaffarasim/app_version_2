@@ -1,0 +1,43 @@
+
+<div class="page-wrapper">
+
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-5 align-self-center">
+                <h4 class="page-title">Manage Data</h4>
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Manage Data</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+            <div class="col-7 align-self-center">
+
+            </div>
+        </div>
+    </div>
+
+    <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <ipp:connectToIntuit></ipp:connectToIntuit>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+  $(document).ready(function () {
+      intuit.ipp.anywhere.setup({menuProxy: '/path/to/blue-dot', grantUrl: '<%=  authenticate_auth_intuits_url %>'});
+  });
+</script>

@@ -1,0 +1,56 @@
+<div>
+    <div class="row">
+        <div class="col-12">
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="col-md-12 text-right">
+                        <%= link_to 'New Service Plan', new_settings_plan_builder_url,:class=>"btn btn-info btn-rounded"%>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <% unless flash[:notice].blank? %>
+                      <div class="flash_team_member">
+                          <div id="flash_notice_team_member" class="flash_team_member flash_notice_team_member clearfix hide_for_print">
+                              <%= flash[:notice] %><i class="fa fa-check" style="float:right;"></i>
+                          </div>
+                      </div>
+                    <%end%> 
+                    <table id="demo-foo-addrow" class="table m-t-30 no-wrap table-hover contact-list" data-page-size="10">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th> Plan Name </th>
+                                <th> Description </th>
+                                <th> Cost </th>
+                                <th> Actions </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% if !@service_plans.blank?%>
+                              <% @service_plans.each_with_index  do |plan, index| %>
+                                <tr >
+                                    <td><%= index = index + 1 %></td>
+                                    <td>
+                                        <%= plan.try(:name) %>
+                                    </td>
+                                    <td><%= plan.try(:description)%></td>
+                                    <td><%= plan.try(:unit_cost)%></td>
+
+                                    <td>
+                                        <%= link_to '', edit_settings_plan_builder_url(plan), :class => "fa fa-edit"%>
+                                        <%= link_to '',settings_plan_builder_url(plan), method: :delete,
+                                          data: { confirm: "Are you sure you want to delete?" }, 
+                                          :class => "fa fa-trash-alt" , :style=> "color: red;     padding-left: 8px;"%>
+                                    </td>
+                                </tr>
+                              <% end %>
+                            <% end %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,98 @@
+
+<div class="page-wrapper">
+
+    <div class="page-breadcrumb">
+        <div class="row">
+            <div class="col-5 align-self-center">
+                <h4 class="page-title">Pool Service Plan</h4>
+
+                <div class="d-flex align-items-center">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">New Plan</li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+
+                    <div class="card-body" style=" margin-bottom: 10px;
+                         background: #3776fb;
+                         padding-top: 30px;
+                         color: #fff;">
+                        <h4 class="card-title"> New Service Plan</h4>
+                    </div>
+
+                    <div class="card-body" style="padding: 10px">
+
+                        <%= form_for :service_plan, url:  settings_plan_builders_url do |f| %>
+                          <div class="row">
+                              <div class="col-sm-12 col-lg-6">
+                                  <div class="form-group row">
+                                      <label for="fname2" class="col-sm-3 text-right control-label col-form-label">
+                                          Name
+                                      </label>
+                                      <div class="col-sm-8">
+                                          <%= f.text_field :name, autofocus: true ,
+                                            :placeholder=>" Name",:class => "form-control", required: true %>                                  </div>
+                                  </div>
+                              </div>
+
+                              <div class="col-sm-12 col-lg-6">
+                                  <div class="form-group row">
+                                      <label for="lname2" class="col-sm-3 text-right control-label col-form-label">Cost</label>
+                                      <div class="col-sm-8">
+                                          <%= f.text_field :unit_cost, autofocus: true ,
+                                            :placeholder=>"Cost",:class => "form-control", required: true %>  
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+
+                          <div class="row">
+                              <div class="col-sm-12 col-lg-12">
+                                  <div class="form-group row">
+                                      <label for="fname2" style="    margin-left: -47px;" class="col-sm-2 text-right control-label col-form-label">
+                                          Description
+                                      </label>
+                                      <div class="col-sm-10">
+                                          <textarea class="form-control" name="service_plan[description]" rows="3" placeholder="Descritopn..."></textarea>     
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+
+                          <table id="demo-foo-addrow" class="table m-t-30 m-l-10 no-wrap table-hover contact-list" data-page-size="10">
+                              <tbody>
+                                  <% @service_items.each  do |chemical| %>
+                                    <tr>
+                                        <td>
+                                            <label><%= chemical.name%></label>
+                                        </td>
+                                        <td>
+                                            <%= check_box_tag "items_ids[]", chemical.id, false %>                                       
+                                        </td>
+                                    </tr>
+                                  <% end %>
+                              </tbody>
+                          </table>
+
+                          <div class="col-md-12 " style="margin-top: 20px">
+                              <%= submit_tag "Save",:class=>"btn btn-info",:style => "float: right;"%>
+                          </div>
+                        <% end %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

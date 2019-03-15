@@ -1,46 +1,33 @@
 <div class="page-wrapper">
-    <!-- ============================================================== -->
-    <!-- Bread crumb and right sidebar toggle -->
-    <!-- ============================================================== -->
     <div class="page-breadcrumb">
         <div class="row">
             <div class="col-5 align-self-center">
-                <h4 class="page-title">Footable Table</h4>
+                <h4 class="page-title"> Classified </h4>
                 <div class="d-flex align-items-center">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Library</li>
+                            <li class="breadcrumb-item active" aria-current="page">Classified</li>
                         </ol>
                     </nav>
                 </div>
             </div>
-            <div class="col-7 align-self-center">
-                <div class="d-flex no-block justify-content-end align-items-center">
-                    <div class="m-r-10">
-                        <div class="lastmonth"></div>
-                    </div>
-                    <div class=""><small>LAST MONTH</small>
-                        <h4 class="text-info m-b-0 font-medium">$58,256</h4></div>
-                </div>
-            </div>
         </div>
     </div>
-    <!-- ============================================================== -->
-    <!-- End Bread crumb and right sidebar toggle -->
-    <!-- ============================================================== -->
-    <!-- ============================================================== -->
-    <!-- Container fluid  -->
-    <!-- ============================================================== -->
+
     <div class="container-fluid">
-        <!-- ============================================================== -->
-        <!-- Start Page Content -->
-        <!-- ============================================================== -->
+
         <div class="row">
             <div class="col-12">
+
                 <div class="card">
                     <div class="card-body">
-                        <h4 class="card-title">Listing classifieds</h4>
+                        <div class="col-md-12 text-right">
+                            <%= link_to 'New Classified', new_classified_path ,:class=>"btn btn-info btn-rounded",:style=>"float:right;"%>
+                        </div>
+                    </div>
+                    
+                    <div class="card-body">
                         <div class="table-responsive">
                             <table id="demo-foo-addrow" class="table m-t-30 no-wrap table-hover contact-list" data-page-size="10">
                                 <thead>
@@ -50,7 +37,6 @@
                                         <th>Posting title</th>
                                         <th>Area & Category</th>
                                         <th>Posted Date</th>
-                                        <th>Id</th>
                                         <th colspan="3"  style="text-align: center!important;">Actions</th>
                                     </tr>
                                 </thead>
@@ -62,21 +48,13 @@
                                           <td><%= classified.posting_title %></td>
                                           <td><%= classified.specific_location %></td>
                                           <td><%= classified.created_at.strftime("%Y-%m-%d %r")%></td>
-                                          <td><%= classified.id %></td>
-
                                           <td><%= link_to 'Preview', classified %></td>
                                           <td><%= link_to 'Edit', edit_classified_path(classified) %></td>
                                           <td><%= link_to 'Delete', classified, method: :delete, data: { confirm: 'Are you sure?' } %></td> 
                                       </tr>
                                     <% end %>
                                 </tbody>
-                                <tfoot>
-                                    <tr>
-                                        <td colspan="9">
-                                            <%= link_to 'New Classified', new_classified_path ,:class=>"btn btn-info btn-rounded",:style=>"float:right;"%>
-                                        </td>
-                                    </tr>
-                                </tfoot>
+
                             </table>
                         </div>
                     </div>

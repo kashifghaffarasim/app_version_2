@@ -1,0 +1,2 @@
+class ServicePlanController < ApplicationController
+end

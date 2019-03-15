@@ -6,46 +6,23 @@
     <div class="page-breadcrumb">
         <div class="row">
             <div class="col-5 align-self-center">
-                <h4 class="page-title">Form Horizontal</h4>
+                <h4 class="page-title">Manage Data</h4>
                 <div class="d-flex align-items-center">
                     <nav aria-label="breadcrumb">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Library</li>
+                            <li class="breadcrumb-item active" aria-current="page">Manage Data</li>
                         </ol>
                     </nav>
                 </div>
             </div>
             <div class="col-7 align-self-center">
-                <div class="d-flex no-block justify-content-end align-items-center">
-                    <div class="m-r-10">
-                        <div class="lastmonth"></div>
-                    </div>
-                    <div class=""><small>LAST MONTH</small>
-                        <h4 class="text-info m-b-0 font-medium">$58,256</h4>
-                    </div>
-                </div>
+             
             </div>
         </div>
     </div>
-    <!-- ============================================================== -->
-    <!-- End Bread crumb and right sidebar toggle -->
-    <!-- ============================================================== -->
-    <!-- ============================================================== -->
-    <!-- Container fluid  -->
-    <!-- ============================================================== -->
+  
     <div class="container-fluid">
-        <!-- ============================================================== -->
-        <!-- Start Page Content -->
-        <!-- ============================================================== -->
-
-
-
-
-
-
-
-
 
         <div class="row">
             <div class="col-12">
@@ -58,8 +35,8 @@
                             <div class="manage-data">
                                 <h3>Import Customers</h3>
                                 Here you can import new Customer data or update existing data.
-                                <%=link_to "Import",generate_csv_back_ups_url(:csv_file=>"clients"),:remote=>true, data: {toggle: "modal", target: '#client_modal'},:class=>"btn btn-info waves-effect waves-light",:style=>"float:right;" , :id => "import"%>
-                                <%=link_to "Download Template File",generate_csv_back_ups_url(:temp=>"clients"),:class=>"btn btn-info waves-effect waves-light",:style=>"float:right;"%>
+                                <%=link_to "Import",generate_csv_back_ups_url(:csv_file=>"clients"),:remote=>true, data: {toggle: "modal", target: '#client_modal'},:class=>"btn btn-info waves-effect waves-light",:style=>"float:right;     margin-right: 10px;" , :id => "import"%>
+                                <%=link_to "Download Template File",generate_csv_back_ups_url(:temp=>"clients"),:class=>"btn btn-info waves-effect waves-light",:style=>"float:right;     margin-right: 10px;"%>
                             </div>
                         </div>
 

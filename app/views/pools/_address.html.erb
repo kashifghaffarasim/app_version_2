@@ -46,10 +46,12 @@
     </div>
 
     <div class="col-sm-12 col-lg-6">
+
         <div class="form-group row">
-            <label for="nname" class="col-sm-3 text-right control-label col-form-label">Country</label>
+            <label for="uname1" class="col-sm-3 text-right control-label col-form-label">Zip Code</label>
             <div class="col-sm-9">
-                <input  class="form-control" type="text"  placeholder="Country"  name="address[country_name]" required="" value="<%= @pool.address.try(:country_name)%>">
+                <input  class="form-control" type="text"  placeholder="Zip Code" 
+                        name="address[zipcode]" required="true" value="<%= @pool.address.try(:zipcode)%>">
             </div>
         </div>
     </div>
@@ -58,10 +60,9 @@
 <div class="row">
     <div class="col-sm-12 col-lg-6">
         <div class="form-group row">
-            <label for="uname1" class="col-sm-3 text-right control-label col-form-label">Zip Code</label>
+            <label for="nname" class="col-sm-3 text-right control-label col-form-label">Country</label>
             <div class="col-sm-9">
-                <input  class="form-control" type="text"  placeholder="Zip Code" 
-                        name="address[zipcode]" required="true" value="<%= @pool.address.try(:zipcode)%>">
+                <input  class="form-control" type="text"  placeholder="Country"  name="address[country_name]" required="" value="<%= @pool.address.try(:country_name)%>">
             </div>
         </div>
     </div>

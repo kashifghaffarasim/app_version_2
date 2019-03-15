@@ -27,13 +27,19 @@
                         <h3><b>JOB</b> <span class="pull-right">#<%= @job.job_number %></span></h3>
                     </div>
                     <div class="col-md-6" style="    text-align: right;">
-                        <% if @job.status == 'Pending' || @job.status == 'In Progress' %>
+                        <% if  @job.status == 'In Progress' %>
+
                           <a href="#" class="btn btn-default btn-outline" style="background: #7b4e4b">Email to Client</a>
-                          <a href="#" class="btn btn-default btn-outline" style="background: #436f00">Complete Job</a>
-                          <a href="#" class="btn btn-default btn-outline" style="background: red">Close Job</a>
-                          <a href="#" class="btn btn-default btn-outline">Edit Job</a>
+                          <a href="<%= job_status_jobs_url(id: @job.try(:id), status: 'completed')%>" class="btn btn-default btn-outline" style="background: #436f00">Complete & Invoice</a>
+                          <a href="<%= edit_job_url(@job)%>" class="btn waves-effect waves-light btn-info">Edit Job</a>
+                          <a href="<%= job_status_jobs_url(id: @job.try(:id), status: 'Close')%>" class="btn btn-default btn-outline" style="background: red">Close Job</a>
+
+                        <% elsif @job.status == 'Pending' %>
+                          
+                          <a href="<%= job_status_jobs_url(id: @job.try(:id), status: 'In Progress')%>" class="btn waves-effect waves-light btn-success"> Start Job </a>
+                          <a href="<%= edit_job_url(@job)%>" class="btn waves-effect waves-light btn-info">Edit Job</a>
                         <% else %>
-                          <a href="#" class="btn btn-default btn-outline">Generate Invoice</a>
+                          <a  href="<%= job_status_jobs_url(id: @job.try(:id), status: 'completed')%>" class="btn btn-default btn-outline" style="background: #436f00">Generate Invoice</a>
                         <% end %>
                     </div>
 
@@ -79,7 +85,7 @@
                                        font-weight: bold;">
                                       Work Items 
                                   </div>
-                                  
+
                                   <div class="col-md-8 text-right" style="padding: 14px;">
                                       <button id="addnewItem" class="btn btn-default btn-outline" type="button"> <span>
                                               <i class="fa fa-plus"></i> 
@@ -90,7 +96,7 @@
 
                                   <%= f.hidden_field :job_id, :value => "#{@job.id}" %>
                                   <div class="col-md-12" >
-                                      
+
                                       <div id="loadItems">
                                           <%= f.nested_fields_for :line_items do |ff| %>
                                             <div class="row" style="margin-top: 10px">
@@ -105,7 +111,7 @@
 
                                           <% end %>
                                       </div>
-                                      
+
                                   </div>
 
                                   <div class="col-md-12 " id="myDIV" style="padding-bottom: 20px; display: none;

@@ -1,104 +1,91 @@
 <div id="app_wrapper">
-	<div class="page-wrapper">
-		<!-- ============================================================== -->
-		<!-- Bread crumb and right sidebar toggle -->
-		<!-- ============================================================== -->
-		<div class="page-breadcrumb">
-			<div class="row">
-				<div class="col-5 align-self-center">
-					<h4 class="page-title">Notification Option</h4>
-					<div class="d-flex align-items-center">
-						<nav aria-label="breadcrumb">
-							<ol class="breadcrumb">
-								<li class="breadcrumb-item"><a href="#">Home</a></li>
-								<li class="breadcrumb-item active" aria-current="page">Notification Option</li>
-							</ol>
-						</nav>
-					</div>
-				</div>
-				<div class="col-7 align-self-center">
-					<div class="d-flex no-block justify-content-end align-items-center">
-						<div class="m-r-10">
-							<div class="lastmonth"></div>
-						</div>
-						<div class=""><small>LAST MONTH</small>
-							<h4 class="text-info m-b-0 font-medium">$58,256</h4></div>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- ============================================================== -->
-			<!-- End Bread crumb and right sidebar toggle -->
-			<!-- ============================================================== -->
-			<!-- ============================================================== -->
-			<!-- Container fluid  -->
-			<!-- ============================================================== -->
-			<div class="container-fluid">
-				<!-- ============================================================== -->
-				<!-- Start Page Content -->
-				<!-- ============================================================== -->
-				<!-- Row -->
-				<div class="row">
-					<div class="col-12">
-						<div class="card">
+    <div class="page-wrapper">
 
-							<div id="settings_area">
-								<% flash.each do |key, value| %>
-								<div class="alert alert-<%= key %>"><%= value %></div>
-								<% end %>
-								<%=form_tag settings_notification_options_url do %>
-								<div class="card-body">
-									<h4 class="card-title"></h4>
-									<div class="form-group row">
-										<label class="col-sm-3 text-right control-label col-form-label" for="work_configuration_invoice_default_email_subject">User Type</label>
-										<div class="col-sm-9">
-											<select class="form-control" id="select-type" name="notification_option[message_type]" value="vendor" required="true">
-												<option value>Choose Type</option>
-												<option value="customer">Customer</option>
-												<option value="team member">Team</option>
-												<option value="invoice">Invoices</option>
-												<option value="quote">Estimate</option>
-												<option value="balance adjustment">Payment and Deposit Receipts</option>
-												<option value="statement">Statement</option>
-												<option value="note">Signed Documents</option>
-											</select>
-										</div>
-									</div>
-									<div id="select"></div>
-								</div>
+        <div class="page-breadcrumb">
+            <div class="row">
+                <div class="col-5 align-self-center">
+                    <h4 class="page-title">Notification</h4>
+                    <div class="d-flex align-items-center">
+                        <nav aria-label="breadcrumb">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                <li class="breadcrumb-item"><a href="#">Notifictaions</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">New Notification</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+                <div class="col-7 align-self-center">
 
-								<div class="card-body">
-									<div class="form-group m-b-0 text-right">
-										<button type="submit" value="Update Settings" name="commit" class="btn btn-info waves-effect waves-light" >
-										Save Setting</button>
-									</div>
-								</div>
-								<% end %>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<script type="text/javascript">
-		
-		$('#select-type').on('change', function() {
-			if (this.value !== ""){
-			$.ajax({
-				url: "<%= select_type_settings_notification_options_path %>",
-				type: "GET",
-				data: {type: this.value},
-				success: function(){
-					$("#save").click(function() {
-						console.dir("hahahah---[[[---")
-						document.getElementById("my-event").style.display = "none";
-					})
-				}})
-			};
-		});
+                </div>
+            </div>
+        </div>
 
-	</script>
+        <div class="container-fluid">
+
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+
+                        <div id="settings_area">
+                            <% flash.each do |key, value| %>
+                              <div class="alert alert-<%= key %>"><%= value %></div>
+                            <% end %>
+                            <%=form_tag settings_notification_options_url do %>
+                              <div class="card-body">
+                                  <h4 class="card-title">New Notification</h4>
+                                  <div class="form-group row">
+                                      <label class="col-sm-3 text-right control-label col-form-label" for="work_configuration_invoice_default_email_subject">User Type</label>
+                                      <div class="col-sm-9">
+                                          <select class="form-control" id="select-type" name="notification_option[message_type]" value="vendor" required="true">
+                                              <option value>Choose Type</option>
+                                              <option value="customer">Customer</option>
+                                              <option value="team member">Team</option>
+                                              <option value="invoice">Invoices</option>
+                                              <option value="quote">Estimate</option>
+                                              <option value="balance adjustment">Payment and Deposit Receipts</option>
+                                              <option value="statement">Statement</option>
+                                              <option value="note">Signed Documents</option>
+                                          </select>
+                                      </div>
+                                  </div>
+                                  <div id="select"></div>
+                              </div>
+
+                              <div class="card-body">
+                                  <div class="form-group m-b-0 text-right">
+                                      <button type="submit" value="Update Settings" name="commit" class="btn btn-info waves-effect waves-light" >
+                                          Save Setting
+                                      </button>
+                                  </div>
+                              </div>
+                            <% end %>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript">
+
+  $('#select-type').on('change', function () {
+      if (this.value !== "") {
+          $.ajax({
+              url: "<%= select_type_settings_notification_options_path %>",
+              type: "GET",
+              data: {type: this.value},
+              success: function () {
+                  $("#save").click(function () {
+                      console.dir("hahahah---[[[---")
+                      document.getElementById("my-event").style.display = "none";
+                  })
+              }})
+      }
+      ;
+  });
+
+</script>
 
 
 

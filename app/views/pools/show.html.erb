@@ -1,207 +1,210 @@
-<div> 
-    <div class="page-breadcrumb" >
-        <div class="row">
-            <div class="col-5 align-self-center">
-                <h4 class="page-title">Form Horizontal</h4>
-                <div class="d-flex align-items-center">
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="<%= customers_url %>">Pool</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Show Pool</li>
-                        </ol>
-                    </nav>
-                </div>
+<div class="page-breadcrumb" >
+    <div class="row">
+        <div class="col-5 align-self-center">
+            <h4 class="page-title">Pool</h4>
+            <div class="d-flex align-items-center">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="<%= customers_url %>">Pool</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">View Pool</li>
+                    </ol>
+                </nav>
             </div>
         </div>
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-body">
+    </div>
+</div>
 
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+
+                <div class="card-body" style="background: #82828257">
+                    <h4 class="card-title m-t-5" style="text-align: center;">POOL</h4>
+
+                    <div class="col-md-12 text-center m-t-10" >
+                        <% if Pool.find_by_company_id( current_user.company_id).pool_datum.blank? %>
+                          <button class="btn waves-effect waves-light btn-rounded btn-primary" id="pool" >Pool Data</button>
+                        <% else %>
+                          <a class="btn waves-effect waves-light btn-rounded btn-primary" href="<%= edit_pool_data_url(Pool.find_by_company_id(current_user.company_id).pool_datum.id)%>" data-remote="true">
+                              Pool Data</a>
+                        <% end %>
+                        <% if Pool.find_by_company_id( current_user.company_id).pool_datum.blank? %>
+                          <button class="btn waves-effect waves-light btn-rounded btn-warning" id="spa">Spa Data</button> 
+                        <% else %>
+                          <a class="btn waves-effect waves-light btn-rounded btn-warning" href="<%= edit_spa_data_url(Pool.find_by_company_id(current_user.company_id).pool_datum.id)%>" data-remote="true">
+                              Spa Data</a>
+                        <% end %>
+
+                        <a href="<%= map_pools_url(id: @pool)%>" class="btn waves-effect waves-light btn-rounded btn-danger" >
+                            Map
+                        </a>
+                        <a href="<%= measure_pool_pools_url(id: @pool)%>" class="btn waves-effect waves-light btn-rounded btn-dark">
+                            Measure Pool
+                        </a>
+
+                        <button type="button" class="btn waves-effect waves-light btn-rounded btn-success">Test Result</button>
+                        <button type="button" class="btn waves-effect waves-light btn-rounded btn-secondary">Chemical Used</button>
+                        <button type="button" style="background: #be365ab5" class="btn waves-effect waves-light btn-rounded btn-success" >Service Items</button>
+
+                    </div>
+                </div>
+
+                <hr style=" margin-top: 0px;">
+
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-sm-12 col-lg-6">
+                            <div class="form-group row">
+                                <label for="fname" class="col-sm-3 text-right control-label col-form-label">Pool Name</label>
+                                <div class="col-sm-9">
+                                    <p class= "form-control">
+                                        <%= @pool.try(:pool_name) %>
+                                    </p>
+                                </div>
+                            </div>
                         </div>
-                        <div class="card-body">
-                            <h4 class="card-title" style="text-align: center;">POOL</h4>
-                                 <div class="col-md-12 text-right">
-                                <% if Pool.find_by_company_id( current_user.company_id).pool_datum.blank? %>
-                                <button class="btn btn-info btn-rounded" id="pool" >Pool Data</button>
-                                
-                                <% else %>
-                                <a class="btn btn-info btn-rounded" href="<%= edit_pool_data_url(Pool.find_by_company_id(current_user.company_id).pool_datum.id)%>" data-remote="true">
-                                Pool Data</a>
-                                <% end %>
-                                <% if Pool.find_by_company_id( current_user.company_id).pool_datum.blank? %>
-                                <button class="btn btn-info btn-rounded" id="spa">Spa Data</button> 
-                                <% else %>
-                                <a class="btn btn-info btn-rounded" href="<%= edit_spa_data_url(Pool.find_by_company_id(current_user.company_id).pool_datum.id)%>" data-remote="true">
-                                Spa Data</a>
-                                <% end %>
-                                
-                                <a href="<%= map_pools_url(id: @pool)%>" class="btn btn-info btn-rounded"style="color: #fff">
-                                Map</a>
-                                 <a href="<%= measure_pool_pools_url(id: @pool)%>" class="btn btn-info btn-rounded"style="color: #fff">
-                                Measure Pool</a>
-                            </div>
-                            <h6 class="card-subtitle"></h6>
-                            
-                        </div>
-                        <hr>
-
-                        <div class="card-body">
-
-
-
-                            <div class="row">
-                                <div class="col-sm-12 col-lg-6">
-                                    <div class="form-group row">
-                                        <label for="fname" class="col-sm-3 text-right control-label col-form-label">Pool Name</label>
-                                        <div class="col-sm-9">
-                                            <p class= "form-control">
-                                                <%= @pool.try(:pool_name) %>
-                                            </p>
-                                        </div>
-                                    </div>
+                        <div class="col-sm-12 col-lg-6">
+                            <div class="form-group row">
+                                <label for="fname" class="col-sm-3 text-right control-label col-form-label">Pool Description</label>
+                                <div class="col-sm-9">
+                                    <p class= "form-control">
+                                        <%= @pool.pool_description %>
+                                    </p>
                                 </div>
-                                <div class="col-sm-12 col-lg-6">
-                                    <div class="form-group row">
-                                        <label for="fname" class="col-sm-3 text-right control-label col-form-label">Pool Description</label>
-                                        <div class="col-sm-9">
-                                            <p class= "form-control">
-                                                <%= @pool.pool_description %>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div class="row">
-                                <div class="col-sm-12 col-lg-6">
-                                    <div class="form-group row">
-                                        <label for="fname" class="col-sm-3 text-right control-label col-form-label">Pool Type</label>
-                                        <div class="col-sm-9">
-                                            <p class= "form-control">
-                                                <%= @pool.try(:pool_type) %>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-lg-6">
-                                    <div class="form-group row">
-                                        <label for="fname" class="col-sm-3 text-right control-label col-form-label">Pool Volume</label>
-                                        <div class="col-sm-9">
-                                            <p class= "form-control">
-                                                <%= @pool.try(:pool_volume) %>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-sm-12 col-lg-6">
-                                    <div class="form-group row">
-                                        <label for="fname" class="col-sm-3 text-right control-label col-form-label">Pool Volume2</label>
-                                        <div class="col-sm-9">
-                                            <p class= "form-control">
-                                                <%= @pool.try(:pool_volume2) %>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-lg-6">
-                                    <div class="form-group row">
-                                        <label for="fname" class="col-sm-3 text-right control-label col-form-label">Pool Gate Code</label>
-                                        <div class="col-sm-9">
-                                            <p class= "form-control">
-                                                <%= @pool.try(:pool_gate_code) %>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-sm-12 col-lg-6">
-                                    <div class="form-group row">
-                                        <label for="fname" class="col-sm-3 text-right control-label col-form-label">Pool Source Type</label>
-                                        <div class="col-sm-9">
-                                            <p class= "form-control">
-
-                                                <%= @pool.try(:pool_source_type)%>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12 col-lg-6">
-                                    <div class="form-group row">
-                                        <label for="fname" class="col-sm-3 text-right control-label col-form-label">Pool Life Guards</label>
-                                        <div class="col-sm-9">
-                                            <p class= "form-control">
-                                                <%= @pool.try(:pool_lifeguards) %>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div class="row">
-
-                                <div class="col-sm-12 col-lg-6">
-                                    <div class="form-group row">
-                                        <label for="fname" class="col-sm-3 text-right control-label col-form-label">Pool Activity</label>
-                                        <div class="col-sm-9">
-                                            <p class= "form-control">
-
-                                                <%= @pool.try(:pool_activity)%>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-
                             </div>
                         </div>
                     </div>
 
-                </div>
-            </div>
-        </div>
 
+                    <div class="row">
+                        <div class="col-sm-12 col-lg-6">
+                            <div class="form-group row">
+                                <label for="fname" class="col-sm-3 text-right control-label col-form-label">Pool Type</label>
+                                <div class="col-sm-9">
+                                    <p class= "form-control">
+                                        <%= @pool.try(:pool_type) %>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-lg-6">
+                            <div class="form-group row">
+                                <label for="fname" class="col-sm-3 text-right control-label col-form-label">Pool Volume</label>
+                                <div class="col-sm-9">
+                                    <p class= "form-control">
+                                        <%= @pool.try(:pool_volume) %>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12 col-lg-6">
+                            <div class="form-group row">
+                                <label for="fname" class="col-sm-3 text-right control-label col-form-label">Pool Volume2</label>
+                                <div class="col-sm-9">
+                                    <p class= "form-control">
+                                        <%= @pool.try(:pool_volume2) %>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-lg-6">
+                            <div class="form-group row">
+                                <label for="fname" class="col-sm-3 text-right control-label col-form-label">Pool Gate Code</label>
+                                <div class="col-sm-9">
+                                    <p class= "form-control">
+                                        <%= @pool.try(:pool_gate_code) %>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12 col-lg-6">
+                            <div class="form-group row">
+                                <label for="fname" class="col-sm-3 text-right control-label col-form-label">Pool Source Type</label>
+                                <div class="col-sm-9">
+                                    <p class= "form-control">
+
+                                        <%= @pool.try(:pool_source_type)%>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-lg-6">
+                            <div class="form-group row">
+                                <label for="fname" class="col-sm-3 text-right control-label col-form-label">Pool Life Guards</label>
+                                <div class="col-sm-9">
+                                    <p class= "form-control">
+                                        <%= @pool.try(:pool_lifeguards) %>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="row">
+                        <div class="col-sm-12 col-lg-6">
+                            <div class="form-group row">
+                                <label for="fname" class="col-sm-3 text-right control-label col-form-label">Pool Activity</label>
+                                <div class="col-sm-9">
+                                    <p class= "form-control">
+                                        <%= @pool.try(:pool_activity)%>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <%= render 'pools/service_plan' %>
+                <%= render 'pools/pool_picture' %>
+            </div>
+
+        </div>
     </div>
 </div>
+
+
 
 <div id="new">
 </div>
 
 
 <script type="text/javascript">
-  $("#pool").click(function() {
-    console.dir("hahahah------")
-    $.ajax({
-      url: "/data/pool_data_new",
-      type: "GET",
-      success: function(response){
-         $("#save").click(function() {
-          console.dir("hahahah---[[[---")
-          $('#add-new-pool_data').modal('hide');
-       //   document.getElementsByClassName("modal-backdrop").style.display = "none";
+  $("#pool").click(function () {
+      console.dir("hahahah------")
+      $.ajax({
+          url: "/data/pool_data_new",
+          type: "GET",
+          success: function (response) {
+              $("#save").click(function () {
+                  console.dir("hahahah---[[[---")
+                  $('#add-new-pool_data').modal('hide');
+                  //   document.getElementsByClassName("modal-backdrop").style.display = "none";
 
-   })
-     }})
-})
-  $("#spa").click(function() {
-    console.dir("hahahah------")
-    $.ajax({
-      url: "/data/spa_data_new",
-      type: "GET",
-      success: function(response){
-         $("#save").click(function() {
-          console.dir("hahahah---[[[---")
-          $('#add-new-spa_data').modal('hide');
-      })
+              })
+          }})
+  })
+  $("#spa").click(function () {
+      console.dir("hahahah------")
+      $.ajax({
+          url: "/data/spa_data_new",
+          type: "GET",
+          success: function (response) {
+              $("#save").click(function () {
+                  console.dir("hahahah---[[[---")
+                  $('#add-new-spa_data').modal('hide');
+              })
 
-     }})
-})  
-  
+          }})
+  })
+
 </script>

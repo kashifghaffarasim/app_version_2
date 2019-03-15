@@ -2,6 +2,16 @@ Rails.application.routes.draw do
   post '/rate' => 'rater#create', :as => 'rate'
   devise_for :users, skip: :all
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+  
+  namespace :auth do 
+    resources :intuits do
+      collection do
+        get :authenticate
+        get :oauth_callback
+      end
+    end
+  end
+  
   resources :users , only: [:index, :new, :create] do
   	collection do
   		get  :signin
@@ -9,6 +19,11 @@ Rails.application.routes.draw do
   		get  :signout
   	end
   end
+  
+  
+  
+  
+
   root 'welcomes#index'
   get '/dashboard' => 'dashboard#index'
   
@@ -28,103 +43,107 @@ Rails.application.routes.draw do
       collection do 
         get :select_type 
       end 
-    end 
+    end
+    resources :chemical_items, only: [:index, :create]
+    
+    resources :plan_builders do 
+      collection do
+        get :service_plan_label
+      end
+    end
   end
   
   resources :customers  do
     collection do
-     get :generate_csv 
-     post :import_csv
-     get :list_customers
-   end
- end
- resources :estimates do
-  collection do
-    get :convert_invoice
-    post :send_email
+      get :generate_csv 
+      post :import_csv
+      get :list_customers
+    end
   end
-end
-resources :invoices
-
-resources :jobs do
-  collection do 
-   get  :customer_pool
-   get  :assign_job
-   post :job_assignment
- end
-end
-resources :calendars do 
-  collection do 
-    get :customer_pool
-  end  
-end 
-
-
-resources :vendors
-
-resources :settings, only: [:index]
-resources :companies, only: [:index, :create, :edit, :update, :show]
-resources :profiles 
-resources :team_members
-
-resources :pools do
-  collection do
-    get :measure_pool
-    patch :pool_estimate
-    get :map , via: [:get, :post]
-    post :map_address , via: [:post]
+  resources :estimates do
+    collection do
+      get :convert_invoice
+      post :send_email
+    end
   end
-end
+  resources :invoices
 
-resources :plans
-
-resources :leads do
-  collection do 
-    get :map
-
+  resources :jobs do
+    collection do 
+      get  :customer_pool
+      get  :assign_job
+      post :job_assignment
+      get :job_status
+    end
   end
-end
+  resources :calendars do 
+    collection do 
+      get :customer_pool
+    end  
+  end 
 
-resources :routings, only: [:index]
-resources :back_ups do 
-  collection do 
-    get :generate_csv 
-    post :import_csv
+
+  resources :vendors
+
+  resources :settings, only: [:index]
+  resources :companies, only: [:index, :create, :edit, :update, :show]
+  resources :profiles 
+  resources :team_members
+
+  resources :pools do
+    collection do
+      get :measure_pool
+      patch :pool_estimate
+      get :map , via: [:get, :post]
+      post :map_address , via: [:post]
+    end
   end
-end
 
-resources :communications do
-  collection do
-    get :sents
-    get :receives
-    get :drafts
+  resources :plans
+
+  resources :leads do
+    collection do 
+      get :map
+
+    end
   end
-end
 
-resources :sms do
-  collection do
-    get :sents
-    get :receives
+  resources :routings, only: [:index]
+  resources :back_ups do 
+    collection do 
+      get :generate_csv 
+      post :import_csv
+    end
   end
-end
 
-
-resources :line_items
-
-resources :services do 
-  collection do 
-    get :spa_service
-    get :pool_service
+  resources :communications do
+    collection do
+      get :sents
+      get :receives
+      get :drafts
+    end
   end
-end
-resources :classifieds
-resources :custom_fields
-resources :plan_builders do 
-  collection do
-    get :service_plan_label
+
+  resources :sms do
+    collection do
+      get :sents
+      get :receives
+    end
   end
-end
-get 'attachment/:id', to: "communications#attachment", as: :attachment
+
+
+  resources :line_items
+
+  resources :services do 
+    collection do 
+      get :spa_service
+      get :pool_service
+    end
+  end
+  resources :classifieds
+  resources :custom_fields
+ 
+  get 'attachment/:id', to: "communications#attachment", as: :attachment
 
   #patch '/settings/update_company/:id', to: 'settings#update_company', as: :update_company
   get '/companies/:id/edit_address', to: 'companies#edit_address', as: :edit_address
@@ -139,16 +158,16 @@ get 'attachment/:id', to: "communications#attachment", as: :attachment
   patch '/data/spa_data_update/:id', to: 'pools#spa_data_update', as: :update_spa_data
   namespace :api, defaults: {format: :json} do
     scope module: :v1 do
-      resources :users do
-        collection do
-          post :user_signin  
-          get  :signout
+        resources :users do
+          collection do
+            post :user_signin  
+            get  :signout
+          end
         end
+        resources :customers , only: [:index]
+        resources :team_members
+        resources :vendors , only: [:index]
       end
-      resources :customers , only: [:index]
-      resources :team_members
-      resources :vendors , only: [:index]
     end
-  end
 
-end
+  end

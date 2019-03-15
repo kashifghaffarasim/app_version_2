@@ -1,78 +1,70 @@
 <div class="page-breadcrumb">
-	<div class="row">
-		<div class="col-5 align-self-center">
-			<h4 class="page-title">Notification Option</h4>
-			<div class="d-flex align-items-center">
-				<nav aria-label="breadcrumb">
-					<ol class="breadcrumb">
-						<li class="breadcrumb-item"><a href="<%= root_url %>">Dashboard</a></li>
-						<li class="breadcrumb-item"><a href="#">Notification Option</a></li>
-					</ol>
-				</nav>
-			</div>
-		</div>
-	</div>
+    <div class="row">
+        <div class="col-5 align-self-center">
+            <h4 class="page-title">Notifications</h4>
+            <div class="d-flex align-items-center">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="<%= root_url %>">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="#">Notification Option</a></li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
 
-	<div>
-		<div class="row">
-			<div class="col-12">
+    <div>
+        <div class="row">
+            <div class="col-12">
 
-				<div class="card">
-					<div class="card-body">
-						<div class="col-md-12 text-right">
-							<%= link_to 'New Notification Option', new_settings_notification_option_url,:class=>"btn btn-info btn-rounded"%>
-							<% if !@team_members.blank?%>
-							<a id="show_map" class="btn btn-info btn-rounded" style="color: #fff">Show Map</a>
-							<% end %>
-						</div>
-					</div>
-					<div class="card-body">
-						<% flash.each do |key, value| %>
-						<div class="alert alert-<%= key %>"><%= value %></div>
-						<% end %>
-						<table id="demo-foo-addrow" class="table m-t-30 no-wrap table-hover contact-list" data-page-size="10">
-							<thead>
-								<tr>
-									<th>#</th>
-									<th> Module </th>
-									<th> Subject </th>
-									<th> Message </th>
-									<th> Email </th>
-									<th> Actions </th>
+                <div class="card">
+                    <div class="card-body">
+                        <div class="col-md-12 text-right">
+                            <%= link_to 'New Notification', new_settings_notification_option_url,:class=>"btn btn-info btn-rounded"%>
+                            <% if !@team_members.blank?%>
+                              <a id="show_map" class="btn btn-info btn-rounded" style="color: #fff">Show Map</a>
+                            <% end %>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <% flash.each do |key, value| %>
+                          <div class="alert alert-<%= key %>"><%= value %></div>
+                        <% end %>
+                        <table id="demo-foo-addrow" class="table m-t-30 no-wrap table-hover contact-list" data-page-size="10">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th> Module </th>
+                                    <th> Subject </th>
+                                    <th> Actions </th>
 
-								</tr>
-							</thead>
-							<tbody>
-								<%if !current_user.company.notification_options.blank? %>
-								<% current_user.company.notification_options.each_with_index  do |i, index| %>
-								<tr >
-									<td><%= index = index + 1 %></td>
-									
-									<td>
-										<%= i.message_type.titleize %></td>
-										<td><%= i.subject %></td>
-										<td>
-											<p><%= i.message_content.gsub(/\n/, '<br/>').html_safe if !i.message_content.blank?%></p>
-										</td>
-										<td>
-											<p><%= i.email_content.gsub(/\n/, '<br/>').html_safe if !i.email_content.blank?%></p>
-										</td>
-										<td>
-											<%= link_to '',edit_settings_notification_option_url(i), :class => "fa fa-edit"%>
-											<%= link_to '',settings_notification_option_url(i), method: :delete,
-											data: { confirm: "Are you sure you want to delete?" }, 
-											:class => "fa fa-trash-alt" , :style=> "color: red"%>
-										</td>
-									</tr>
-									<% end %>
-									<% end %>
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <%if !current_user.company.notification_options.blank? %>
+                                  <% current_user.company.notification_options.each_with_index  do |i, index| %>
+                                    <tr >
+                                        <td><%= index = index + 1 %></td>
 
-	
+                                        <td>
+                                            <%= i.message_type.titleize %>
+                                        </td>
+                                        <td><%= i.subject %></td>
+                                        <td>
+                                            <%= link_to '',edit_settings_notification_option_url(i), :class => "fa fa-edit"%>
+                                            <%= link_to '',settings_notification_option_url(i), method: :delete,
+                                              data: { confirm: "Are you sure you want to delete?" }, 
+                                              :class => "fa fa-trash-alt" , :style=> "color: red"%>
+                                        </td>
+                                    </tr>
+                                  <% end %>
+                                <% end %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

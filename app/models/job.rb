@@ -10,6 +10,8 @@ class Job < ApplicationRecord
   has_many :job_assign_visits
   accepts_nested_attributes_for :job_assign_visits, allow_destroy: true
 
+  has_one :invoice
+  
   
   def self.visit_plans(days, job)
     JobAssignVisit.where(job_id: job.id).delete_all

@@ -13,7 +13,9 @@ class UsersController < ApplicationController
   def create
     session[:user] = params[:user]
     @user = User.find_by_email(params[:user][:email])
+    puts"ssssssssssssssssssssssssssssss", params.inspect
     if @user.blank?
+      puts"sssssssssssssssssssssssssss"
       redirect_to companies_url
     else
       flash[:danger] = "Email Already Taken."

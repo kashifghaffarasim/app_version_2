@@ -1,0 +1,27 @@
+<div class="card-body">
+    <div class="row " style="    background: #3776fb; padding: 16px;     margin-left: -20px;margin-right: -20px;">
+        <h5 style="color: #fff;     margin-top: 10px;">  Service Plans </h5>
+    </div>
+
+    <div class="row" style="margin-top: 40px">
+        <%if !get_plan().blank?%>
+          <div class="col-md-12">
+              <div class="row p-t-20">
+                  <div class="col-md-3"></div>
+
+                  <div class="col-md-6">
+                      <div class="form-group has-danger">
+                          <%= select_tag('service[plan_id]', options_for_select(get_plan().collect{|u| [u.name, u.id]}, selected: @company.try(:start_week)), :class => "form-control") %>
+                      </div>
+                  </div>
+                  <div class="col-md-3"></div>
+                  <div class="col-md-3"></div>
+                  <div class="col-md-6 text-center">
+                      <button type="submit" class="btn btn-success"> <i class="fa fa-check"></i> Update</button>
+                  </div>
+                  <!--/span-->
+              </div>
+          </div>
+        <% end %>
+    </div>
+</div>
