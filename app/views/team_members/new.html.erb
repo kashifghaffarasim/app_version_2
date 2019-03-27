@@ -187,6 +187,10 @@
                           <input  class="form-control form-control-line" type="hidden" name="user[company_id]" value="<%= current_user.company_id%>">
                       </div>
 
+                      <div class="row">
+                          <%= render "/shared/custom_field", id: @team_member.try(:id)%>
+                      </div>
+
                   </div>
 
                   <hr>

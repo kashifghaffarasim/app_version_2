@@ -9,6 +9,8 @@ class VendorsController < ApplicationController
   
 	def new
 		@vendor  = User.new
+    @custom_field = CustomField.where(:user_id=>current_user.id ,:applies_to=>"vendors")
+
 	end
   
 	def show 
@@ -23,6 +25,10 @@ class VendorsController < ApplicationController
 			if @vendor.save(validate: false)
       	@vendor.add_role params[:user][:role]
         vendor_address()
+        begin
+          @vendor.custom_fields(params[:custom_field],  @vendor.id)
+        rescue
+        end
 				flash[:success] = "Vendor Created Successfully!"
 				redirect_to vendors_url
 			else 
@@ -38,13 +44,19 @@ class VendorsController < ApplicationController
   
 	def edit
 		@vendor = User.find_by_id(params[:id])
+    @custom_field = CustomField.where(:user_id=>current_user.id ,:applies_to=>"vendors")
+
 	end 
   
 	def update
 		@vendor = User.find_by_id(params[:id])
 		if @vendor.update(user_params)
-      @vendor.add_role params[:user][:role]
+#      @vendor.add_role params[:user][:role]
       vendor_address()
+      begin
+        @vendor.custom_fields(params[:custom_field],  @vendor.id)
+      rescue
+      end
 			flash[:notice] = "Vendor updated!!!"
 			redirect_to vendors_url
 		else

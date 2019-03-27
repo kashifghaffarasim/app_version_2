@@ -9,6 +9,7 @@ class TeamMembersController < ApplicationController
   
 	def new
 		@team_member  = User.new
+    @custom_field = CustomField.where(:user_id=>current_user.id ,:applies_to=>"team_members")
 	end 
   
 	def show
@@ -24,6 +25,10 @@ class TeamMembersController < ApplicationController
 			if @team_member.save(validate: false)
 				@team_member.add_role params[:user][:role]
 				member_address()
+        begin
+          @team_member.custom_fields(params[:custom_field],  @team_member.id)
+        rescue
+        end
 				flash[:success] = "Team Member Created Successfully!"
 				redirect_to team_members_url
 			else 
@@ -37,6 +42,7 @@ class TeamMembersController < ApplicationController
 	end
 	def edit
 		@team_member = User.find_by_id(params[:id])
+    @custom_field = CustomField.where(:user_id=>current_user.id ,:applies_to=>"team_members")
 	end 
 	
 	def update
@@ -44,6 +50,10 @@ class TeamMembersController < ApplicationController
 		if @team_member.update(user_params)
 			@team_member.add_role params[:user][:role]
 			member_address()
+      begin
+        @team_member.custom_fields(params[:custom_field],  @team_member.id)
+      rescue
+      end
 			flash[:notice] = "Team Member updated!!!"
 			redirect_to team_members_url
 		else
@@ -72,7 +82,7 @@ class TeamMembersController < ApplicationController
 	end
 
 	def get_company
-		@company_id = User.find_by_id(params[:id]).company_id
+		@company_id = current_user.try(:company_id)
 	end
 
 	def member_address

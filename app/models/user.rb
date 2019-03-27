@@ -26,4 +26,24 @@ class User < ApplicationRecord
     return name
   end
   
+  
+  def custom_fields(params, id)
+    
+    if params[:default] && id
+      params[:default].each do |custom|
+        list =  custom[1]
+        if list
+          already = CustomAttriValue.where(model_id: id, custom_field_id: list[:id])
+          if already.blank?
+            CustomAttriValue.create(value: list[:value], model_id: id, custom_field_id: list[:id])
+          else
+            custom_value = already.last
+            if custom_value &&  custom_value.update(value: list[:value])
+            end
+          end
+        end
+      end
+    end
+  end
+  
 end

@@ -39,6 +39,8 @@ class JobsController < ApplicationController
     end
     @team_members = User.where(company_id: current_user.try(:company_id)).order(id: :asc).with_any_role(:admin, :user)
     @job = Job.new(job_type: 'Job')
+    @custom_field = CustomField.where(:user_id=>current_user.id ,:applies_to=>"jobs")
+
 	end
 
   
@@ -48,6 +50,10 @@ class JobsController < ApplicationController
       days = (@job.end_date.to_date - @job.start_date.to_date ).to_i
       if days > 0
         Job.visit_plans(days, @job)
+      end
+      begin
+        current_user.custom_fields(params[:custom_field],  @job.id)
+      rescue
       end
 			flash[:notice] = "Job Created!"
 			redirect_to job_url(id: @job.id)
@@ -61,7 +67,9 @@ class JobsController < ApplicationController
    
     @pool= @job.pool
     @team_members = User.where(company_id: current_user.try(:company_id)).order(id: :asc).with_any_role(:admin, :user)
-    0.times {@job.line_items.build} 
+    0.times {@job.line_items.build}
+    @custom_field = CustomField.where(:user_id=>current_user.id ,:applies_to=>"jobs")
+
 	end
 
 	def update
@@ -75,7 +83,10 @@ class JobsController < ApplicationController
       if days > 0
         Job.visit_plans(days, @job)
       end
-      
+      begin
+        current_user.custom_fields(params[:custom_field],  @job.id)
+      rescue
+      end
 			flash[:notice] = "Job updated!"
 			redirect_to jobs_url
 		else

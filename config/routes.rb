@@ -20,9 +20,6 @@ Rails.application.routes.draw do
   	end
   end
   
-  
-  
-  
 
   root 'welcomes#index'
   get '/dashboard' => 'dashboard#index'
@@ -96,6 +93,9 @@ Rails.application.routes.draw do
       patch :pool_estimate
       get :map , via: [:get, :post]
       post :map_address , via: [:post]
+      post :service_plan
+      post :test_results
+      post :save_results
     end
   end
 

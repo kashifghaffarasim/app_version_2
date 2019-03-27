@@ -14,12 +14,14 @@
     </div>
 </div>
 
+
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-12">
             <div class="card">
 
-                <div class="card-body" style="background: #82828257">
+                <div class="card-body" style="background: #dddddd">
                     <h4 class="card-title m-t-5" style="text-align: center;">POOL</h4>
 
                     <div class="col-md-12 text-center m-t-10" >
@@ -43,9 +45,26 @@
                             Measure Pool
                         </a>
 
-                        <button type="button" class="btn waves-effect waves-light btn-rounded btn-success">Test Result</button>
-                        <button type="button" class="btn waves-effect waves-light btn-rounded btn-secondary">Chemical Used</button>
-                        <button type="button" style="background: #be365ab5" class="btn waves-effect waves-light btn-rounded btn-success" >Service Items</button>
+
+
+                        <button style="color: #fff" type="button" 
+                                class="btn waves-effect waves-light btn-rounded btn-success" data-toggle="modal" 
+                                data-target="#testResults" data-whatever="@mdo">
+                            Test Results
+                        </button>
+
+                        <button style="color: #fff" type="button" 
+                                class="btn waves-effect waves-light btn-rounded btn-success" data-toggle="modal" 
+                                data-target="#chemicalUsed" data-whatever="@mdo">
+                            Chemical Used
+                        </button>
+
+                        <%if !@pool.service_plan.blank? %>
+                          <button style="background: green; color: #fff" type="button" class="btn waves-effect waves-light btn-rounded btn-secondary" data-toggle="modal" 
+                                  data-target="#servicePlan" data-whatever="@mdo">
+                              Service Items
+                          </button>
+                        <% end %>
 
                     </div>
                 </div>
@@ -161,11 +180,25 @@
                         </div>
 
                     </div>
+                    <% if !@custom_field.blank? %>
+                      <div>
+                          <hr>
+                          <h4 class="card-title">Custom Attribues</h4>
+                          <div class="row">
+                              <%= render "/shared/custom_field", id: @pool.try(:id)%>
+                          </div>
+
+                      </div>
+                    <% end %>
                 </div>
 
-
-                <%= render 'pools/service_plan' %>
+                <%if !@service_plans.blank? %>
+                  <%= render 'pools/service_plan' %>
+                <% end  %>
                 <%= render 'pools/pool_picture' %>
+
+                <%= render 'pools/test_results' %>
+                <%= render 'pools/chemical_item_used' %>
             </div>
 
         </div>
@@ -180,7 +213,7 @@
 
 <script type="text/javascript">
   $("#pool").click(function () {
-      console.dir("hahahah------")
+
       $.ajax({
           url: "/data/pool_data_new",
           type: "GET",
@@ -194,7 +227,7 @@
           }})
   })
   $("#spa").click(function () {
-      console.dir("hahahah------")
+
       $.ajax({
           url: "/data/spa_data_new",
           type: "GET",

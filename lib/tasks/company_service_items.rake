@@ -11,7 +11,7 @@ task :service_items => :environment do
   id = 1
   @service_items.each do |i|
     begin
-      ServiceItem.create(id: id, name: i, is_used: false)
+      ServiceItem.create(name: i, is_used: false)
       id = id + 1
     rescue => e
       puts"ssssssssssssssssssssssssss", e.inspect

@@ -169,19 +169,19 @@
                               </div>
                           </div>
                       </div>
+
+                      
                       <div class="row">
-                          <%= render "/shared/custom_field"%>
+                          <%= render "/shared/custom_field", id: @customer.try(:id)%>
                       </div>
 
                       <div class="row">
-
                           <input  class="form-control form-control-line" type="hidden" name="user[company_id]" value="<%= current_user.company_id%>">
-
                       </div>
-
                   </div>
 
                   <hr>
+
                   <div class="card-body">
                       <div class="form-group m-b-0 text-right">
                           <button type="submit" class="btn btn-info waves-effect waves-light">Save</button>

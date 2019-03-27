@@ -1,0 +1,135 @@
+
+
+<div class="modal fade" id="testResults" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog" role="document" style=" max-width: 600px;">
+        <div class="modal-content" style="border-radius: 6px">
+            <div class="modal-header" style="  border-radius: 5px;  background: #023aaf;
+                 color: #fff; border-bottom-left-radius: 0px; border-bottom-right-radius: 0px">
+                <h4 class="modal-title" id="exampleModalLabel1"> Test Results</h4>
+                <button style=" color: #fff; opacity: 1" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <div class="row">
+                    <div class="col-md-12">
+
+                        <%= form_for :chemical, url: test_results_pools_url(id: @pool.try(:id)) do |f|  %>
+
+                          <div class="form-group row">
+                              <label for="fname" class="col-sm-3 text-right control-label col-form-label">
+                                  Free Chlorine
+                              </label>
+                              <div class="col-sm-6">
+                                  <input type="text" name="item[chlorine]" class="form-control <%= 'ok-error' if get_value('chlorine') == true %>"
+                                         id="fname" placeholder="Enter Value" value="<%= item_value('chlorine')%>">
+                              </div>
+                              <div class="col-sm-3">
+                                  ppm
+                              </div>
+
+                              <div class="col-sm-3"></div>
+                              <div class="col-sm-6" style="color: red">
+                                  <%if get_value('chlorine') == true%>
+                                    Correct Range: 3.0 - 7.0
+                                  <% end %>
+                              </div>
+                              <div class="col-sm-3"></div>
+                          </div>
+
+                          <div class="form-group row">
+                              <label for="fname" class="col-sm-3 text-right control-label col-form-label">
+                                  PH Value
+                              </label>
+                              <div class="col-sm-6">
+                                  <input type="text" name="item[ph]" class="form-control <%= 'ok-error' if get_value('ph') == true %>" 
+                                         id="fname" placeholder="Enter Value"  value="<%= item_value('ph')%>">
+                              </div>
+                              <div class="col-sm-3">
+                                  ppm
+                              </div>
+                              <div class="col-sm-3"></div>
+                              <div class="col-sm-6" style="color: red">
+                                  <%if get_value('ph') == true%>
+                                    Correct Range: 7.3 - 7.6
+                                  <% end %>
+                              </div>
+                              <div class="col-sm-3"></div>
+                          </div>
+
+                          <div class="form-group row">
+                              <label for="fname" class="col-sm-3 text-right control-label col-form-label">
+                                  Salt Level
+                              </label>
+                              <div class="col-sm-6">
+                                  <input type="text" name="item[slat]" class="form-control <%= 'ok-error' if get_value('slat') == true %>" 
+                                         id="fname" placeholder="Enter Value" value="<%= item_value('slat')%>">
+                              </div>
+                              <div class="col-sm-3">
+                                  ppm
+                              </div>
+
+                              <div class="col-sm-3"></div>
+                              <div class="col-sm-6" style="color: red">
+                                  <%if get_value('slat') == true%>
+                                    Correct Range: 2400.0 - 3400.0
+                                  <% end %>
+                              </div>
+                              <div class="col-sm-3"></div>
+                          </div>
+
+                          <div class="form-group row">
+                              <label for="fname" class="col-sm-3 text-right control-label col-form-label">
+                                  Total Alkalinity
+                              </label>
+                              <div class="col-sm-6">
+                                  <input type="text" name="item[alkalinity]" class="form-control <%= 'ok-error' if get_value('alkalinity') == true %>" 
+                                         id="fname" placeholder="Enter Value" value="<%= item_value('alkalinity')%>">
+                              </div>
+                              <div class="col-sm-3">
+                                  ppm
+                              </div>
+                              <div class="col-sm-3"></div>
+                              <div class="col-sm-6" style="color: red">
+                                  <%if get_value('alkalinity') == true%>
+                                    Correct Range: 90.0 - 150.0
+                                  <% end %>
+                              </div>
+                              <div class="col-sm-3"></div>
+                          </div>
+
+                          <div class="form-group row">
+                              <label for="fname" class="col-sm-3 text-right control-label col-form-label">
+                                  Calcium Hardness
+                              </label>
+                              <div class="col-sm-6">
+                                  <input type="text" name="item[calcium]" class="form-control <%= 'ok-error' if get_value('calcium') == true %>" 
+                                         id="fname" placeholder="Enter Value" value="<%= item_value('calcium')%>">
+                              </div>
+                              <div class="col-sm-3">
+                                  ppm
+                              </div>
+                              <div class="col-sm-3"></div>
+                              <div class="col-sm-6" style="color: red">
+                                  <%if get_value('calcium') == true%>
+                                    Correct Range: 200.0 - 400.0
+                                  <% end %>
+                              </div>
+                              <div class="col-sm-3"></div>
+                          </div>
+
+                          <hr>
+
+                          <div class="col-md-12 text-right">
+                              <button type="submit" class="btn btn-info waves-effect waves-light">Save</button>
+                          </div>
+
+                        <% end %>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

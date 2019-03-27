@@ -1,0 +1,54 @@
+
+
+<div class="modal fade" id="chemicalUsed" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" style="display: none;" aria-hidden="true">
+    <div class="modal-dialog" role="document" style=" max-width: 600px;">
+        <div class="modal-content" style="border-radius: 6px">
+            <div class="modal-header" style="  border-radius: 5px;  background: #023aaf;
+                 color: #fff; border-bottom-left-radius: 0px; border-bottom-right-radius: 0px">
+                <h4 class="modal-title" id="exampleModalLabel1"> Chemical Items</h4>
+                <button style=" color: #fff; opacity: 1" type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+
+                    <div class="col-md-12">
+                        <% @items =  chemicalitem() %>
+
+                        <% if !@items.blank? %>
+                          <%= form_for :chemical, url: save_results_pools_url(id: @pool.try(:id)) do |f|  %>
+
+                            <div class="col-md-12">
+                                <% @items.each_with_index  do |item, index| %>
+
+                                  <div class="form-group row">
+                                      <label for="fname" class="col-sm-3 text-right control-label col-form-label"><%= item.name %></label>
+                                      <div class="col-sm-9">
+                                          <input type="hidden" name="chemical[<%= index%>][id]" value="<%= item.try(:id)%>" class="form-control" 
+                                                 id="fname" placeholder="Enter Value">
+                                          <input type="text" name="chemical[<%= index%>][value]" class="form-control" 
+                                                 id="fname" placeholder="Enter Value" value="<%= chemical_value(@pool, item)%>">
+                                      </div>
+                                  </div>
+                                <% end %>
+
+                            </div>
+                            <hr>
+                            <div class="col-md-12 text-right">
+                                <button type="submit" class="btn btn-info waves-effect waves-light">Save</button>
+                            </div>
+
+                          <% end %>
+                      </div>
+                    <% else %>
+                      <div class="col-md-12">
+                          No Chemical item find for testing.
+                      </div>
+                    <% end %>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -115,6 +115,17 @@
     </div>
 
 
+    <% if !@custom_field.blank? %>
+      <div>
+          <hr>
+          <h4 class="card-title">Custom Attribues</h4>
+          <div class="row">
+              <%= render "/shared/custom_field", id: @job.try(:id)%>
+          </div>
+
+      </div>
+    <% end %>
+
 
 </div>
 

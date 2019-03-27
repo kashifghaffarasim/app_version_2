@@ -10,7 +10,6 @@ class CustomersController < ApplicationController
   def new
     @customer = User.new
     @custom_field = CustomField.where(:user_id=>current_user.id ,:applies_to=>"customers")
-
   end
 
   def show 
@@ -25,9 +24,14 @@ class CustomersController < ApplicationController
       if @customer.save(validate: false)
         @customer.add_role :customer
         customer_address()
+        begin
+          @customer.custom_fields(params[:custom_field],  @customer.id)
+        rescue
+        end
         flash[:success] = "Customer Created Successfully!"
         redirect_to customers_url
       else 
+
         flash[:danger] = "Customer not Saved try again"
         render :new
       end
@@ -39,6 +43,8 @@ class CustomersController < ApplicationController
   
   def edit
     @customer = User.find_by_id(params[:id])
+    @custom_field = CustomField.where(:user_id=>current_user.id ,:applies_to=>"customers")
+
   end 
   
   def update
@@ -46,6 +52,9 @@ class CustomersController < ApplicationController
     if @customer.update(user_params)
       @customer.add_role :customer
       customer_address()
+      
+      @customer.custom_fields(params[:custom_field],  @customer.id)
+     
       flash[:notice] = "Customer updated!!!"
       redirect_to customers_url
     else
@@ -76,19 +85,19 @@ class CustomersController < ApplicationController
       end
     end
     send_data csv_string,
-    :type => 'text/csv; charset=iso-8859-1; header=present',
-    :disposition => "attachment; filename=customer.csv"
+      :type => 'text/csv; charset=iso-8859-1; header=present',
+      :disposition => "attachment; filename=customer.csv"
   end
   def import_csv
-      require 'csv'
+    require 'csv'
     if !params["file"].blank?
       csv_text = File.read(params["file"].tempfile)
       csv = CSV.parse(csv_text, :headers => true)
       csv.each do |customer|
         if User.find_by_email(customer["email"]).blank?
           @customer = User.new({:first_name => customer["first_name"],:last_name => customer["last_name"],:email => customer["email"] ,:username => customer["username"],:mobile_number => customer["mobile_number"],:phone_number=> customer["phone_number"]})
-       #  @customer.status = "customer"
-        @customer.company_id = current_user.try(:company_id)
+          #  @customer.status = "customer"
+          @customer.company_id = current_user.try(:company_id)
           if @customer.save(:validate => false)
             @customer.add_role :customer
             address_1(customer)
@@ -100,14 +109,14 @@ class CustomersController < ApplicationController
           end
         else
           #flash[:danger] = "Email Already Taken by other user."
-            #redirect_to customers_url
+          #redirect_to customers_url
         end
       end
     else
       flash[:danger] = "Please Select CSV File......!!!"
       redirect_to customers_url
     end
-      redirect_to customers_url
+    redirect_to customers_url
 
   end
   def list_customers

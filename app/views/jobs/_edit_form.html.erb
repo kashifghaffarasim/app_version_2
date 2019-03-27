@@ -110,6 +110,20 @@
                     </div>
                 </div>
             </div>
+
+            <% if !@custom_field.blank? %>
+              <div>
+                  <hr>
+                  <h4 class="card-title" style="    text-align: left;
+                      padding: 10px 30px;">Custom Attribues</h4>
+                  <div class="row">
+                      <%= render "/shared/custom_field", id: @job.try(:id)%>
+                  </div>
+
+              </div>
+            <% end %>
+
+
             <div class="row" style="background: #443e3e2b; padding: 11px;
                  border-radius: 5px;
                  padding-top: 19px;
@@ -127,6 +141,9 @@
                     <h4 class="card-title" style="font-weight: 300; font-size: 15px"> Total </h4>
                 </div>
             </div>
+
+
+
             <div id="loadItems">
                 <%= f.nested_fields_for :line_items do |ff| %>
                   <div class="row" style="margin-top: 10px">
@@ -143,6 +160,8 @@
                 <% end %>
             </div>
         </div>
+
+
 
 
     </div>
