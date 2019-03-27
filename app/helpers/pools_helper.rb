@@ -51,7 +51,10 @@ module PoolsHelper
   end
   
   def item_value(value)
-    return session[:item][value]
+    if session[:item]
+      test = session[:item][value] 
+    end
+    return test
   end
   
 end
