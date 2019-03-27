@@ -26,32 +26,36 @@ module PoolsHelper
   end
   
   def get_value(value)
-    if value == 'chlorine'
-      if session[:item][value].to_f <= 3 || session[:item][value].to_f  >= 7
-        isCorrect = true
-      end
-    elsif value == 'ph'
-      if session[:item][value].to_f <= 7.3 || session[:item][value].to_f  >= 7.6
-        isCorrect = true
-      end
-    elsif value == 'slat'
-      if session[:item][value].to_f <= 2400.0 || session[:item][value].to_f  >= 3400.0
-        isCorrect = true
-      end
-    elsif value == 'alkalinity'
-      if session[:item][value].to_f <= 90.0 || session[:item][value].to_f  >= 150.0
-        isCorrect = true
-      end
-    else
-      if session[:item][value].to_f <= 200.0 || session[:item][value].to_f  >= 400.0
-        isCorrect = true
+    isCorrect = false
+    if !session[:item].blank?
+      if value == 'chlorine'
+        if session[:item][value].to_f <= 3 || session[:item][value].to_f  >= 7
+          isCorrect = true
+        end
+      elsif value == 'ph'
+        if session[:item][value].to_f <= 7.3 || session[:item][value].to_f  >= 7.6
+          isCorrect = true
+        end
+      elsif value == 'slat'
+        if session[:item][value].to_f <= 2400.0 || session[:item][value].to_f  >= 3400.0
+          isCorrect = true
+        end
+      elsif value == 'alkalinity'
+        if session[:item][value].to_f <= 90.0 || session[:item][value].to_f  >= 150.0
+          isCorrect = true
+        end
+      else
+        if session[:item][value].to_f <= 200.0 || session[:item][value].to_f  >= 400.0
+          isCorrect = true
+        end
       end
     end
     return isCorrect
   end
   
   def item_value(value)
-    if session[:item]
+    test = ""
+    if !session[:item].blank?
       test = session[:item][value] 
     end
     return test
