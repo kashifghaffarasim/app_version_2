@@ -1,0 +1,77 @@
+
+
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-5 align-self-center">
+            <h4 class="page-title"> Team Members</h4>
+            <div class="d-flex align-items-center">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="<%= admin_admin_index_url %>">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="#">Members</a></li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <div class="row">
+            <div class="col-12">
+
+                <div class="card">
+                    <div class="card-body">
+                        <div class="col-md-12 text-center" style="height: 3px;">
+                           <h4>Users</h4>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                      <table class="table m-t-30 no-wrap table-hover contact-list" >
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th> Proifle Image </th>
+                                <th> Full Name </th>
+                                <th> Email </th>
+                                <th> Address </th>
+                                <th> City</th>
+                                <th> State</th>
+                                <th> Country</th>
+                                <th> Role</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% if !@users.blank?%>
+                            <% @users.each_with_index  do |users, index| %>
+                            <tr >
+                                <td><%= index = index + 1 %></td>
+                                <td>
+                                    <% if users.avatar and users.avatar.url %>
+                                    <img src="<%= users.avatar.url%>" class="img img-responsive" width="60">
+                                    <% end %>
+                                </td>
+                                <td><%= users.fullname rescue "" %></td>
+                                <td><%= users.email%></td>
+                                <td><%= users.address.try(:address_name)%> </td>
+                                <td><%= users.address.try(:city_name)%> </td>
+                                <td><%= users.address.try(:state_name)%> </td>
+                                <td><%= users.address.try(:country_name)%> </td>
+                                <td><%= users.roles.first.try(:name).capitalize%> </td>
+                               
+                            </tr>
+                            <% end %>
+                            <% end %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+            <div class="col-sm-12 col-md-5"></div>
+            <div class="col-sm-12 col-md-7">
+                <%= will_paginate @users %>
+            </div>
+        </div>
+</div>
+</div>

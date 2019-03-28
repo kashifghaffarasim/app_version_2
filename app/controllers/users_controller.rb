@@ -35,6 +35,8 @@ class UsersController < ApplicationController
         sign_in :user, @user
         if @user.has_role? :admin
           redirect_to admin_url
+        elsif @user.has_role? :super_admin
+          redirect_to admin_admin_index_url
         else
           redirect_to root_url
         end

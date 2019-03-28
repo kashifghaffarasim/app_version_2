@@ -1,0 +1,120 @@
+<div class="page-breadcrumb" style="padding-bottom: 20px; padding-top: 10px">
+  <div class="row">
+    <div class="col-5 align-self-center">
+      <h4 class="page-title">Dashboard</h4>
+      <div class="d-flex align-items-center">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Home</a></li>
+          <li class="breadcrumb-item active" aria-current="page">Library</li>
+          </ol>
+        </nav>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="container-fluid">
+
+  <div class="row">
+    <div class="col-12">
+      <h4 class="m-b-20">Card With Progreesbar</h4>
+      <div class="row">
+
+        <div class="col-lg-3 col-md-6">
+          <a href="<%= customers_admin_admin_index_url %>">
+            <div class="card">
+              <div class="card-body">
+                <div class="row p-t-10 p-b-10">
+
+                  <div class="col p-r-0">
+                    <h1 class="font-light"><%= @customers %></h1>
+                    <h6 class="text-muted">Customers</h6></div>
+                    
+                    <div class="col text-right align-self-center">
+                      <div data-label="20%" class="css-bar m-b-0 css-bar-primary css-bar-20"><i class="mdi mdi-account-circle"></i></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </a>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <a href="<%= users_admin_admin_index_url %>">
+              <div class="card">
+                <div class="card-body">
+                  <div class="row p-t-10 p-b-10">
+
+                    <div class="col p-r-0">
+                      <h1 class="font-light"><%= @users %></h1>
+                      <h6 class="text-muted">Users</h6></div>
+
+                      <div class="col text-right align-self-center">
+                        <div data-label="20%" class="css-bar m-b-0 css-bar-primary css-bar-20"><i class="mdi mdi-account-circle"></i></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+            <div class="col-lg-3 col-md-6">
+              <a href="<%= vendors_admin_admin_index_url %>">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="row p-t-10 p-b-10">
+
+                      <div class="col p-r-0">
+                        <h1 class="font-light"><%= @vendors %></h1>
+                        <h6 class="text-muted">Vendors</h6></div>
+
+                        <div class="col text-right align-self-center">
+                          <div data-label="20%" class="css-bar m-b-0 css-bar-primary css-bar-20"><i class="mdi mdi-account-circle"></i></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+              <div class="col-lg-3 col-md-6">
+                <a href="<%= pools_admin_admin_index_url %>">
+                  <div class="card">
+                    <div class="card-body">
+                      <div class="row p-t-10 p-b-10">
+
+                        <div class="col p-r-0">
+                          <h1 class="font-light"><%= @pools%></h1>
+                          <h6 class="text-muted">Pools</h6></div>
+
+                          <div class="col text-right align-self-center">
+                            <div data-label="30%" class="css-bar m-b-0 css-bar-danger css-bar-20"><i class="mdi mdi-briefcase-check"></i></div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </div>
+
+
+                <div class="col-lg-3 col-md-6">
+                  <a href="<%= invoices_admin_admin_index_url%>">
+                    <div class="card">
+                      <div class="card-body">
+                        <div class="row p-t-10 p-b-10">
+
+                          <div class="col p-r-0">
+                            <h1 class="font-light"><%= @invoices %></h1>
+                            <h6 class="text-muted">Invoices</h6></div>
+
+                            <div class="col text-right align-self-center">
+                              <div data-label="60%" class="css-bar m-b-0 css-bar-info css-bar-60"><i class="mdi mdi-receipt"></i></div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+

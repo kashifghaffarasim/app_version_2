@@ -1,207 +1,223 @@
 <div class="page-breadcrumb">
-    <div class="row">
-        <div class="col-5 align-self-center">
-            <h4 class="page-title"> New Team Member</h4>
-            <div class="d-flex align-items-center">
-                <nav aria-label="breadcrumb">
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="<%= vendors_url %>">Team Member</a></li>
-                        <li class="breadcrumb-item"><a href="#">Team Member</a></li>
+  <div class="row">
+    <div class="col-5 align-self-center">
+      <h4 class="page-title"> New Team Member</h4>
+      <div class="d-flex align-items-center">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="<%= vendors_url %>">Team Member</a></li>
+            <li class="breadcrumb-item"><a href="#">Team Member</a></li>
 
-                    </ol>
-                </nav>
-            </div>
-        </div>
+          </ol>
+        </nav>
+      </div>
     </div>
+  </div>
 
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body" style="    padding-bottom: 0px;">
-                    <h4 class="card-title">Create New Team Member</h4>
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body" style="    padding-bottom: 0px;">
+          <h4 class="card-title">Create New Team Member</h4>
+        </div>
+
+        <% flash.each do |key, value| %>
+        <div class="alert alert-<%= key %>"><%= value %></div>
+        <% end %>
+        <hr>
+
+        <%= form_for @team_member, url: team_members_url , :class => 'form-horizontal m-t-20' , html: { multipart: true } do |f|  %>
+        <div class="card-body">
+          <div class="row">
+           <div class="col-sm-12 col-lg-12">
+
+            <div class="form-group row">
+
+              <div class="col-sm-12 text-center">
+               <center class="m-t-30 profile-photo"> 
+                <label for="profile-image">
+                  <img src="/assets/new.png" id="myDrop" class="rounded-circle" width="150">
+                  <i class="fas fa-camera"></i>
+                </label>
+                <input  class="form-control form-control-line" type="file" name="user[avatar]" accept="image/*" id="profile-image" onchange="show(this)">
+              </center>
+
+            </div>
+          </div>
+          
+          <div class="row">
+            <div class="col-sm-12 col-lg-6">
+
+              <div class="form-group row">
+                <label for="fname2" 
+                class="col-sm-3 text-right control-label 
+                col-form-label">User Name</label>
+                <div class="col-sm-9">
+                  <%= f.text_field :username, autofocus: true ,
+                  :placeholder=>"User Name",:class => "form-control", required: true %>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="col-sm-12 col-lg-6">
+
+              <div class="form-group row">
+                <label for="lname2" class="col-sm-3 text-right 
+                control-label col-form-label">Roles</label>
+                <div class="col-sm-9">
+                  <select class="form-control" name="user[role]" value="vendor" required="true">
+                    <option value="">Choose Type</option>
+                    <option value="admin">Admin</option>
+                    <option value="user">User</option>
+                  </select>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-sm-12 col-lg-6">
+              <div class="form-group row">
+                <label for="fname2" class="col-sm-3 text-right control-label col-form-label">
+                  First Name
+                </label>
+                <div class="col-sm-9">
+                  <%= f.text_field :first_name, autofocus: true ,
+                  :placeholder=>"First Name",:class => "form-control", required: true %>                                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-12 col-lg-6">
+                <div class="form-group row">
+                  <label for="lname2" class="col-sm-3 text-right control-label col-form-label">Last Name</label>
+                  <div class="col-sm-9">
+                    <%= f.text_field :last_name, autofocus: true ,
+                    :placeholder=>"Last Name",:class => "form-control", required: true %>  
+                  </div>
                 </div>
 
-                <% flash.each do |key, value| %>
-                  <div class="alert alert-<%= key %>"><%= value %></div>
-                <% end %>
-                <hr>
-
-                <%= form_for @team_member, url: team_members_url , :class => 'form-horizontal m-t-20' , html: { multipart: true } do |f|  %>
-                  <div class="card-body">
-                      <div class="row">
-
-                      </div>
-                      <div class="row">
-                          <div class="col-sm-12 col-lg-6">
-
-                              <div class="form-group row">
-                                  <label for="fname2" 
-                                         class="col-sm-3 text-right control-label 
-                                         col-form-label">User Name</label>
-                                  <div class="col-sm-9">
-                                      <%= f.text_field :username, autofocus: true ,
-                                        :placeholder=>"User Name",:class => "form-control", required: true %>
-                                  </div>
-                              </div>
-
-                          </div>
-
-                          <div class="col-sm-12 col-lg-6">
-
-                              <div class="form-group row">
-                                  <label for="lname2" class="col-sm-3 text-right 
-                                         control-label col-form-label">Roles</label>
-                                  <div class="col-sm-9">
-                                      <select class="form-control" name="user[role]" value="vendor" required="true">
-                                          <option value="">Choose Type</option>
-                                          <option value="admin">Admin</option>
-                                          <option value="user">User</option>
-                                      </select>
-                                  </div>
-                              </div>
-
-                          </div>
-                      </div>
-
-                      <div class="row">
-                          <div class="col-sm-12 col-lg-6">
-                              <div class="form-group row">
-                                  <label for="fname2" class="col-sm-3 text-right control-label col-form-label">
-                                      First Name
-                                  </label>
-                                  <div class="col-sm-9">
-                                      <%= f.text_field :first_name, autofocus: true ,
-                                        :placeholder=>"First Name",:class => "form-control", required: true %>                                  </div>
-                              </div>
-                          </div>
-
-                          <div class="col-sm-12 col-lg-6">
-                              <div class="form-group row">
-                                  <label for="lname2" class="col-sm-3 text-right control-label col-form-label">Last Name</label>
-                                  <div class="col-sm-9">
-                                      <%= f.text_field :last_name, autofocus: true ,
-                                        :placeholder=>"Last Name",:class => "form-control", required: true %>  
-                                  </div>
-                              </div>
-
-                          </div>
-                      </div>
-
-                      <div class="row">
-                          <div class="col-sm-12 col-lg-6">
-                              <div class="form-group row">
-                                  <label for="uname1" class="col-sm-3 text-right control-label col-form-label">Mobile Number</label>
-                                  <div class="col-sm-9">
-                                      <%= f.text_field :mobile_number, autofocus: true ,
-                                        :placeholder=>"123-232-23232",:class => "form-control", required: true %>  
-                                  </div>
-                              </div>
-                          </div>
-
-                          <div class="col-sm-12 col-lg-6">
-                              <div class="form-group row">
-                                  <label for="nname" class="col-sm-3 text-right control-label col-form-label">Phone No</label>
-                                  <div class="col-sm-9">
-                                      <%= f.text_field :phone_number, autofocus: true ,
-                                        :placeholder=>"123-232-23232",:class => "form-control", required: true %>  
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-
-                      <div class="row">
-                          <div class="col-sm-12 col-lg-6">
-                              <div class="form-group row">
-                                  <label for="uname1" class="col-sm-3 text-right control-label col-form-label">Email</label>
-                                  <div class="col-sm-9">
-                                      <%= f.text_field :email, autofocus: true ,
-                                        :placeholder=>"Email",:class => "form-control", required: true %>  
-                                  </div>
-                              </div>
-                          </div>
-
-                          <div class="col-sm-12 col-lg-6">
-                              <div class="form-group row">
-                                  <label for="nname" class="col-sm-3 text-right control-label col-form-label">Image</label>
-                                  <div class="col-sm-9">
-                                      <input  class="form-control form-control-line" type="file" name="user[avatar]" accept="image/*">
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-
-                      <div class="row">
-                          <div class="col-sm-12 col-lg-6">
-                              <div class="form-group row">
-                                  <label for="uname1" class="col-sm-3 text-right control-label col-form-label">Address</label>
-                                  <div class="col-sm-9">
-                                      <input  class="form-control" 
-                                              type="text" name="address[address_name]"  placeholder="Address" required="">
-                                  </div>
-                              </div>
-                          </div>
-
-                          <div class="col-sm-12 col-lg-6">
-                              <div class="form-group row">
-                                  <label for="nname" class="col-sm-3 text-right control-label col-form-label">City</label>
-                                  <div class="col-sm-9">
-                                      <input  class="form-control" 
-                                              type="text" name="address[city_name]"  placeholder="City" required="">
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-
-                      <div class="row">
-                          <div class="col-sm-12 col-lg-6">
-                              <div class="form-group row">
-                                  <label for="uname1" class="col-sm-3 text-right control-label col-form-label">State</label>
-                                  <div class="col-sm-9">
-                                      <input  class="form-control"
-                                              type="text" name="address[state_name]" placeholder="State" required="">
-                                  </div>
-                              </div>
-                          </div>
-
-                          <div class="col-sm-12 col-lg-6">
-
-                              <div class="form-group row">
-                                  <label for="uname1" class="col-sm-3 text-right control-label col-form-label">Zip Code</label>
-                                  <div class="col-sm-9">
-                                      <input  class="form-control" type="text"  placeholder="Zip Code" 
-                                              name="address[zipcode]" required="true">
-                                  </div>
-                              </div>
-                          </div>
-                      </div>
-
-                      <div class="row">
-                          <div class="col-sm-12 col-lg-6">
-                              <div class="form-group row">
-                                  <label for="nname" class="col-sm-3 text-right control-label col-form-label">Country</label>
-                                  <div class="col-sm-9">
-                                      <input  class="form-control" type="text"  placeholder="Country"  name="address[country_name]" required="">
-                                  </div>
-                              </div>
-                          </div>
-                          <input  class="form-control form-control-line" type="hidden" name="user[company_id]" value="<%= current_user.company_id%>">
-                      </div>
-
-                      <div class="row">
-                          <%= render "/shared/custom_field", id: @team_member.try(:id)%>
-                      </div>
-
-                  </div>
-
-                  <hr>
-                  <div class="card-body">
-                      <div class="form-group m-b-0 text-right">
-                          <button type="submit" class="btn btn-info waves-effect waves-light">Save</button>
-                          <a href="<%= team_members_url %>" class="btn btn-dark waves-effect waves-light">Cancel</a>
-                      </div>
-                  </div>
-                <% end %>
+              </div>
             </div>
+
+            <div class="row">
+              <div class="col-sm-12 col-lg-6">
+                <div class="form-group row">
+                  <label for="uname1" class="col-sm-3 text-right control-label col-form-label">Mobile Number</label>
+                  <div class="col-sm-9">
+                    <%= f.text_field :mobile_number, autofocus: true ,
+                    :placeholder=>"123-232-23232",:class => "form-control", required: true %>  
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-12 col-lg-6">
+                <div class="form-group row">
+                  <label for="nname" class="col-sm-3 text-right control-label col-form-label">Phone No</label>
+                  <div class="col-sm-9">
+                    <%= f.text_field :phone_number, autofocus: true ,
+                    :placeholder=>"123-232-23232",:class => "form-control", required: true %>  
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12 col-lg-6">
+                <div class="form-group row">
+                  <label for="uname1" class="col-sm-3 text-right control-label col-form-label">Email</label>
+                  <div class="col-sm-9">
+                    <%= f.text_field :email, autofocus: true ,
+                    :placeholder=>"Email",:class => "form-control", required: true %>  
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-12 col-lg-6">
+                <div class="form-group row">
+                  <label for="uname1" class="col-sm-3 text-right control-label col-form-label">Address</label>
+                  <div class="col-sm-9">
+                    <input  class="form-control" 
+                    type="text" name="address[address_name]"  placeholder="Address" required="">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12 col-lg-6">
+                <div class="form-group row">
+                  <label for="nname" class="col-sm-3 text-right control-label col-form-label">City</label>
+                  <div class="col-sm-9">
+                    <input  class="form-control" 
+                    type="text" name="address[city_name]"  placeholder="City" required="">
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-12 col-lg-6">
+                <div class="form-group row">
+                  <label for="uname1" class="col-sm-3 text-right control-label col-form-label">State</label>
+                  <div class="col-sm-9">
+                    <input  class="form-control"
+                    type="text" name="address[state_name]" placeholder="State" required="">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-12 col-lg-6">
+
+                <div class="form-group row">
+                  <label for="uname1" class="col-sm-3 text-right control-label col-form-label">Zip Code</label>
+                  <div class="col-sm-9">
+                    <input  class="form-control" type="text"  placeholder="Zip Code" 
+                    name="address[zipcode]" required="true">
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-sm-12 col-lg-6">
+                <div class="form-group row">
+                  <label for="nname" class="col-sm-3 text-right control-label col-form-label">Country</label>
+                  <div class="col-sm-9">
+                    <input  class="form-control" type="text"  placeholder="Country"  name="address[country_name]" required="">
+                  </div>
+                </div>
+              </div>
+              <input  class="form-control form-control-line" type="hidden" name="user[company_id]" value="<%= current_user.company_id%>">
+            </div>
+
+            <div class="row">
+              <%= render "/shared/custom_field", id: @team_member.try(:id)%>
+            </div>
+
+          </div>
+
+          <hr>
+          <div class="card-body">
+            <div class="form-group m-b-0 text-right">
+              <button type="submit" class="btn btn-info waves-effect waves-light">Save</button>
+              <a href="<%= team_members_url %>" class="btn btn-dark waves-effect waves-light">Cancel</a>
+            </div>
+          </div>
+          <% end %>
         </div>
+      </div>
     </div>
-</div>
+  </div>
+  <script type="text/javascript">
+    console.dir("asssssssssssssssssss")
+    function show(img) {
+      console.dir(img)
+      var reader = new FileReader();
+      $("#new_one").append(img);
+      $("#new_one").hide()
+      reader.onload = function (a) {
+       $('#myDrop').attr('src', a.target.result);
+     }
+     reader.readAsDataURL(img.files[0]);
+   }
+ </script>

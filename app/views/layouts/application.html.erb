@@ -1,30 +1,37 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Pool Path V2</title>
-        <%= csrf_meta_tags %>
-        <%= csp_meta_tag %>
+<head>
+    <title>Pool Path V2</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
 
-        <%= stylesheet_link_tag    'application', media: 'all' %>
-        <script type="text/javascript" src="https://appcenter.intuit.com/Content/IA/intuit.ipp.anywhere.js"></script>
-        <%= javascript_include_tag "https://js.stripe.com/v2/", 'application'%>
+    <%= stylesheet_link_tag    'application', media: 'all' %>
+    <script type="text/javascript" src="https://appcenter.intuit.com/Content/IA/intuit.ipp.anywhere.js"></script>
+    <%= javascript_include_tag "https://js.stripe.com/v2/", 'application'%>
 
 
-    </head>
+</head>
 
-    <body>
+<body>
 
-        <div id="main-wrapper">
-            <%= render "shared/admin_header" %>
+    <div id="main-wrapper">
+        <% if current_user.has_role? :super_admin%>
+         <%= render "shared/admin/admin_header" %>
+        <% else %>
+        <%= render "shared/admin_header" %>
+        <% end %>
+        <div class="page-wrapper">
 
-            <div class="page-wrapper">
+            <%= yield %>
 
-                <%= yield %>
-
-            </div>
-            <%= render "shared/admin_footer" %>
         </div>
+        <% if current_user.has_role? :super_admin%>
+         <%= render "shared/admin/admin_footer" %>
+        <% else %>
+        <%= render "shared/admin_footer" %>
+        <% end %>
+    </div>
 
 
-    </body>
+</body>
 </html>

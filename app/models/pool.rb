@@ -7,5 +7,6 @@ class Pool < ApplicationRecord
   belongs_to :service_plan
   
   
+  self.per_page = 30
   
 end

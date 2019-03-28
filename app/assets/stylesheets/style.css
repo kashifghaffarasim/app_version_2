@@ -5246,3 +5246,30 @@ File: scss
 .ok-error{
     border-color: red  !important;
 }
+
+
+.profile-photo input{
+	display: none;
+}
+
+.profile-photo label{
+	position: relative;
+	overflow: hidden;
+	cursor: pointer;
+}
+
+.profile-photo label i{
+	background: #fff;
+	font-size: 20px;
+	padding: 10px;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%,200%);
+	border-radius: 50%;
+	transition: all ease-in 0.2s;
+}
+
+.profile-photo label:hover i{
+	transform: translate(-50%,-50%);
+}

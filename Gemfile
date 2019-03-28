@@ -29,7 +29,7 @@ gem 'remotipart', '~> 1.2'
 gem 'jquery-rails'
 gem "jquery-ui-rails"
 gem 'will_paginate', '~> 3.1', '>= 3.1.6'
-gem 'will_paginate-bootstrap4'
+#gem 'will_paginate-bootstrap4'
 gem 'devise'
 gem "rolify"
 gem "paperclip", git: "git://github.com/thoughtbot/paperclip.git"

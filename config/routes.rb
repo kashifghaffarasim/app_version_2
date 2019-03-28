@@ -156,6 +156,20 @@ Rails.application.routes.draw do
   post '/pools/spa_data_create', to: 'pools#spa_data_create' , as: :spa_data_create
   get '/data/:id/spa_data_edit', to: 'pools#spa_data_edit' ,as: :edit_spa_data
   patch '/data/spa_data_update/:id', to: 'pools#spa_data_update', as: :update_spa_data
+  
+ namespace :admin do 
+    resources :admin do 
+      collection do 
+        get :customers
+        get :vendors
+        get :users
+        get :pools
+        get :invoices
+      end
+    end 
+      
+  end
+
   namespace :api, defaults: {format: :json} do
     scope module: :v1 do
         resources :users do

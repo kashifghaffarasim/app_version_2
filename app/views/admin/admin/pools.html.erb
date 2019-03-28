@@ -1,0 +1,68 @@
+<div class="page-breadcrumb">
+    <div class="row">
+        <div class="col-5 align-self-center">
+            <h4 class="page-title"> Pools </h4>
+            <div class="d-flex align-items-center">
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="<%= admin_admin_index_url %>">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="#">Pools</a></li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-12">
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="col-md-12 text-center" style="height: 3px;">
+                       <h4>Pools</h4>
+                   </div>
+               </div>
+                <div class="card-body">
+                    <table class="table m-t-30 no-wrap table-hover contact-list">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th> Customer </th>
+                                <th> Pool Name </th>
+                                <th> Pool Type </th>
+                                <th> City</th>
+                                <th> State</th>
+                                <th> Country</th>
+                                <th> Status </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% if !@pools.blank?%>
+                            <% @pools.each_with_index  do |pool, index| %>
+                            <tr >
+                                <td><%= index = index + 1 %></td>
+                                <td><%= pool.user.fullname rescue "" %></td>
+                                <td><%= pool.try(:pool_name)%></td>
+                                <td><%= pool.try(:pool_type)%> </td>
+                                <td><%= pool.address.try(:city_name)%> </td>
+                                <td><%= pool.address.try(:state_name)%> </td>
+                                <td><%= pool.address.try(:country_name)%> </td>
+                                <td><%= pool.try(:pool_activity)%> </td>
+                            </tr>
+                            <% end %>
+                            <% end %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12 col-md-5"></div>
+        <div class="col-sm-12 col-md-7">
+            <%= will_paginate @pools %>
+        </div>
+    </div>
+</div>
+

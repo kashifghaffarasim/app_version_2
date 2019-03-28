@@ -18,3 +18,44 @@ task :service_items => :environment do
     end
   end
 end
+
+desc "Task description"
+task :super_admin =>:environment do
+  @admin  = User.new(email: "admin@super.com",password: '12345678')
+  @already = User.find_by_email(@admin.email)
+  if @already.blank?
+    if @admin.save
+      @admin.add_role :super_admin
+      puts" Admin created ........."
+    else
+      puts" Somthing worng Try again..."
+    end
+  else
+   puts" Email Already in Used.."
+ end
+end
+
+
+task :user_all =>:environment do
+  i =  0
+    50.times do
+      puts "sssss"
+    begin
+      @user = User.new(first_name: "sssssssss", password: '12345678',last_name:"sssssssaaa", email: "sssssssssssss@gm.com#{i}",company_id: "16" ,source: "map", username: "aaaaaa",phone_number: "+223333", mobile_number: "qqqq")
+      if @user.save
+        @user.add_role :customer
+        puts"nananna"
+        @address = Address.new({:address_name => "lahore pakistan",:city_name => "lahore",:state_name => "punjab",:country_name => "pakistan",:zipcode => "5400"})
+        @address.user_id = @user.try(:id)
+        if @address.save
+          puts"nananna" ,@address.inspect
+          i = i + 1
+        end 
+      end 
+    rescue raise_user_error
+
+      puts "sssss=----------------#{raise_user_error}"
+    end
+    
+  end 
+end
