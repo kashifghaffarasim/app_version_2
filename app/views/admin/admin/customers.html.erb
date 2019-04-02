@@ -39,7 +39,7 @@
 									<th> State</th>
 									<th> Country</th>
 									<th> Role</th>
-
+									<th> Actions </th>
 
 								</tr>
 							</thead>
@@ -60,6 +60,16 @@
 									<td><%= customer.address.try(:state_name)%> </td>
 									<td><%= customer.address.try(:country_name)%> </td>
 									<td><%= customer.roles.first.try(:name).capitalize%> </td>
+									<td> 
+										<div class="col-lg-3 col-md-3 col-sm-3">
+											<input id="<%= customer.id %>" type="checkbox" <%if !customer.disable %>checked <%else %> unchecked <%end %> data-size="mini" data-on-color="warning" data-off-color="danger" data-on-text="Enabled" data-off-text="Disabled">
+										</div>
+										<span class="col-lg-3 col-md-3 col-sm-3" style="    top: 5px;">
+                                    <%= link_to '',user_destroy_admin_admin_index_url(id:vendor,page: "user"), method: :delete,
+                                    data: { confirm: "Are you sure you want to delete?" }, 
+                                    :class => "fa fa-trash-alt" , :style=> "color: red"%>
+                                </span>
+									</td>
 								</tr>
 								<% end %>
 								<% end %>
@@ -77,3 +87,38 @@
 		</div>
 	</div>
 </div>
+<script type="text/javascript">
+	$("input[type='checkbox']").bootstrapSwitch();
+	var radioswitch = function() {
+		var bt = function() {
+			$(".radio-switch").on("switch-change", function() {
+				$(".radio-switch").bootstrapSwitch("toggleRadioState")
+			}), $(".radio-switch").on("switch-change", function() {
+				$(".radio-switch").bootstrapSwitch("toggleRadioStateAllowUncheck")
+			}), $(".radio-switch").on("switch-change", function() {
+				$(".radio-switch").bootstrapSwitch("toggleRadioStateAllowUncheck", !1)
+			})
+		};
+		return {
+			init: function() {
+				bt()
+			}
+		}
+	}();
+	$(document).ready(function() {
+		radioswitch.init()
+	});
+	$("input[type='checkbox']").on('switchChange.bootstrapSwitch',  function(event, state) {
+		if (state){
+			var state = false
+		}else{
+			var state = true
+		}
+		$.ajax({
+			url: "/admin/admin/"+ $(this).attr("id"),
+			type: "PATCH",
+			data: {'user':{'disable':  state }}
+			
+		});
+	})
+</script>

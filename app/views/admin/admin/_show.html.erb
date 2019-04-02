@@ -1,0 +1,103 @@
+<div class="modal none-border" id="show-pool" style="    overflow: auto;">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title"><strong>Pool</strong> View</h4>
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true" onclick="hide()">&times;</button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-12">
+						<label class="control-label">Pool Name:</label>
+						<p class= "form-control">
+							<%= @pool.try(:pool_name) %>
+						</p>
+					</div>
+					<div class="col-md-12">
+						<label for="message-text" class="control-label">Pool Description:</label>
+						<p class= "form-control">
+							<%= @pool.pool_description %>
+						</p>
+					</div>
+					<div class="col-md-12">
+						<label for="message-text" class="control-label"> Pool Type:</label>
+						<p class= "form-control">
+							<%= @pool.try(:pool_type) %>
+						</p>
+					</div>
+					<div class="col-md-12">
+						<label for="message-text" class="control-label"> Pool Volume</label>
+						<p class= "form-control">
+							<%= @pool.try(:pool_volume) %>
+						</p>
+					</div>
+					<div class="col-md-12">
+						<label for="message-text" class="control-label"> Pool Volume2</label>
+						<p class= "form-control">
+							<%= @pool.try(:pool_volume2) %>
+						</p>
+					</div>
+					<div class="col-md-12">
+						<label for="message-text" class="control-label">Pool Gate Code</label>
+						<p class= "form-control">
+							<%= @pool.try(:pool_gate_code) %>
+						</p>
+					</div>
+					<div class="col-md-12">
+						<label for="message-text" class="control-label">Pool Life Guards</label>
+						<p class= "form-control">
+							<%= @pool.try(:pool_lifeguards) %>
+						</p>
+					</div>
+					<div class="col-md-12">
+						<label for="message-text" class="control-label">Pool Source Type</label>
+						<p class= "form-control">
+
+							<%= @pool.try(:pool_source_type)%>
+						</p>
+					</div>
+					<div class="col-md-12">
+						<label for="message-text" class="control-label">Pool Activity</label>
+						<p class= "form-control">
+							<%= @pool.try(:pool_activity)%>
+						</p>
+					</div>
+
+					<% if !@custom_field.blank? %>
+					<div class="col-md-12">
+						<hr>
+						<h4 class="card-title">Custom Attribues</h4>
+						<div class="row">
+							<%= render "/shared/custom_field", id: @pool.try(:id)%>
+						</div>
+
+					</div>
+					<% end %>
+					<div class="col-md-12">
+						<%if !@service_plans.blank? %>
+						<%= render 'pools/service_plan' %>
+						<% end  %>
+						<%= render 'pools/pool_picture' %>
+
+						<%= render 'pools/test_results' %>
+						<%= render 'pools/chemical_item_used' %>
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary waves-effect" data-dismiss="modal" onclick="hide()">Close</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+
+
+<script type="text/javascript">
+function hide() {
+		$("#show-pool").hide()
+
+}
+</script>

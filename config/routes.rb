@@ -165,6 +165,7 @@ Rails.application.routes.draw do
         get :users
         get :pools
         get :invoices
+        delete :user_destroy
       end
     end 
       

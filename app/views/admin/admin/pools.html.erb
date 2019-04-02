@@ -22,47 +22,98 @@
                     <div class="col-md-12 text-center" style="height: 3px;">
                        <h4>Pools</h4>
                    </div>
+                   <div class="col-md-12 text-center" id="flash"style="height: 3px;">
+                   </div>
+
                </div>
-                <div class="card-body">
-                    <table class="table m-t-30 no-wrap table-hover contact-list">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th> Customer </th>
-                                <th> Pool Name </th>
-                                <th> Pool Type </th>
-                                <th> City</th>
-                                <th> State</th>
-                                <th> Country</th>
-                                <th> Status </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <% if !@pools.blank?%>
-                            <% @pools.each_with_index  do |pool, index| %>
-                            <tr >
-                                <td><%= index = index + 1 %></td>
-                                <td><%= pool.user.fullname rescue "" %></td>
-                                <td><%= pool.try(:pool_name)%></td>
-                                <td><%= pool.try(:pool_type)%> </td>
-                                <td><%= pool.address.try(:city_name)%> </td>
-                                <td><%= pool.address.try(:state_name)%> </td>
-                                <td><%= pool.address.try(:country_name)%> </td>
-                                <td><%= pool.try(:pool_activity)%> </td>
-                            </tr>
-                            <% end %>
-                            <% end %>
-                        </tbody>
-                    </table>
-                </div>
+               <div class="card-body">
+                <table class="table m-t-30 no-wrap table-hover contact-list">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th> Customer </th>
+                            <th> Pool Name </th>
+                            <th> Pool Type </th>
+                            <th> City</th>
+                            <th> State</th>
+                            <th> Country</th>
+                            <th> Status </th>
+                            <th> Actions </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if !@pools.blank?%>
+                        <% @pools.each_with_index  do |pool, index| %>
+                        <tr >
+                            <td><%= index = index + 1 %></td>
+                            <td><%= pool.user.fullname rescue "" %></td>
+                            <td><%= pool.try(:pool_name)%></td>
+                            <td><%= pool.try(:pool_type)%> </td>
+                            <td><%= pool.address.try(:city_name)%> </td>
+                            <td><%= pool.address.try(:state_name)%> </td>
+                            <td><%= pool.address.try(:country_name)%> </td>
+                            <td><%= pool.try(:pool_activity)%> </td>
+                            <td>    
+                                <div class="col-lg-3 col-md-3 col-sm-3">
+                                    <input id="<%= pool.id %>" type="checkbox" <%if !pool.disable %>checked <%else %> unchecked <%end %> data-size="mini" data-on-color="warning" data-off-color="danger" data-on-text="Enabled" data-off-text="Disabled">
+                                </div>
+                                <span class="col-lg-3 col-md-3 col-sm-3" style="    top: 5px;">
+                                <%= link_to '',admin_admin_url(pool), :class => "fa fa-eye", :style => "color: green; padding-left: 5px; padding-right: 5px; font-size: 16px",:remote => true %>
+                                <%= link_to '',admin_admin_url(pool), method: :delete,
+                                    data: { confirm: "Are you sure you want to delete?" }, 
+                                    :class => "fa fa-trash-alt" , :style=> "color: red"%>
+                                </span>
+                            </td>
+                        </tr>
+                        <% end %>
+                        <% end %>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
-    <div class="row">
-        <div class="col-sm-12 col-md-5"></div>
-        <div class="col-sm-12 col-md-7">
-            <%= will_paginate @pools %>
-        </div>
+</div>
+<div class="row">
+    <div class="col-sm-12 col-md-5"></div>
+    <div class="col-sm-12 col-md-7">
+        <%= will_paginate @pools %>
     </div>
 </div>
+</div>
 
+<div id="show"></div>
+<script type="text/javascript">
+    $("input[type='checkbox']").bootstrapSwitch();
+    var radioswitch = function() {
+        var bt = function() {
+            $(".radio-switch").on("switch-change", function() {
+                $(".radio-switch").bootstrapSwitch("toggleRadioState")
+            }), $(".radio-switch").on("switch-change", function() {
+                $(".radio-switch").bootstrapSwitch("toggleRadioStateAllowUncheck")
+            }), $(".radio-switch").on("switch-change", function() {
+                $(".radio-switch").bootstrapSwitch("toggleRadioStateAllowUncheck", !1)
+            })
+        };
+        return {
+            init: function() {
+                bt()
+            }
+        }
+    }();
+    $(document).ready(function() {
+        radioswitch.init()
+    });
+    $("input[type='checkbox']").on('switchChange.bootstrapSwitch',  function(event, state) {
+        if (state){
+            var state = false
+        }else{
+            var state = true
+        }
+        $.ajax({
+            url: "/admin/admin/"+ $(this).attr("id"),
+            type: "PATCH",
+            data: {'pool':{'disable':  state }}
+            
+        });
+    })
+</script>

@@ -18,5 +18,6 @@
  *= require dataTables.bootstrap4.css
  *= require footable.core.min.css
  *= require jquery.rateyo
+ *= require bootstrap-switch.min.css
  *= require style.css
  */

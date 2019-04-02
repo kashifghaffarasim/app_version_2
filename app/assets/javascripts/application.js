@@ -19,6 +19,7 @@
 //= require app.init.horizontal.js
 //= require footable.all.min.js
 //= require footable-init.js
+//= require bootstrap-switch.min.js
 //= require app-style-switcher.horizontal.js
 //= require dropzone.min
 //= require summernote-bs4.min
