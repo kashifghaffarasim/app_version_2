@@ -44,9 +44,9 @@ class Admin::AdminController < ApplicationController
 	def user_destroy
 		@user = User.find_by_id(params[:id])
 		if @user.destroy
-			flash[:success] = "Pool Successfully destroy!"
+			flash[:success] = "User Successfully destroy!"
 		else
-			flash[:danger] = "Pool #{@pool.pool_name} not destroy try again"
+			flash[:danger] = "User #{@user.fullname} not destroy try again"
 		end
 		if params[:page] == "vander"
 			redirect_to vendors_admin_admin_index_url
