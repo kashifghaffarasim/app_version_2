@@ -1,9 +1,8 @@
 class Api::V1::UsersController < ApplicationController
-		skip_before_action :verify_authenticity_token
-
+	
 	def create
 		session[:user] = params[:user]
-			@already = User.find_by_email(params[:user][:email])
+		@already = User.find_by_email(params[:user][:email])
 		if @already.blank?
 			@user = User.new(user_params)
 			if @user.save
